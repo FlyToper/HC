@@ -1,0 +1,188 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href="~/MyContent/images/ic_launcher.png" rel="shortcut icon" />
+    <title>我要发帖</title>
+
+    <link href="~/Content/themes/base/minified/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/MyContent/css/mycss.css" rel="stylesheet" />
+    <link href="~/MyContent/css/myIndexcss.css" rel="stylesheet" />
+    <link href="~/MyContent/css/base.css" rel="stylesheet" />
+    <link href="~/MyContent/css/demo.css" rel="stylesheet" />
+    <link href="~/MyContent/css/default.css" rel="stylesheet" />
+
+    <style type="text/css">
+        .myLabel {
+            font-size: 25px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            color: #990066;
+        }
+
+        hr {
+            border-color: #A1CFF3;
+        }
+    </style>
+</head>
+<body>
+    <!--------------------------------------------------头部导航开始------------------------------------------------------------->
+    @RenderPage("../Shared/Header.cshtml")
+    <!--------------------------------------------------头部导航结束------------------------------------------------------------->
+    <div class="CurrentLocation" style="margin:40px;">
+        当前位置：<a href="/Forum">健康论坛</a> &gt; <a href="javascript:void(0);">发布帖子</a>
+    </div>
+    <div style="margin: 40px; border-style: none; border-width: 2px; border-color: #A1CFF3;border-radius:6px;">
+        <hr class="myhr"/>
+
+        <input type="hidden" value="@ViewData["forumType"]" id="forumType" />
+        <div style="margin-bottom:10px;">
+            <span class="myLabel">> 帖子类型：</span>
+            <select style="border-style: solid; border-radius: 6px; border-width: 1px; border-color: #A1CFF3;padding:5px;padding-bottom:7px;" id="select_forumType">
+                <option value="0">请选择</option>
+                <option value="1">营养美食</option>
+                <option value="2">塑身美体</option>
+                <option value="3">健康宝典</option>
+                <option value="4">育儿宝典</option>
+                <option value="5">娱乐杂评</option>
+                <option value="6">男人女人</option>
+            </select>
+        </div>
+        <hr />
+        <div>
+            <span class="myLabel">> 标题：</span><input type="text" style="border-style: solid; border-radius: 6px; border-width: 1px; border-color: #A1CFF3;padding:5px;" size="50" id="txtTitle"/>
+        </div>
+        <hr />
+        <!--【正文内容】-->
+        <div>
+            <div class="myLabel" style="margin-bottom:20px;">> 正文：</div>
+            <div>
+                <textarea name="editor01" style="resize:none;" placeholder="请输入..." id="t1"></textarea>
+            </div>
+        </div>
+        
+        <!--【尾行内容】-->
+        <div style="margin-top:30px;text-align:center;border-width:1px;border-radius:6px;padding-top:10px;padding-bottom:10px;">
+            <span> 
+                <img src="/Forum/CreatePostForumCode" alt="验证码" id="postForumCode" style="border-style: solid; border-width: 1px; border-color: gray; border-radius: 6px; border-color: #A1CFF3" width="100" height="30">
+            </span>
+            <span>
+                <input style="padding-left: 5px; border-style: solid; border-width: 1px; border-color: gray; border-radius: 6px; margin-left: 10px; border-color: #A1CFF3" type="text" maxlength="5" size="8" id="txtPostForumCode" />
+            </span>
+            <span id="msgPostForumCode" style="display:none;color:red;"></span><!--【信息提示】-->
+            <span>
+                <input style="margin-left: 10px; border-radius: 6px; font-size: 20px; border-color: #A1CFF3" type="button" value="提交发帖" onclick="subPostForumContent()" />
+            </span>
+        </div>
+        <hr />
+        <!--【内容结束】-->
+    </div>
+
+
+    <!-------------------------------------底部内容开始-------------------------------------------------->
+    @RenderPage("../Shared/Footer.cshtml")
+    <!-------------------------------------底部内容结束-------------------------------------------------->
+
+    <script src="~/MyContent/js/jquery-1.11.2.min.js"></script>
+    @*<script src="~/Scripts/jquery-1.8.2.min.js"></script>*@
+    <script src="~/MyContent/js/jquery-2.1.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="../MyContent/js/ajaxfileupload.js"></script>
+    <script type="text/javascript" src="~/MyContent/ckeditor/ckeditor.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            //在线编辑器的初始化
+            CKEDITOR.replace('editor01');
+
+            //导航条初始化
+            $("ul[class$='nav']").children().eq(2).html("<a href='javascript:void(0)' >健康论坛 <span class='sr-only'>(current)</span>").addClass("active");
+
+            var forumType = $("#forumType").val();
+            //$("#select_forumType");
+            $("#select_forumType").find("option[value='"+forumType+"']").attr("selected", true);
+        });
+
+        function myHelpLink() {
+            $(".btn-lg").click();
+        }
+
+        //点击更新验证图片
+        $("#postForumCode").click(function () {
+            s = Math.random();
+            $(this).attr("src", "./CreatePostForumCode?s=" + s);
+        });
+
+
+        $("#txtPostForumCode").bind("blur", {}, function () {
+            if ($(this).val() == "") {
+                $("#msgPostForumCode").show();
+                $("#msgPostForumCode").html("不能为空！");
+            }
+        });
+
+
+        $("#txtPostForumCode").bind("focus", {}, function () {
+            $("#msgPostForumCode").hide();
+            $("#msgPostForumCode").html("");
+        });
+
+        $("#t1").bind("focus", {}, function () {
+            $("#msgPostForumCode").hide();
+            $("#msgPostForumCode").html("");
+        });
+
+        //上传发帖内容
+        function subPostForumContent() {
+            var code = $("#txtPostForumCode").val();
+            if (code != "") {
+                var forumType = $("#select_forumType").val();
+                if (forumType != 0) {
+                    var title = $("#txtTitle").val();
+                    if (title != "") {
+                        var content = CKEDITOR.instances.t1.getData();
+                        if (content != "") {
+                            //执行上传
+                            content = CKEDITOR.instances.t1.getData();
+                            //alert(content);
+                            $.post("/Forum/SubPostForum", { "code": code, "forumType": forumType, "title": title, "content": content }, function (rst) {
+                                if (rst == "success") {
+                                    window.location.href = "/Forum/";
+                                } else if (rst == "error1") {
+                                    $("#msgReplyCode").show();
+                                    $("#msgReplyCode").html("验证码不正确！");
+                                } else if (rst == "error2") {
+                                    $("#msgReplyCode").show();
+                                    $("#msgReplyCode").html("标题长度大于250！");
+                                }
+                            });
+                        } else {
+                            $("#msgPostForumCode").show();
+                            $("#msgPostForumCode").html("回复内容不能为空！");
+                        }
+                    } else {
+                        $("#msgPostForumCode").show();
+                        $("#msgPostForumCode").html("请输入标题！");
+                    }
+                   
+                } else {
+                    $("#msgPostForumCode").show();
+                    $("#msgPostForumCode").html("请选择论坛类型！");
+                }
+            } else {
+                $("#msgPostForumCode").show();
+                $("#msgPostForumCode").html("不能为空！");
+            }
+        }
+
+    </script>
+</body>
+</html>

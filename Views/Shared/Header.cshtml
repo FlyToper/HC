@@ -1,0 +1,81 @@
+﻿<!----------------------------------巨幕开始----------------------------------------->
+<div class="jumbotron bighead" style="margin-bottom:0px">
+    <h1 id="BackToTop">我的健康我做主</h1>
+    <p>随时随地查看自己或者亲属的健康数据，对自己和家人了解更多，让距离不再是问题！</p>
+    @*<p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>*@
+</div>
+<!----------------------------------巨幕结束----------------------------------------->
+
+<nav class="navbar navbar-default navbar-inverse mynavbar" style="margin-bottom:0px;border-radius:0px">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            @*<img class="navbar-brand" src="~/images/%e5%9b%be%e6%a0%87.jpg" />*@
+            @*<a href="javascript:void(0);" style="padding-bottom:15px;padding-top:15px;">Kang</a>*@
+            <img class="navbar-brand" src="~/MyContent/images/ic_launcher.png" />
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li>@Html.ActionLink("主页", "Index", "Home")</li>
+                <li>@Html.ActionLink("健康资讯", "Index", "News")</li>
+                <li>@Html.ActionLink("健康论坛", "Index", "Forum")</li>
+                <li>@Html.ActionLink("个人信息", "ShowMyInfo", "User")</li>
+                <li>@Html.ActionLink("我的数据", "ShowMyData", "Home")</li>
+                <li>@Html.ActionLink("联系我们", "ContactUs", "Home")</li>
+                @*<li class="dropdown" style="">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Action</a></li>
+                        <li><a href="#">Another action</a></li>
+                        <li><a href="#">Something else here</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">Separated link</a></li>
+                    </ul>
+                </li>*@
+            </ul>
+            @*<h3 class="nav navbar-nav navbar-right" id="result">@if (Session["username"] != null) {
+                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> @Session["username"] <span class="caret"></span></a>
+                   <ul class="dropdown-menu mydropdowm">
+                       <li><hr /></li>
+                       <li>@Ajax.ActionLink("用户注销>>", "Exit", "User", new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "result" })
+                       </li>
+                       <li>
+                           @Ajax.ActionLink("切换账号>>", "LoginTest", "User", new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "result" })
+                   </li>
+                   </ul>
+                } else { @Html.ActionLink("登录", "LoginTest", "User"); } &nbsp;<span class="navbar-right-span">|</span>&nbsp; @Html.ActionLink("注册","Register","User")</h3>*@
+            <ul class="nav navbar-nav navbar-right">
+                <li>@if (Session["UserName"] != null) { <li class="dropdown" style="">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@Session["NickName"] <span class="caret"></span></a>
+                    <ul class="dropdown-menu" style="background-color:#CCFFFF;font-size:20px;">
+                        <li>@Html.ActionLink("切换账户", "Login", "Home")</li>
+                        <li role="separator" class="divider"></li>
+                        <li>@Html.ActionLink("退出", "Exit", "User")</li>
+                    </ul>
+                </li>}
+                    else { @Html.ActionLink("登录", "Login", "Home");}
+                </li>
+                <li style="margin-left:3px;margin-right:3px;"><a href="javascript:void(0);">|</a></li>
+                <li><a href="/User/Register">注册</a></li>
+                <li class="dropdown" style="display:none">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Action</a></li>
+                        <li><a href="#">Another action</a></li>
+                        <li><a href="#">Something else here</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">Separated link</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>

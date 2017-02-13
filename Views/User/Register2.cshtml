@@ -1,0 +1,187 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/MyContent/images/ic_launcher.png" rel="shortcut icon" />
+    <title>用户注册</title>
+
+    <link href="~/Content/themes/base/minified/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/MyContent/css/mycss.css" rel="stylesheet" />
+    <link href="~/MyContent/css/myIndexcss.css" rel="stylesheet" />
+    <link href="~/MyContent/css/base.css" rel="stylesheet" />
+    <link href="~/MyContent/css/demo.css" rel="stylesheet" />
+    <link href="~/MyContent/css/default.css" rel="stylesheet" />
+
+    <style type="text/css">
+        fieldset {
+            padding: 20px;
+            margin:0 auto;
+            margin-top: 12px;
+            color: #333;
+            border: #99CCFF solid 1px;
+            border-radius: 6px;
+            background-color: white;
+            width: 70%;
+        }
+
+        legend {
+            text-decoration: none;
+            padding-left: 5px;
+            padding-right: 5px;
+            width: auto;
+            border: none;
+            background-color: white;
+            border: #99CCFF solid 1px;
+            border-radius: 6px;
+        }
+
+
+        fieldset input {
+            width: 80%;
+        }
+
+        .register_footer {
+            text-align:center;
+        }
+
+        .spanRequired,.spanMsg {
+            color:red;
+        }
+
+        .spanMsg {
+            display:none;
+        }
+    </style>
+</head>
+<body>
+    <!--------------------------------------------------头部导航开始------------------------------------------------------------->
+    <nav class="navbar navbar-default navbar-inverse mynavbar" style="margin-bottom:0px;border-radius:0px">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @*<img class="navbar-brand" src="~/images/%e5%9b%be%e6%a0%87.jpg" />*@
+                @*<a href="javascript:void(0);" style="padding-bottom:15px;padding-top:15px;">Kang</a>*@
+                <img class="navbar-brand" src="~/MyContent/images/ic_launcher.png" />
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("主页", "Index", "Home")</li>
+                    <li>@Html.ActionLink("健康资讯", "Index", "News")</li>
+                    <li>@Html.ActionLink("健康论坛", "Index", "Forum")</li>
+                    <li>@Html.ActionLink("个人信息", "ShowMyInfo", "User")</li>
+                    <li>@Html.ActionLink("我的数据", "ShowMyData", "Home")</li>
+                    <li>@Html.ActionLink("联系我们", "ContactUs", "Home")</li>
+                    @*<li class="dropdown" style="">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Action</a></li>
+                                <li><a href="#">Another action</a></li>
+                                <li><a href="#">Something else here</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="#">Separated link</a></li>
+                            </ul>
+                        </li>*@
+                </ul>
+               
+                <ul class="nav navbar-nav navbar-right">
+
+                    <li><a href="/User/Login">登录</a></li>
+                   
+                </ul>
+
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+
+    <!--------------------------------------------------头部导航结束------------------------------------------------------------->
+    <div class="container" style="overflow: hidden;margin-top:30px;">
+
+        <fieldset >
+            <legend>注册信息</legend>
+
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1">用&nbsp;&nbsp;户&nbsp;&nbsp;名：</span>
+                
+                <input type="text" class="form-control" placeholder="用户名" aria-describedby="basic-addon1" id="txtNickName">
+                <span class="input-group-addon"><span class="spanRequired">*</span> <span class="spanMsg">不能为空</span></span>
+            </div>
+            <br>
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1">邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱：</span>
+                <input type="text" class="form-control" placeholder="邮箱" aria-describedby="basic-addon1">
+                <span class="input-group-addon"><span class="spanRequired">*</span> <span class="spanMsg">不能为空</span></span>
+            </div>
+            <br>
+
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1">联系电话：</span>
+                <input type="text" class="form-control" placeholder="联系电话" aria-describedby="basic-addon1">
+                <span class="input-group-addon"><span class="spanRequired">*</span> <span class="spanMsg">不能为空</span></span>
+            </div>
+            <br>
+
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1">真实姓名：</span>
+                <input type="text" class="form-control" placeholder="真实姓名" aria-describedby="basic-addon1">
+                <span class="input-group-addon"><span class="spanRequired">*</span> <span class="spanMsg">不能为空</span></span>
+            </div>
+            <br>
+
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1">性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：</span>
+                <input type="text" class="form-control" placeholder="性别" aria-describedby="basic-addon1">
+                <span class="input-group-addon"><span class="spanRequired">*</span> <span class="spanMsg">不能为空</span></span>
+            </div>
+            <br>
+
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1">设&nbsp;&nbsp;备&nbsp;ID：</span>
+                <input type="text" class="form-control" placeholder="设备ID" aria-describedby="basic-addon1">
+                <span class="input-group-addon"><span class="spanRequired">*</span> <span class="spanMsg">不能为空</span></span>
+            </div>
+            <br>
+
+           
+            <br>
+
+           <div class="register_footer">
+               <button class="btn btn-info" >提交</button>
+               <button class="btn btn-warning">取消</button>
+           </div>
+            </fieldset>
+</div>
+
+    <!-------------------------------------底部内容开始-------------------------------------------------->
+    @RenderPage("../Shared/Footer.cshtml")
+    <!-------------------------------------底部内容结束-------------------------------------------------->
+
+    <script src="~/MyContent/js/jquery-2.1.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/MyContent/js/public.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $(".form-control").blur(function () {
+                if ($(this).val() == "")
+                    $(this).next().show();
+            });
+        });
+        $(".form-control").blur(function () {
+            if ($(this).val() == "")
+                $(this).next().show();
+        });
+
+    </script>
+</body>
+</html>

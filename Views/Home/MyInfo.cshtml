@@ -1,0 +1,152 @@
+﻿@{
+    Layout = null;
+}
+@using System.Data;
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>个人信息</title>
+
+    <script src="~/Scripts/jquery-1.8.2.min.js"></script>
+    <link href="~/Content/themes/base/minified/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/MyContent/css/mycss.css" rel="stylesheet" />
+    <link href="~/MyContent/css/myInfo.css" rel="stylesheet" />
+
+</head>
+<body>
+    <!-----------------------------------------------导航条开始--------------------------------------------------------------->
+
+    <nav class="navbar navbar-default navbar-fixed-top navbar-inverse">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <img class="navbar-brand" src="~/images/%e5%9b%be%e6%a0%87.jpg" />
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("主页","Index","Home")</li>
+                    <li class="active">@Html.ActionLink("个人信息", "MyInfo", "Home")<span class="sr-only">(current)</span></li>
+                    <li>@Html.ActionLink("我的数据", "MyData", "Home")</li>
+                    
+                </ul>
+               
+                <h3 class="nav navbar-nav navbar-right" id="result"> @if (Session["username"] != null)
+{ <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> @Session["username"] <span class="caret"></span></a>
+                        <ul class="dropdown-menu mydropdowm">
+                            <li><hr /></li>
+                            <li>@Ajax.ActionLink("用户注销>>", "Exit", "User", new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "result" })
+                            </li>
+                            <li>
+                                @Ajax.ActionLink("切换账号>>", "LoginTest", "User", new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "result" })
+                            </li>
+                        </ul>
+}
+else
+{ @Html.ActionLink("登录", "LoginTest", "User");
+} &nbsp;<span class="navbar-right-span">|</span>&nbsp; @Html.ActionLink("注册", "Register", "User")</h3>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+
+    <!-----------------------------------------------导航条结束--------------------------------------------------------------->
+
+    <!---------------------------------面板开始-------------------------------------------------------------->
+   
+    <div class="panel panel-primary">
+        <div class="panel-heading"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> @Session["username"]</div>
+        <div class="panel-body">
+            <!---------面板内容Start------------>
+
+            @if (ViewData["dt"] == null)
+            {
+                <div class="userInfo-null"><h1>@ViewData["errorMsg"]</h1></div>
+            }
+            else
+            {
+                DataTable dt = ViewData["dt"] as DataTable ;
+                DataRow dr = dt.Rows[0];
+                
+                  <div class="myinfo">
+                <hr class="myhr" />
+                <div class="myinfo-first">
+                    <span class="mylabel">登录账号：</span>@Session["username"]
+                </div>
+                <hr class="myhr" />
+                <div class="myinfo-second">
+                    <span>
+                    <span class="mylabel">邮箱：</span>
+                    </span>&nbsp;
+                    <span class="myinfo-hide-textbox myhidedisplay" id="EmailHideText"><input type="text" class="myinput" value="@dr["Email"]" id="EmailSaveText" />&nbsp;<input type="button" value="保存" class="mybutton" id="EmailSaveBtn"/><span id="EmailErrorMsg"></span></span>
+                    <span class="myinfo-tip" id="EmailTip">验证电子邮箱，可以用于登录和找回密码</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span class="myshowSet">@if (dr["Email"] is DBNull)
+{<span><span class="errorMsg"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span> 未设置 </span>| <input type="button" value="设置" class="myEditBtn" id="EmailBtn" /></span> }
+else
+{<span><span class="successMsg"><span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span> 已设置 </span>| <input type="button" value="修改" class="myEditBtn" id="EmailBtn" /> </span>
+}</span>
+                </div>
+                <hr class="myhr" />
+                <div class="myinfo-second">
+                    <span><span class="mylabel">密码：</span></span>&nbsp;<span class="myinfo-tip">安全性高的密码可以使帐号更安全。建议您定期更换密码，设置一个包含字母，符号或数字中至少两项且长度超过6位的密码</span>&nbsp;&nbsp;<span class="myshowSet">@if (dr["Pwd"] is DBNull)
+{<span><span class="errorMsg"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span> 未设置 </span>| <input type="button" value="设置" class="myEditBtn" id="PwdBtn" /></span> }
+else
+{<span><span class="successMsg"><span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span> 已设置 </span>| <input type="button" value="修改" class="myEditBtn" id="PwdBtn" /></span>
+}</span>
+                </div>
+                <hr class="myhr" />
+                <div class="myinfo-second">
+                    <span><span class="mylabel">真实姓名：</span></span>&nbsp;<span class="myinfo-hide-textbox myhidedisplay" id="TrueNameHideText"><input type="text" class="myinput" value="@dr["TrueName"]" id="TrueNameSaveText" />&nbsp;<input type="button" value="保存" class="mybutton" id="TrueNameSaveBtn"/><span id="TrueNameErrorMsg"></span></span><span class="myinfo-tip"></span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="myshowSet">@if (dr["TrueName"] is DBNull)
+{<span><span class="errorMsg"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span> 未设置 </span>| <input type="button" value="设置" class="myEditBtn" id="TrueNameBtn" /></span> }
+else
+{<span><span class="successMsg"><span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span> 已设置 </span>| <input type="button" value="修改" class="myEditBtn" id="TrueNameBtn" /></span>
+}</span>
+                </div>
+                <hr class="myhr" />
+                <div class="myinfo-second">
+                    <span><span class="mylabel">设备Id：</span></span>&nbsp;<span class="myinfo-hide-textbox myhidedisplay" id="DeviceIdHideText"><input type="text" class="myinput" value="@dr["DeviceId"]" id="DeviceIdSaveText" />&nbsp;<input type="button" value="保存" class="mybutton" id="DeviceIdSaveBtn" /><span id="DeviceIdErrorMsg"></span></span><span class="myinfo-tip" id="DeviceIdTip">每个仪器都有自己的一个设备Id，可以唯一识别每一台仪器</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="myshowSet">@if (dr["DeviceId"] is DBNull)
+{<span><span class="errorMsg"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span> 未设置 </span>| <input type="button" value="设置" class="myEditBtn" id="DeviceIdBtn" /></span> }
+else
+{<span><span class="successMsg"><span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span> 已设置 </span>| <input type="button" value="修改" class="myEditBtn" id="DeviceIdBtn" /></span>
+}</span>
+                </div>
+                <hr class="myhr" />
+                <div class="myinfo-second">
+                    <span><span class="mylabel">手机号码：</span></span>&nbsp;<span class="myinfo-hide-textbox myhidedisplay" id="PhoneHideText"><input type="text" class="myinput" value="@dr["Phone"]" id="PhoneSaveText" />&nbsp;<input type="button" value="保存" class="mybutton" id="PhoneSaveBtn"/><span id="PhoneErrorMsg"></span></span><span class="myinfo-tip" id="PhoneTip">可以更加快捷了解相关的数据</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="myshowSet">@if (dr["Phone"] is  DBNull)
+{<span><span class="errorMsg"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span> 未设置 </span>| <input type="button" value="设置" class="myEditBtn" id="PhoneBtn" /></span> }
+else
+{<span><span class="successMsg"><span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span> 已设置 </span>| <input type="button" value="修改" class="myEditBtn" id="PhoneBtn" /></span>
+}</span>
+                </div>
+                <hr class="myhr" />
+            </div>
+            }
+          
+
+            <!---------面板内容End------------->
+        </div>
+    </div>
+    <!---------------------------------面板结束-------------------------------------------------------------->
+
+
+    @*<button type="button" class="btn btn-default btn-lg">
+        <span class="glyphicon glyphicon-star" aria-hidden="true"></span> Star
+    </button>*@
+    <!------------------------------------------------------------以上为页面内内容------------------------------------------------------------------->
+
+    <div class="mybodyfooter"><span>友情链接:</span><a href="http://glyphicons.com/"> Glyphicons</a></div>
+    <script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/MyContent/js/myInfoJS.js"></script>
+</body>
+
+</html>

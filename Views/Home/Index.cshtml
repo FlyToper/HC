@@ -1,0 +1,109 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href="~/MyContent/images/ic_launcher.png" rel="shortcut icon" />
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>主页</title>
+
+    <!-- Bootstrap -->
+    
+   
+    <link href="~/MyContent/css/mycss.css" rel="stylesheet" />
+   
+    <link href="~/MyContent/css/base.css" rel="stylesheet" />
+    <link href="~/MyContent/css/demo.css" rel="stylesheet" />
+    @*<link href="~/MyContent/css/default.css" rel="stylesheet" />*@
+    <link href="~/MyContent/css/osSlider.css" rel="stylesheet" />
+    <link href="~/MyContent/css/myIndexcss.css" rel="stylesheet" />
+    <link href="~/Content/themes/base/minified/bootstrap.min.css" rel="stylesheet" />
+    
+    
+
+
+   
+</head>
+<body style="background-color: white; font-weight: 500; font-family: Microsoft YaHei;">
+    <!----------------------------------头部导航开始----------------------------------------->
+    @RenderPage("../Shared/Header.cshtml")
+    <!----------------------------------头部导航结束----------------------------------------->
+    <!----------------------------------轮播开始----------------------------------------->
+
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron myHEAD" style="margin-top:0px;">
+        <div class="container">
+            <h2>系统简述</h2>
+            <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
+            <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>
+        </div>
+    </div>
+
+    <div class="container myCO">
+        <!-- Example row of columns -->
+        <div class="row">
+            @foreach (var hotnews in ViewBag.News)
+            {
+                <div class="col-md-4">
+                <h2>@hotnews.Title</h2>
+                <p>@hotnews.Description </p>
+                <p><span><a class="btn btn-default" href="/News/ShowDetail?Id=@hotnews.Id" target="_blank">查看详情</a></span></p>
+            </div>
+            }
+
+           
+        </div>
+
+        <hr>
+
+        <footer>
+            <p>&copy; Company 2016</p>
+        </footer>
+    </div> <!-- /container -->
+
+
+        
+
+        <!-------------------------------------body内容结束-------------------------------------------------->
+        <!-------------------------------------底部内容开始-------------------------------------------------->
+        @*@RenderPage("../Shared/Footer.cshtml")*@
+        <!-------------------------------------底部内容结束-------------------------------------------------->
+
+
+
+        <script src="~/MyContent/js/jquery-1.11.2.min.js"></script>
+        @*<script src="~/Scripts/jquery-1.8.2.min.js"></script>*@
+        <script src="~/MyContent/js/jquery-2.1.1.min.js"></script>
+        <script src="~/Scripts/bootstrap.min.js"></script>
+        <script src="~/MyContent/js/osSlider.js"></script>
+        <script type="text/javascript">
+            $(function () {
+                $('#myModal').on('shown.bs.modal', function () {
+                    $('#myInput').focus();
+                });
+                //<a href='#'>主页 <span class='sr-only'>(current)</span>
+                $("ul[class$='nav']").children().eq(0).html("<a href='javascript:void(0)'>主页 <span class='sr-only'>(current)</span>").addClass("active");
+            });
+
+            var slider = new osSlider({ //开始创建效果
+                pNode: '.slider', //容器的选择器 必填
+                cNode: '.slider-main li', //轮播体的选择器 必填
+                speed: 3000, //速度 默认3000 可不填写
+                autoPlay: true //是否自动播放 默认true 可不填写
+            });
+
+            function myHelpLink() {
+                $(".btn-lg").click();
+            }
+
+
+        </script>
+</body>
+
+</html>

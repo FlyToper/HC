@@ -1,0 +1,152 @@
+﻿@{
+    Layout = null;
+    int k = 1;
+}
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href="~/MyContent/images/ic_launcher.png" rel="shortcut icon" />
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>健康资讯</title>
+
+    <!-- Bootstrap -->
+
+    <link href="~/Content/themes/base/minified/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/MyContent/css/mycss.css" rel="stylesheet" />
+    <link href="~/MyContent/css/myIndexcss.css" rel="stylesheet" />
+    <link href="~/MyContent/css/base.css" rel="stylesheet" />
+    <link href="~/MyContent/css/demo.css" rel="stylesheet" />
+    <link href="~/MyContent/css/default.css" rel="stylesheet" />
+    <link href="~/MyContent/css/News.css" rel="stylesheet" />
+    @*<link href="~/MyContent/css/osSlider.css" rel="stylesheet" />*@
+
+
+
+</head>
+<body>
+    <!----------------------------------头部导航开始----------------------------------------->
+    @RenderPage("../Shared/Header.cshtml")
+    <!----------------------------------头部导航结束----------------------------------------->
+
+
+    <div class="main_content">
+        <!--【头部开始】-->
+        @*<div class="content_header">
+            <div class="list-group">
+                
+                <div>
+                    <h3 style="margin:5px;"><span>【 <span class="glyphicon glyphicon-search" aria-hidden="true"></span> 快速搜索】</span></h3>
+                    <!--快速搜索选项【开始】-->
+                    <div style="margin-left:10px;margin-top:10px">
+                        <span>
+                            <input class="myButton1" type="button" value="查看所有资讯"   />
+                        </span>&nbsp;&nbsp;
+                        <span>
+                            <span>时间:</span>
+                            <select>
+                                <option value="0" selected="selected">请选择</option>
+                                <option value="1">最近一天</option>
+                                <option value="2">最近一周</option>
+                                <option value="3">最近一月</option>
+                                <option value="4">最近一年</option>
+                                <option value="5">更久</option>
+                            </select>
+                            <span><input type="button" value="按时间查找" onclick="" /></span>
+                        </span>&nbsp;&nbsp;
+
+                        <span>
+                            <span>发表人:</span>
+                            <input type="text" data-toggle="tooltip" data-placement="top" title="<h5> <span class='myTipTitleColor'>请填写有效的发表人昵称！</span></h5>" />
+                            <span><input type="button" value="按发表人查找"  /> </span>
+                        </span>&nbsp;&nbsp;
+
+                        <span>
+                            <span>分类:</span>
+                            <input type="text" data-toggle="tooltip" data-placement="top" title="<h5> <span class='myTipTitleColor'>请填写有效的类别！</span></h5>"/>
+                            <span><input type="button" value="按分类查找" /> </span>
+                        </span>
+                        <!--快速搜索选项【结束】-->
+                    </div>
+                </div>
+            </div>
+        </div>*@
+        <!--【头部结束】-->
+
+        <!--【标题和描述展示开始】-->
+        <div class="content_news_content">
+            <!--【置顶项】-->
+            <div class="hotNews">
+                @foreach(var hotnews in ViewBag.HotNews) { 
+                    <div class="news_top">
+                        <span><a href="/News/ShowDetail?Id=@hotnews.Id" target="_blank">【置顶】@hotnews.Title</a></span>
+                    </div>
+                }
+           </div>
+
+
+            <!--【普通的资讯】-->
+            <div class="news_list" id="news_list_table">
+                @*@foreach (var newsInfo in ViewBag.NewsInfo) { 
+                    <div class="news_list_item">
+                        <span class="news_list_title">
+                            <a href="javascript:void(0);">@newsInfo.Title</a>
+                        </span>
+                        <span class="news_list_foornumber">#@k</span>
+                        <br />
+                        <span class="news_list_description">--------------------</span> <span class="news_list_description">@newsInfo.Remark</span>
+                    </div>
+                    k++;
+                }*@
+                
+ 
+            </div><!--普通资讯结束-->
+            @*<ul style="margin-left:30px;">
+                <li>看“脸色”吃饭 5种面色的食疗调理</li>
+                <li>每天吃盐少于一啤酒瓶盖 对降低高血压有明显作用</li>
+                <li>每天吃盐少于一啤酒瓶盖 对降低高血压有明显作用</li>
+                <li>每天吃盐少于一啤酒瓶盖 对降低高血压有明显作用</li>
+            </ul>*@
+        </div>
+        <!--【标题和描述展示结束】-->
+
+        <div id="pageHtml" class="pageHtml"><!--【分页开始】-->
+            
+        </div><!--【分页结束】-->
+    </div>
+  
+
+    <!-------------------------------------body内容结束-------------------------------------------------->
+    <!-------------------------------------底部内容开始-------------------------------------------------->
+    @RenderPage("../Shared/Footer.cshtml")
+   
+    <!-------------------------------------底部内容结束-------------------------------------------------->
+
+
+
+    <script src="~/MyContent/js/jquery-1.11.2.min.js"></script>
+    @*<script src="~/Scripts/jquery-1.8.2.min.js"></script>*@
+    <script src="~/MyContent/js/jquery-2.1.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    @*<script src="~/MyContent/js/osSlider.js"></script>*@
+    <script src="~/MyContent/js/NewsJS.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#addLink").html(" <a href='http://www.jiankang.cn/info/' target='_blank'>中国健康网</a> | ");
+            $('#myModal').on('shown.bs.modal', function () {
+                $('#myInput').focus();
+            });
+            $("ul[class$='nav']").children().eq(1).html("<a href='javascript:void(0)' >健康资讯 <span class='sr-only'>(current)</span>").addClass("active");
+        });
+
+        function myHelpLink() {
+            $(".btn-lg").click();
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,248 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href="~/MyContent/images/ic_launcher.png" rel="shortcut icon" />
+
+    <title>@ViewData["ForumType"].ToString();</title>
+
+    <!-- Bootstrap -->
+
+    <link href="~/Content/themes/base/minified/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/MyContent/css/mycss.css" rel="stylesheet" />
+    <link href="~/MyContent/css/myIndexcss.css" rel="stylesheet" />
+    <link href="~/MyContent/css/base.css" rel="stylesheet" />
+    <link href="~/MyContent/css/demo.css" rel="stylesheet" />
+    <link href="~/MyContent/css/default.css" rel="stylesheet" />
+    <link href="~/MyContent/css/Forum.css" rel="stylesheet" />
+
+
+
+</head>
+<body>
+    <div>
+
+    </div>
+    <!----------------------------------巨幕开始----------------------------------------->
+    <div class="jumbotron bighead">
+        <h1>我的健康我做主</h1>
+        <p>随时随地查看自己或者亲属的健康数据，对自己和家人了解更多，让距离不再是问题！</p>
+        <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>
+    </div>
+    <!----------------------------------巨幕结束----------------------------------------->
+
+    <nav class="navbar navbar-default navbar-inverse mynavbar">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @*<img class="navbar-brand" src="~/images/%e5%9b%be%e6%a0%87.jpg" />*@
+                @*<a href="javascript:void(0);" style="padding-bottom:15px;padding-top:15px;">Kang</a>*@
+                <img class="navbar-brand" src="~/MyContent/images/ic_launcher.png" />
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("主页", "Index", "Home")</li>
+                    <li>@Html.ActionLink("健康资讯", "Index", "News")</li>
+                    <li class="active"><a href="javascript:void(0);">健康论坛<span class="sr-only">(current)</span></a></li>
+                    <li>@Html.ActionLink("个人信息", "MyInfo", "Home")</li>
+                    <li>@Html.ActionLink("我的数据", "MyData", "Home")</li>
+                    <li><a href="javascript:void(0);">联系我们</a></li>
+                    <li class="dropdown" style="">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Action</a></li>
+                            <li><a href="#">Another action</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">Separated link</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li>@Html.ActionLink("登录", "Login", "Home")</li>
+                    <li style="margin-left:3px;margin-right:3px;"><a href="javascript:void(0);">|</a></li>
+                    <li><a href="#">注册</a></li>
+                    <li class="dropdown" style="display:none">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Action</a></li>
+                            <li><a href="#">Another action</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">Separated link</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+
+    <!---->
+    <div class="content_header">
+        <div class="list-group">
+            @*<button type="button" class="list-group-item">Cras justo odio</button>
+                <button type="button" class="list-group-item">Dapibus ac facilisis in</button>
+                <button type="button" class="list-group-item">Morbi leo risus</button>
+                <button type="button" class="list-group-item">Porta ac consectetur ac</button>
+                <button type="button" class="list-group-item">Vestibulum at eros</button>*@
+            <div>
+                <h3 style="margin:5px;"><span>【 <span class="glyphicon glyphicon-search" aria-hidden="true"></span> 快速搜索】</span></h3>
+                <!--快速搜索选项【开始】-->
+                <div style="margin-left:10px;margin-top:10px">
+                    <span>
+                        <input class="myButton1" type="button" value="查看所有资讯" />
+                    </span>&nbsp;&nbsp;
+                    <span>
+                        <span>时间:</span>
+                        <select>
+                            <option value="0" selected="selected">请选择</option>
+                            <option value="1">最近一天</option>
+                            <option value="2">最近一周</option>
+                            <option value="3">最近一月</option>
+                            <option value="4">最近一年</option>
+                            <option value="5">更久</option>
+                        </select>
+                        <span><input type="button" value="按时间查找" onclick="" /></span>
+                    </span>&nbsp;&nbsp;
+
+                    <span>
+                        <span>发表人:</span>
+                        <input type="text" data-toggle="tooltip" data-placement="top" title="><h5> <span class='myTipTitleColor'>请填写有效的发表人昵称！</span></h5>" />
+                        <span><input type="button" value="按发表人查找" /> </span>
+                    </span>&nbsp;&nbsp;
+
+                    <span>
+                        <span>分类:</span>
+                        <input type="text" data-toggle="tooltip" data-placement="top" title="><h5> <span class='myTipTitleColor'>请填写有效的类别！</span></h5>"/>
+                        <span><input type="button" value="按分类查找" /> </span>
+                    </span>
+                    <!--快速搜索选项【结束】-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--【头部开始】-->
+    <div class="forumType_head">
+        <div class="row forumType_head_group">
+            <div class="col-md-4 forumType_head_item" onclick="JumpByForumType('YingyangMeishi');">
+                @*<img src="~/MyContent/images/avtar.png" />*@
+                @*<span class="forumType_head_item_title"> 营养美食</span>*@
+                <img src="~/MyContent/images/forumType1.png" class="forumType_head_item_image" />
+            </div>
+            <div class="col-md-4 forumType_head_item" onclick="JumpByForumType('SushenMeiti');">
+                @*<img src="~/MyContent/images/avtar.png" />
+                    <span class="forumType_head_item_title">塑身美体</span>*@
+                <img src="~/MyContent/images/forumType2.png" class="forumType_head_item_image" />
+            </div>
+            <div class="col-md-4 forumType_head_item" onclick="JumpByForumType('JiankangBaodian');">
+                @*<img src="~/MyContent/images/avtar.png" />
+                    <span class="forumType_head_item_title"> 健康宝典</span>*@
+                <img src="~/MyContent/images/forumType3.png" class="forumType_head_item_image" />
+            </div>
+        </div>
+        <div class="row forumType_head_group">
+            <div class="col-md-4 forumType_head_item" onclick="JumpByForumType('YuerBaodian');">
+                @*<img src="~/MyContent/images/avtar.png" />
+                    <span class="forumType_head_item_title">育儿宝典</span>*@
+                <img src="~/MyContent/images/forumType4.png" class="forumType_head_item_image" />
+            </div>
+            <div class="col-md-4 forumType_head_item" onclick="JumpByForumType('YuleZaping');">
+                @*<img src="~/MyContent/images/avtar.png" />
+                    <span class="forumType_head_item_title">娱乐杂评</span>*@
+                <img src="~/MyContent/images/forumType5.png" class="forumType_head_item_image" />
+            </div>
+            <div class="col-md-4 forumType_head_item" onclick="JumpByForumType('NanrenNvren');">
+                @*<img src="~/MyContent/images/avtar.png" />
+                    <span class="forumType_head_item_title">男人女人</span>*@
+                <img src="~/MyContent/images/forumType6.png" class="forumType_head_item_image" />
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        function JumpByForumType(forumType) {
+            location.href = "/Forum/Show?forumType=" + forumType;
+        }
+    </script>
+    <!--【头部结束】-->
+    <hr />
+
+    <!--【最新和推荐内容开始】-->
+    <div class="new_recommend_content row">
+        <div class="new_recommend_content_left col-md-12 col-sm-6">
+            
+        </div><!--【内容左边框】-->
+        <!--<div class="new_recommend_content_right col-md-6 col-sm-6"></div><!--【内容右边框】-->
+    </div>
+    <!--【最新和推荐内容结束】-->
+    <!--【页面主题内容结束】-->
+    <!-------------------------------------body内容结束-------------------------------------------------->
+    <!-------------------------------------底部内容开始-------------------------------------------------->
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" style="display:none;">
+        Launch demo modal
+    </button>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">帮助中心</h4>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="myFooter row">
+        <div>
+            友情链接：<a href="http://v3.bootcss.com/">Bootstrap</a> | <a href="http://glyphicons.com/">Glyphicons</a> | <a href="javascript:void(0);" onclick="myHelpLink()">帮助</a>
+        </div>
+    </div>
+    <!-------------------------------------底部内容结束-------------------------------------------------->
+
+
+
+    <script src="~/MyContent/js/jquery-1.11.2.min.js"></script>
+    @*<script src="~/Scripts/jquery-1.8.2.min.js"></script>*@
+    <script src="~/MyContent/js/jquery-2.1.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/MyContent/js/ForumJS.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            $('#myModal').on('shown.bs.modal', function () {
+                $('#myInput').focus();
+            });
+        });
+
+        function myHelpLink() {
+            $(".btn-lg").click();
+        }
+    </script>
+</body>
+
+</html>

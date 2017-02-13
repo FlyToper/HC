@@ -1,0 +1,238 @@
+﻿@{
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="SHORTCUT ICON" href="{$Think.const.IMG_URL}xiaohuangren.ico">
+    <style type="text/css">
+
+    </style>
+    <title>管理后台</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="MyContent/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="MyContent/css/dashboard.css" rel="stylesheet">
+
+    <link href="MyContent/css/admin.css" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="MyContent/css/ie-emulation-modes-warning.js"></script>
+
+    
+</head>
+
+<body>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed"
+                        data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+                        aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="javascript:void(0);">个人健康信息管理平台</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="javascript:void(0);" onclick="exit()">退出</a></li>
+                    <li><a href="#"></a></li>
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-3 col-md-2 sidebar">
+                <ul class="nav nav-sidebar">
+                    <li class="active"><a href="javascript:void(0);">我的记事板</a></li>
+                    <li><a href="/Admin/Index/showOrder">卖驾照分记录</a></li>
+                    <li><a href="/Admin/Index/showWZ">违章处理记录</a></li>
+                    <li><a href="/Admin/Index/showNotice">发布公告</a></li>
+                    <li><a href="/Admin/Index/showNews">发布新闻资讯</a></li>
+                    <li><a href="/Admin/Index/showRecords">公告&新闻历史记录</a></li>
+                </ul>
+
+            </div>
+
+            <!-- content 开始 -->
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                <h1 class="page-header">我的记事板</h1>
+
+                <div class="row placeholders">
+                    <div class="col-xs-6 col-sm-3 placeholder">
+                        <a href="/Admin/Index/showOrder" style="text-decoration:none;">
+                            <div class="myboard1">
+
+                                    <span style="color: red; font-size: 60px;">99</span>
+                               
+                                天
+                            </div>
+                        </a>
+                        <br>
+                        <h4>最新资讯距今的天数</h4>
+                        <span class="text-muted"></span>
+                    </div>
+                    <div class="col-xs-6 col-sm-3 placeholder">
+                        <a href="/Admin/Index/showWZ" style="text-decoration:none;">
+                            <div class="myboard2">
+                                <span style="color: red; font-size: 60px;"></span> 暂无
+                            </div>
+                        </a>
+                        <br>
+                        <h4>待处理违章数目</h4>
+                        <span class="text-muted"></span>
+                    </div>
+                    <div class="col-xs-6 col-sm-3 placeholder">
+                        <a href="/Admin/Index/showNotice" style="text-decoration:none;">
+                            <div class="myboard2">
+                                <span style="color: red; font-size: 60px;">100</span> 天
+                            </div>
+                        </a>
+                        <br>
+                        <h4>最新公告距今的天数</h4>
+                        <span class="text-muted"></span>
+                    </div>
+                    <div class="col-xs-6 col-sm-3 placeholder">
+                        <a href="/Admin/Index/showNews" style="text-decoration:none;">
+                            <div class=" myboard1">
+                                <span style="color: green; font-size: 60px;">100</span> 天
+                            </div>
+                        </a>
+                        <br>
+                        <h4>最新资讯距今的天数</h4>
+                        <span class="text-muted"></span>
+                    </div>
+                </div>
+
+                <br> <br>
+                <h2 class="sub-header">卖驾照分登记记录(待处理)</h2>
+                <div class="table-responsive" style="text-align: center;">
+                    <table class="table table-striped">
+                        <tbody>
+                            <tr style="font-weight: bold; background-color: #FFFFCC;">
+                                <td>#</td>
+                                <td>姓名</td>
+                                <td>联系电话</td>
+                                <td>可卖驾照分</td>
+
+                                <td>登记时间</td>
+                                <td>操作</td>
+                            </tr>
+                            <tr>
+                                <td colspan="6"></td>
+                            </tr>
+                            <foreach name="order_info" item="info" key="k">
+                                <tr>
+                                    <td>{$k + 1}</td>
+                                    <td>{$info["name"]}</td>
+                                    <td>{$info["phone"]}</td>
+                                    <td>{$info["score"]}</td>
+
+                                    <td>{$info["subtime"]}</td>
+                                    <td>
+                                        <if condition="$info['remark'] == ''">
+                                            <button class="btn btn-info" data-toggle="collapse"
+                                                    data-target="#demo{$info['id']}" aria-expanded="false"
+                                                    aria-controls="demo{$info['id']}">
+                                                <span class="glyphicon glyphicon-eye-close"></span>
+                                                查看详情
+                                            </button> <else /> <button class="btn btn-info" data-toggle="collapse"
+                                                                       data-target="#demo{$info['id']}" aria-expanded="false"
+                                                                       aria-controls="demo{$info['id']}">
+                                                <span class="glyphicon glyphicon-eye-open"></span>
+                                                查看详情
+                                            </button>
+                                        </if>
+                                        &nbsp;&nbsp;
+                                        <button class="btn btn-info" onclick="hasDo({$info.id})">处理</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="6">
+                                        <div id="demo{$info['id']}"
+                                             class="collapse">
+                                            <if condition="$info['remark'] == ''">
+                                                <span style="color: red">暂无详情</span> <else /> {$info['remark']}
+                                            </if>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </foreach>
+                        </tbody>
+                    </table>
+
+
+
+
+                </div>
+                <!-- content 结束-->
+                <div class="well">
+                    带 <span class="glyphicon glyphicon-eye-close"></span> 表示暂无详情，带 <span class="glyphicon glyphicon-eye-open"></span> 表示有详情内容。线下处理完成的可以点击  “处理” 按钮即可。
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+
+    <!-- 【模态框开始】 -->
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary btn-lg"
+            data-toggle="modal" data-target="#myModal" style="display: none;">
+        Launch demo modal
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        <span class="glyphicon glyphicon glyphicon-exclamation-sign"></span>
+                        来自网页的提示
+                    </h4>
+                </div>
+                <div class="modal-body" id="msgShow">请输入正确的姓名！</div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-warning" data-dismiss="modal">关闭</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 【模态框结束】 -->
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="MyContent/js/jquery-2.1.1.min.js"></script>
+    <script src="MyContent/js/bootstrap.min.js"></script>
+    <script src="MyContent/js/docs.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="MyContent/js/ie10-viewport-bug-workaround.js"></script>
+    <script src="MyContent/js/public.js"></script>
+    <script type="text/javascript">
+        $(function() {
+
+        });
+    </script>
+</body>
+</html>

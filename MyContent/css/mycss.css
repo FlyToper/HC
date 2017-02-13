@@ -1,0 +1,19 @@
+﻿#result a:hover{
+    /*color:#f60;*/
+    color:#CCFFFF;
+	-webkit-transition: all .3s ease-out;
+	-moz-transition: all .3s ease-out;
+	transition: all .3s ease-out;
+
+}
+
+#result a {
+    color:white;
+}
+.mydropdowm {
+    background-color:#ffd800;
+}
+
+.navbar-right-span {
+    color:#FFFFCC;
+}

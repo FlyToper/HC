@@ -1,0 +1,137 @@
+﻿@{
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>密码找回</title>
+
+    <link href="~/Content/themes/base/minified/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/MyContent/css/style2.css" rel="stylesheet" />
+
+    <style type="text/css">
+       
+
+
+    </style>
+
+    <script type="text/javascript">
+        
+    </script>
+</head>
+<body class="bg" >
+
+    <nav class="navbar navbar-default navbar-fixed-top navbar-inverse">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <img class="navbar-brand" src="~/images/%e5%9b%be%e6%a0%87.jpg" />
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("主页", "Index", "Home")</li>
+                </ul>
+                <h3 class="nav navbar-nav navbar-right">
+                    @if (Session["username"] != null)
+                    { <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@Session["username"] <span class="caret"></span></a>
+                        <ul class="dropdown-menu mydropdowm">
+                            <li><hr /></li>
+                            <li>@Ajax.ActionLink("用户注销>>", "Exit", "User", new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "result" })
+                            </li>
+                        </ul>
+                    }
+                    else
+                    { @Html.ActionLink("登录", "LoginTest", "User");
+                    } &nbsp;<span class="navbar-right-span">|</span>&nbsp;  @Html.ActionLink("注册", "Register", "User")
+                </h3>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+    <!-----------------------------------导航条结束-------------------->
+
+    <br />
+    
+    <div class="Safety page-container">
+        <h1>修改密码</h1>
+        <dl>
+            <dt>
+                @*<strong>电子邮箱：</strong>
+                    <span>邮件接收账户通知，及时了解账户信息变动情况</span>
+                    <b><span class="glyphicon glyphicon-exclamation-sign"> </span>未设置 </b>*@
+                <em>收起 | 展开</em>
+            </dt>
+            <dd>
+                <ul class="Step">
+                    <li class="stepCur"><span>1</span></li>
+                    <li><span>2</span></li>
+                    <li><span>3</span></li>
+                    <div class="clearfix"></div>
+                </ul><!--Step/-->
+                <form action="#" method="post" class="sjyz-one">
+                    <table width="100%" class="safForm">
+                        <tr>
+                            <td align="right"><span class="label">邮&nbsp;&nbsp;&nbsp;&nbsp;箱：</span></td>
+                            <td><input type="text" name="txtEmail" id="txtEmail" class="myinput"   onblur="txtEmailOnblur()" onkeydown="txtEmailKeydown()" /><span class="msg" id="msgEmail"></span></td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td><div  id="divSendCode"><span id="spSendCode"></span><input type="button" class="mybutton" value="接收验证码" id="btnSendCode" onmouseover="btnOver(2)" onmouseout="btnOut(2)" onclick="btnSendCodeClick()" /></div><span id="msgSendCode"></span></td>
+                        </tr>
+                        <tr>
+                            <td align="right"><span class="label">验证码：</span></td>
+                            <td><div class="tdCode" id="divCode"><input type="text" name="txtCode" id="txtCode" class="myinput txtCode" onblur="txtEmailOnblur()" /><span id="msgCheckCode" class="msg"></span></div></td>
+                        </tr>
+                        <tr>
+                            <td width="35%" align="right">&nbsp;</td>
+                            <td><input type="button" class="mybutton sjyz-one-next" value="下一步" id="btnEmail" onmouseover="btnOver(1)" onmouseout="btnOut(1)"/></td>
+                        </tr>
+                    </table>
+                </form>
+                <form action="#" method="post" class="sjyz-two">
+                    <table width="100%" class="safForm">
+                        <tr>
+                            <td  align="right"><span class="label">新密码：</span></td>
+                            <td><input type="password" name="txtPwd1" id="txtPwd1" class="myinput"/><span class="msg" id="msgPwd1"></span></td>
+                        </tr>
+                        <tr>
+                            <td align="right"><span class="label">重输密码：</span></td>
+                            <td><input type="password" name="txtPwd2" id="txtPwd2" class="myinput" /><span class="msg" id="msgPwd2"></span></td>
+                        </tr>
+                        <tr>
+                            <td width="35%" align="right">&nbsp;</td>
+                            @*<td><a class="safSub sjyz-two-next" href="javascript:;">下一步</a></td>*@
+                            <td><input type="button" class="mybutton sjyz-two-next" value="下一步" onmouseover="btnOver(3)" onmouseout="btnOut(3)" id="btnUpdatePwd" /><span class="msg" id="msgUpdateError"></span></td>
+                            @*<td><button type="button" onclick="btnSubmit()" id="btn" class="safSub sjyz-two-next">下一步 </button></td>*@
+                        </tr>
+                    </table>
+                </form>
+                <div class="sjyz-ok">
+                    <span class="glyphicon glyphicon-ok"></span> 恭喜您,修改成功!<br />
+                    @Html.ActionLink("点击跳转登录界面", "LoginTest", "User")
+                </div>
+            </dd>
+        </dl>
+    </div><!--Safety/-->
+
+   
+
+
+    <script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/MyContent/js/style.js"></script>
+</body>
+</html>
+

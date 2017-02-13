@@ -1,0 +1,102 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>用户登录</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="~/MyContent/images/ic_launcher.png" rel="shortcut icon" />
+
+    <link href="~/MyContent/css/loginStyle.css" rel="stylesheet" />
+    <script src="~/MyContent/js/jquery-1.11.2.min.js"></script>
+    <link href="~/Content/themes/base/minified/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+    <script>
+        $(document).ready(function (c) {
+          
+    //$('.close').on('click', function (c) {
+    //    $('.login-form').fadeOut('slow', function (c) {
+    //        //$('.login-form').remove();
+    //    });
+    //});
+});
+    </script>
+    <!--SIGN UP-->
+    <br />
+    <br />
+    <div class="login-form">
+        <div class="close"> </div>
+        <div class="head-info">
+            <label class="lbl-1"> </label>
+            <label class="lbl-2"> </label>
+            <label class="lbl-3"> </label>
+        </div>
+        <div class="clear"> </div>
+        <div class="avtar">
+            @*<img src="images/avtar.png" />*@
+            <img src="~/MyContent/images/avtar.png" />
+        </div>
+        <form>
+            <input type="text" class="text" id="username"   placeholder="Username">
+            <div class="key">
+                <input type="password" id="password" placeholder="Password">
+            </div>
+        </form>
+        <div class="signin">
+            <input type="button" value="Login" onclick="Login()">
+        </div>
+    </div>
+    <input type="hidden" value="@ViewData["Referen"]" id="ReferenUrl">
+    
+    <!-- Small modal -->
+    <button id="ShowTip" style="display:none;" type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm">Small modal</button>
+    <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content" style="padding:5px;">
+                
+            </div>
+        </div>
+    </div>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        function Login() {
+            var username = $("#username").val();
+            var password = $("#password").val();
+            var referenUrl = $("#ReferenUrl").val();
+
+            if (username != "") {
+                if (password != "") {
+                    $.post("/User/CheckLogin", { "username": username, "password": password }, function (result) {
+                        if (result == "success") {
+                            if (referenUrl == "") {
+                                window.location.href = "/Home/Index";
+                            } else {
+                                window.location.href = referenUrl;
+                            }
+                            //ShowTip("success");
+                        } else if (result == "error1") {
+                            ShowTip("登录失败！");
+                        } else if (result == "error2") {
+                            ShowTip("登录信息错误！");
+                        } else if (result == "error3") {
+                            ShowTip("该账户被禁用，请与管理员联系！");
+                        }
+                    });
+                } else {
+                    ShowTip("密码不能为空！");
+                }
+            } else {
+                ShowTip("用户名不能为空！");
+            }
+        }
+
+        function ShowTip( msg) {
+            $("#ShowTip").click();
+            $(".modal-content").html("<div class='ShowTip_Head'>提示信息：</div><div class='ShowTip_Content'>"+msg+"</div>");
+        }
+    </script>
+</body>
+</html>

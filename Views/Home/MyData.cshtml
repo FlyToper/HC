@@ -1,0 +1,141 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>我的数据</title>
+
+    <link href="~/Content/themes/base/minified/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/MyContent/css/mycss.css" rel="stylesheet" />
+    @*<script src="~/Scripts/jquery-1.8.2.min.js"></script>*@
+    <script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
+
+    @*<style type="text/css">
+        $ {demo.css;}
+    </style>*@
+    <script src="~/Scripts/InitCharts.js"></script>
+
+    <style type="text/css">
+        body {
+            padding-top: 70px;
+            background-color: #66FFFF;
+            /*background-image: url( ~/Content/themes/base/images/bg2.jpg );*/
+        }
+
+        .header {
+            float: right;
+        }
+
+        .jumbotron h1 {
+            text-align: center;
+        }
+
+        .jumbotron p {
+            text-align: center;
+        }
+        .newdata {
+            background-color:#CCFFFF;
+        }
+    </style>
+</head>
+<body @*style="background-image: url(/images/qipao-p.jpg); background-position: center; background-repeat: repeat-y;"*@>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-inverse">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <img class="navbar-brand" src="~/images/%e5%9b%be%e6%a0%87.jpg" />
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("主页", "Index", "Home")</li>
+                    <li>@Html.ActionLink("个人信息", "MyInfo", "Home")</li>
+                    <li class="active">@Html.ActionLink("我的数据", "MyData", "Home")<span class="sr-only">(current)</span></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Action</a></li>
+                            <li><a href="#">Another action</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">Separated link</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">One more separated link</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                @*<form class="navbar-form navbar-left" role="search">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search">
+                    </div>
+                    <button type="submit" class="btn btn-default">Submit</button>
+                </form>*@
+                <h3 class="nav navbar-nav navbar-right" id="result">@if (Session["username"] != null)
+{ <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> @Session["username"] <span class="caret"></span></a>
+                        <ul class="dropdown-menu mydropdowm">
+                            <li><hr /></li>
+                            <li>@Ajax.ActionLink("用户注销>>", "Exit", "User", new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "result" })
+                            </li>
+                            <li>
+                                @Ajax.ActionLink("切换账号>>", "LoginTest", "User", new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "result" })
+                            </li>
+                        </ul>
+}
+else
+{ @Html.ActionLink("登录", "LoginTest", "User");
+} &nbsp;<span class="navbar-right-span">|</span>&nbsp;@Html.ActionLink("注册", "Register", "User")</h3>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+
+    
+
+    <script src="~/Scripts/highcharts.js"></script>
+    <script src="~/Scripts/exporting.js"></script>
+    <div class="container-fluid">
+        <div  class="row newdata">
+            <div id="s1" class="col-md-2 col-xs-2"></div>
+            <div id="s2" class="col-md-2 col-xs-2"></div>
+            <div id="s3" class="col-md-2 col-xs-2"></div>
+            <div id="s4" class="col-md-2 col-xs-2"></div>
+            <div id="s5" class="col-md-2 col-xs-2"></div>
+            <div id="s6" class="col-md-2 col-xs-2"></div>
+        </div>
+        <hr />
+        <div class="row">
+            <div id="container1" style="min-width: 310px; height: 400px; margin: 0 auto" class="col-md-6 col-xs-6"></div>
+            <div id="container2" style="min-width: 310px; height: 400px; margin: 0 auto" class="col-md-6 col-xs-6"></div>   
+        </div>
+        <hr />
+        <div class="row">
+            <div id="container3" style="min-width: 310px; height: 400px; margin: 0 auto" class="col-md-6 col-xs-6"></div>
+            <div id="container4" style="min-width: 310px; height: 400px; margin: 0 auto" class="col-md-6 col-xs-6"></div>
+        </div>
+        <hr />
+        <div class="row">
+            <div id="container5" style="min-width: 310px; height: 400px; margin: 0 auto" class="col-md-6 col-xs-6"></div>
+            <div id="container6" style="min-width: 310px; height: 400px; margin: 0 auto" class="col-md-6 col-xs-6"></div>
+        </div>
+        <hr />
+    </div>
+    @*<div id="container4" style="min-width: 310px; height: 400px; margin: 0 auto"  class="col-md-6"></div>*@
+    <script type="text/javascript">
+
+    </script>
+
+    @*<script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>*@
+    <script src="~/Scripts/bootstrap.min.js"></script>
+</body>
+
+</html>

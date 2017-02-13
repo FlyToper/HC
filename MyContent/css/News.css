@@ -1,0 +1,227 @@
+﻿body {
+    background-image:url("../../MyContent/images/healthBG.jpg");
+    /*background-color:#efFFFF;*/
+    /*width:100%;*/
+}
+
+.main_content {
+    border-width:2px;
+    /*border-style:solid;*/
+    /*height:1200px;*/
+    margin-left:2%;
+    margin-right:2%;
+    margin-bottom:20px;
+    margin-top:10px;
+
+    border-radius:6px;
+}
+
+/*******************【头部CSS开始】*********************/
+.content_header {
+    border-width:2px;
+    border-style:solid;
+    margin:5px;
+    /*background-color:#00ff90;*/
+    /*background-color:gray;*/
+
+    border-radius:6px;
+
+    background-color:#eFFFFF;
+    border-color:#CCCCCC;
+}
+
+    .content_header .list-group {
+        width:100%;
+    }
+
+        .content_header .list-group .list-group-item {
+            width:100%;
+        }
+/*******************【头部CSS结束】*********************/
+
+
+/*******************【标题内容CSS开始】*********************/
+.content_news_content {
+    margin-top:20px;
+    /*margin-bottom:10px;*/
+   
+
+    border-width:2px;
+    border-style:solid;
+    margin-left:5px;
+     margin-right:5px;
+    /*border-radius:6px;*/
+
+    background-color:#eFFFFF;
+    border-color:#CCCCCC;
+
+     border-bottom-style:none;
+     border-top-left-radius:6px;
+     border-top-right-radius:6px;
+     padding-bottom:5px;
+}
+
+    .content_news_content .news_top {
+        margin-top:15px;
+        font-size:30px;
+    }
+
+    /*整个普通资讯列表项的最外框*/
+    .content_news_content .news_list {
+        margin-top:15px;
+        /*font-size:25px;*/
+    }
+
+      
+
+        /*普通的资讯列表项*/
+        .content_news_content .news_list .news_list_item {
+            margin:15px;
+            padding:10px;
+
+            border-color:#99FFCC;
+            border-style:solid;
+            border-width:1px;
+            border-radius:6px;
+
+        }
+            .content_news_content .news_list .news_list_item:hover {
+                background-color:#FFFFCC;
+                border-width:2px;
+            }
+
+          /*普通资讯的标题css*/
+        .content_news_content .news_list .news_list_title, .content_news_content .news_list .news_list_title a{
+            /*color:red;*/
+            color:#99CC33;
+            font-size:25px;
+        }
+
+            .content_news_content .news_list .news_list_title a:hover {
+                color:gray;
+            }
+
+            /*楼层号*/
+        .content_news_content .news_list .news_list_foornumber {
+            float:right;
+            font-size:25px;
+            color:#0099cc;
+        }
+
+        /*普通资讯的描述*/
+        .content_news_content .news_list .news_list_description {
+            color:gray;
+            font-size:15px;
+        }
+/*******************【标题内容CSS结束】*********************/
+
+
+.hotNews {
+    margin:15px;
+    border-style:solid;
+    border-color:#FFCC99;
+    border-width:1px;
+    border-radius:6px;
+    padding-bottom:10px;
+
+}
+    .hotNews:hover {
+        /*background-color:#F9F7F6;*/
+        background-color:#F8FFeb;
+        border-width:3px;
+    }
+
+
+.pageHtml {
+    /*border-style:solid;
+    border-color:blue;
+    border-width:1px;
+    border-radius:6px;
+
+    background-color:#eFFFFF;*/
+
+    border-style:solid;
+    border-width:2px;
+    /*border-radius:6px;*/
+
+    /*margin-top:10px;*/
+    margin-bottom:10px;
+    padding-bottom:10px;
+    padding-top:5px;
+    text-align:center;
+    font-size:35px;
+    margin-left:5px;
+    margin-right:5px;
+
+    /*background-color:#FFFF99;*/
+    background-color:#EFF5F5;
+
+    border-bottom-left-radius:6px;
+    border-bottom-right-radius:6px;
+    border-top-style:none;
+    border-color:#CCCCCC;
+    
+
+}
+
+    .pageHtml:hover {
+        background-color:#FFFF99;
+    }
+
+.currentPage {
+        color:black;
+    }
+
+
+
+
+.detail_title {
+    margin-top:30px;
+    text-align:center;
+    color:black;
+}
+
+.detail_remark {
+    text-align:center;
+    color:gray;
+    margin-top:10px;
+    margin-bottom:10px;
+}
+
+
+.detail_content {
+    margin-top:30px;
+    margin-bottom:50px;
+}
+
+.detail_content p {
+    margin-top:5px;
+    margin-bottom:5px;
+
+}
+
+
+
+.BackToTop {
+    width:40px;
+  margin:0 auto;
+  position:fixed;/*固定作用*/
+  top:50%;
+  left:0px;
+  /*ie6下样式，加下划线表示只针对ie6 的hack */
+  _position:absolute;/* 把导航栏位置定义为绝对位置  关键*/
+  _top:expression(documentElement.scrollTop + "px"); /* 把导航栏位置放在浏览器垂直滚动条的顶端  关键 */
+  z-index:9999; /* 让导航栏浮在网页的高层位置，遇到flash和图片时候也能始终保持最外层 */
+  text-align:left;
+
+  /*自定义*/
+  background-color:#eFFFFF;
+  border-style:solid;
+  border-width:1px;
+  border-radius:6px;
+  border-color:#FFCC99;
+}
+
+.BackToTop:hover{
+	background-color:#FFFFCC;
+}

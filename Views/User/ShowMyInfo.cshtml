@@ -1,0 +1,332 @@
+﻿@{
+    Layout = null;
+}
+@using System.Data;
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="~/MyContent/images/ic_launcher.png" rel="shortcut icon" />
+    <title>个人信息</title>
+
+   
+
+    
+    <link href="~/MyContent/css/updateemail.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.8.2.min.js"></script>
+   
+    <link href="~/Content/themes/base/minified/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/MyContent/css/myIndexcss.css" rel="stylesheet" />
+    <link href="~/MyContent/css/base.css" rel="stylesheet" />
+    <link href="~/MyContent/css/demo.css" rel="stylesheet" />
+    <link href="~/MyContent/css/default.css" rel="stylesheet" />
+    <link href="~/MyContent/css/mycss.css" rel="stylesheet" />
+    <link href="~/MyContent/css/myInfo.css" rel="stylesheet" />
+    <link href="~/MyContent/css/style2.css" rel="stylesheet" />
+    
+</head>
+<body style="margin-top:0px;">
+    <!-----------------------------------------------头部导航条开始--------------------------------------------------------------->
+    @RenderPage("../Shared/Header.cshtml")
+    <!-----------------------------------------------头部导航条结束--------------------------------------------------------------->
+    <!---------------------------------面板开始-------------------------------------------------------------->
+
+    <div class="panel panel-primary panel_myInfo">
+        @*<div class="panel-heading"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> 12312312</div>*@
+
+        <div class="panel-body ">
+            <!---------面板内容Start------------>
+            <div class="myinfo">
+                <hr class="myhr" />
+                <div class="myinfo-first">
+                    <span class="mylabel">登录账号：</span>12321312
+                </div>
+                <!--【标签页的头部开始】-->
+                <ul class="nav nav-tabs myinfo-second" role="tablist">
+                    <li role="presentation" class="active"><a href="#BaseInfo" aria-controls="BaseInfo" role="tab" data-toggle="tab">基本资料</a></li>
+                    <li role="presentation"><a href="#SafeInfo" aria-controls="SafeInfo" role="tab" data-toggle="tab">安全设置</a></li>
+                </ul>
+                <!--【标签页的头部结束】-->
+                <br />
+                @*<hr class="myhr" />*@
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="BaseInfo">
+                        <div class="myinfo-second">
+                            <span>
+                                <span class="mylabel">邮箱：</span>
+                            </span>&nbsp;
+                            <span class="myinfo-tip"><input type="text" value="@Session["UserName"]" readonly="readonly" class="CanNotEditInput" /></span>
+                        </div>
+                        
+                        <hr class="myhr" />
+                        <div class="myinfo-second">
+                            <span><span class="mylabel">真实姓名：</span></span>&nbsp;<span class="myinfo-tip"><input type="text" value="@ViewBag.UserInfo.TrueName" class="CanEditInput" id="TrueName_Input" /></span>&nbsp;  <span class="CanEditTrip" ><span class="glyphicon glyphicon-edit" aria-hidden="true"></span><span id="TrueName_Input_Msg"></span> </span>
+                        </div>
+                        <hr class="myhr" />
+                        <div class="myinfo-second">
+                            <span><span class="mylabel">性别：</span></span>&nbsp;<span class="myinfo-tip">@if(ViewBag.UserInfo.Gender == "男"){<span id="Gender_Man"> 男</span><input type="radio" name="Gender" checked="checked" class="radio_gender" value="man" />}else{<span id="Gender_Man"> 男</span><input type="radio" name="Gender"  class="radio_gender" value="man" />} @if(ViewBag.UserInfo.Gender == "女"){<span>女</span><input type="radio" name="Gender" class="radio_gender" value="woman" checked="checked" />}else{<span>女</span><input type="radio" name="Gender" class="radio_gender" value="woman" />} @if(ViewBag.UserInfo.Gender == "no"){<span>保密</span><input type="radio" name="Gender" class="radio_gender" value="no" checked="checked"  />}else{<span>保密</span><input type="radio" name="Gender" class="radio_gender" value="no"  />}</span>&nbsp;  <span class="CanEditTrip"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span><span id="Gender_Input_Msg"></span></span>
+                        </div>
+                        <hr class="myhr" />
+
+                        <div class="myinfo-second">
+                            <span><span class="mylabel">设备Id：</span></span>&nbsp;<span class="myinfo-tip"><input type="text" value="@ViewBag.UserInfo.DeviceId" class="CanEditInput" readonly="readonly" maxlength="10" id="DeviceId_Input" /></span>&nbsp;  <span class="CanEditTrip"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span><span id="DeviceId_Input_Msg"></span></span>
+                        </div>
+                        <hr class="myhr" />
+                        <div class="myinfo-second">
+                            <span><span class="mylabel">手机号码：</span></span>&nbsp;<span class="myinfo-tip"><input type="text" value="@ViewBag.UserInfo.Phone" class="CanEditInput" readonly="readonly" maxlength="11" id="Phone_Input" /></span>&nbsp;  <span class="CanEditTrip"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span><span id="Phone_Input_Msg"></span></span>
+                        </div>
+
+                        <hr class="myhr" />
+                        <div class="myinfo-second">
+                            <span><span class="mylabel">最近登录时间：</span></span>&nbsp;<span class="myinfo-tip"><input type="text" value="@ViewBag.UserInfo.LastLoginTime" readonly="readonly" class="CanNotEditInput" /></span>
+                        </div>
+                        <hr class="myhr" />
+                        <div class="myinfo-second">
+                            <span><span class="mylabel">最近登录IP：</span></span>&nbsp;<span class="myinfo-tip"><input type="text" value="@ViewBag.UserInfo.LastIP" readonly="readonly" class="CanNotEditInput" /></span>
+                        </div>
+                        <hr class="myhr" />
+                        <div class="myinfo-second myCheckCodeDIV">
+                            <span><span class="mylabel">请输入验证码：</span></span><span><input style="border-style:solid;border-width:1px;border-color:blue;border-radius:6px;" type="text" maxlength="5" size="8" id="Code_Input" /> </span><span> <img style="border-style:solid;border-width:1px;border-color:gray;border-radius:6px;" id="imgCode" src="~/User/CreateCheckCode" width="100" height="37" /> </span> &nbsp;  <span class="CanEditTrip"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span><span id="Code_Input_Msg"></span></span>
+                        </div>
+                        <div class="UpdateLink">
+                            <div class="UpdateLink_Btn" id="UpdateLink_Btn">
+                                修改
+                            </div>
+                            <div style="display:none" class="SaveLink_Btn" id="SaveLink_Btn">
+                                <span id="Cancel_Btn">&nbsp; 取消&nbsp; </span>&nbsp;&nbsp;&nbsp;&nbsp;
+                                <span id="Save_Btn" > &nbsp; 保存&nbsp;  </span>
+                            </div>
+                        </div>
+                    </div><!--【基本资料的结束】-->
+                    <div role="tabpanel" class="tab-pane" id="SafeInfo" style="background-color:transparent">
+                        <div class="myinfo-second">
+                            <span>
+                                <span class="mylabel">邮箱：</span>
+                            </span>&nbsp;
+                            <span class="myinfo-tip"><input type="text" value="874847721@qq.com" readonly="readonly" class="CanNotEditInput" /></span>
+                            <a href="#UpdateEmail_DIV" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="collapseExample" id="aUpdateEmail">
+                                <span class="glyphicon glyphicon-edit EmailUpdate_Edit" aria-hidden="true">更改邮箱</span>
+                            </a>
+                            <div class="collapse" id="UpdateEmail_DIV" style="margin-top:5px;padding:0px;margin:0px;">
+                                <div class="well" style="background-color:transparent;padding:0px;margin:0px;"><!--【隐藏的邮箱修改框开始】-->
+                                    <div class="Safety page-container" style="margin:0px;padding:0px;">
+                                        @*<h1>修改密码</h1>*@
+                                        <dl style="margin-bottom:0px; ">
+                                            
+                                            <dd style="padding-bottom:0px;">
+                                                <ul class="Step">
+                                                    <li class="stepCur"><span>1</span></li>
+                                                    <li><span>2</span></li>
+                                                    <li><span>3</span></li>
+                                                    @*<div class="clearfix"></div>*@
+                                                </ul><!--Step/-->
+                                                <form action="#" method="post" class="sjyz-one" id="updateemail-one">
+                                                    <table  width="100%" class="safForm">
+                                                        <tr>
+                                                            <td align="right"><span class="label">邮&nbsp;&nbsp;&nbsp;&nbsp;箱：</span></td>
+                                                            <td><input type="text" name="txtEmail" id="txtEmail" class="myinput" onblur="txtEmailOnblur(1)" onkeydown="txtEmailKeydown()" value="@ViewBag.UserInfo.Email" readonly="readonly"/><span class="msg" id="msgEmail"></span></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>&nbsp;</td>
+                                                            <td><div id="divSendEmailCode"><span id="spSendEmailCode"></span><input type="button" class="mybutton" value="接收验证码" id="btnSendEmailCode"  onclick="btnSendCodeClick(1)" /></div><span id="msgSendEmailCode"></span></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td align="right"><span class="label">验证码：</span></td>
+                                                            <td><div class="tdCode" id="divEmailCode"><input type="text" name="txtEmailCode" id="txtEmailCode" class="myinput txtCode" onblur="txtEmailOnblur(1)" /><span id="msgCheckCode" class="msg"></span></div></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td width="35%" align="right">&nbsp;</td>
+                                                            <td><input type="button" class="mybutton sjyz-one-next" value="下一步" id="btnUpdateEmail-One-Next"  /></td>
+                                                        </tr>
+                                                    </table>
+                                                </form>
+                                                <form action="#" method="post" class="sjyz-two" id="updateemail-two">
+                                                    <table width="100%" class="safForm">
+                                                        <tr>
+                                                            <td align="right"><span class="label">新邮箱：</span></td>
+                                                            <td><input type="text" name="txtNewEmail" id="txtNewEmail" class="myinput" onfocus="myInputFocus('NewEmail')" onblur="    myInputBlur('NewEmail')" /><span class="msg" id="msgNewEmail" ></span></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>&nbsp;</td>
+                                                            <td><div id="divSendNewEmailCode"><span id="spSendNewEmailCode"></span><input type="button" class="mybutton" id="btnSendNewEmailCode" value="接收验证码" onclick="btnSendCodeClick(2)"></div><span id="msgSendNewEmailCode"></span></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td align="right"><span class="label">验证码：</span></td>
+                                                            <td><div class="tdCode" id="divNewEmailCode"><input type="text" name="txtNewEmailCode" id="txtNewEmailCode" class="myinput txtCode" onfocus="myInputFocus('NewEmailCode')" onblur="    myInputBlur('NewEmailCode')" /><span class="msg" id="msgNewEmailCode"></span></div></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td width="35%" align="right">&nbsp;</td>
+                                                            
+                                                            <td><input type="button" class="mybutton sjyz-two-next" value="下一步" id="btnUpdateEmail-Two-Next" /><span class="msg" id="msgUpdateError"></span></td>
+                                                            
+                                                        </tr>
+                                                    </table>
+                                                </form>
+                                                <div class="sjyz-ok" id="updateemail-ok">
+                                                    <span class="glyphicon glyphicon-ok"></span> 恭喜您,修改成功!<br />
+                                                    @Html.ActionLink("点击跳转登录界面", "LoginTest", "User")
+                                                </div>
+                                            </dd>
+                                        </dl>
+                                    </div><!--Safety/-->
+                                    <input type="hidden" id="isShow_UpdateEmail" value="0" />
+                                </div><!--【Collapse结束】-->
+                            </div>
+                        </div>
+
+                        <hr class="myhr" />
+                        <div class="myinfo-second"><!--【修改密码开始】-->
+                            <span>
+                                <span class="mylabel">密码：</span>
+                            </span>&nbsp;
+                           
+                            <a href="#UpdatePwd_DIV" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="collapseExample" id="aUpdatePwd">
+                                <span class="glyphicon glyphicon-edit EmailUpdate_Edit" aria-hidden="true">更改密码</span>
+                            </a>
+                            <div class="collapse" id="UpdatePwd_DIV" style="margin-top:5px;">
+                                <div class="well" style="padding:0px;">
+                                    <div class="Safety page-container" style="margin:0px;padding:0px;">
+                                        <dl style="margin-bottom:0px; ">
+
+                                            <dd style="padding-bottom:0px;">
+                                                <ul class="Step">
+                                                    <li class="stepCur"><span>1</span></li>
+                                                    <li><span>2</span></li>
+                                                    <li><span>3</span></li>
+                                                    @*<div class="clearfix"></div>*@
+                                                </ul><!--Step/-->
+                                                <form action="#" method="post" class="sjyz-one" id="updatepwd-one"><!--【第一步开始】-->
+                                                    <table width="100%" class="safForm">
+                                                        <tr>
+                                                            <td align="right"><span class="label">邮&nbsp;&nbsp;&nbsp;&nbsp;箱：</span></td>
+                                                            <td><input type="text" name="txtUpdatePwd" id="txtUpdatePwd" class="myinput" onblur="txtEmailOnblur(3)" onkeydown="txtEmailKeydown()" value="@Session["UserName"].ToString()" readonly="readonly" /><span class="msg" id="msgUpdatePwd"></span></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>&nbsp;</td>
+                                                            <td><div id="divSendUpdatePwdCode"><span id="spSendUpdatePwdCode"></span><input type="button" class="mybutton" value="接收验证码" id="btnSendUpdatePwdCode" onclick="btnSendCodeClick(3)" /></div><span id="msgSendUpdatePwdCode"></span></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td align="right"><span class="label">验证码：</span></td>
+                                                            <td><div class="tdCode" id="divUpdatePwdCode"><input type="text" name="txtUpdatePwdCode" id="txtUpdatePwdCode" class="myinput txtCode" onblur="myInputBlur('UpdatePwdCheckCode')" onfocus="    myInputFocus('UpdatePwdCheckCode')" /><span id="msgUpdatePwdCheckCode" class="msg"></span></div></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td width="35%" align="right">&nbsp;</td>
+                                                            <td><input type="button" class="mybutton updatepwd-one-next" value="下一步" id="btnUpdatePwd" /></td>
+                                                        </tr>
+                                                    </table>
+                                                </form><!--【第一步结束】-->
+
+                                                <form action="#" method="post" class="sjyz-two" id="updatepwd-two"><!--【第二步开始】-->
+                                                    <table width="100%" class="safForm">
+                                                        <tr>
+                                                            <td align="right"><span class="label">新密码：</span></td>
+                                                            <td><input type="password" name="txtNewPwd1" id="txtNewPwd1" class="myinput" maxlength="20" onfocus="myInputFocus('NewPwd1')" onblur="myInputBlur('NewPwd1')" /><span class="msg" id="msgNewPwd1" ></span></td>
+                                                        </tr>
+                                                      
+                                                        <tr>
+                                                            <td align="right"><span class="label">重新输入密码：</span></td>
+                                                            <td><input type="password" name="txtNewPwd2" id="txtNewPwd2" class="myinput" maxlength="20" onfocus="myInputFocus('NewPwd2')" onblur="myInputBlur('NewPwd2')" /><span class="msg" id="msgNewPwd2"></span></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td width="35%" align="right">&nbsp;</td>
+
+                                                            <td><input type="button" class="mybutton updatepwd-two-next" value="下一步" id="btnUpdatePwd" /><span class="msg" id="msgUpdatePwdError"></span></td>
+
+                                                        </tr>
+                                                    </table>
+                                                </form><!--【第二步结束】-->
+
+                                                <div class="sjyz-ok" id="updatepwd-ok"><!--【第三步开始】-->
+                                                    <span class="glyphicon glyphicon-ok"></span> 恭喜您,修改成功!<br />
+                                                    @Html.ActionLink("点击跳转登录界面", "Login", "Home", new { referenUrl = "/User/ShowMyInfo" },new{})
+                                                </div><!--【第三步结束】-->
+                                            </dd>
+                                        </dl>
+                                    </div><!--Safety/-->
+                                    <input type="hidden" id="isShow_UpdatePwd" value="0" />
+                                </div>
+                            </div>
+                        </div>
+                       
+                        <hr class="myhr" />
+                        <div class="myinfo-second">
+                            <span><span class="mylabel">最近登录时间：</span></span>&nbsp;<span class="myinfo-tip"><input type="text" value="@DateTime.Now.ToString()" readonly="readonly" class="CanNotEditInput" /></span>
+                        </div>
+                        <hr class="myhr" />
+                        <div class="myinfo-second">
+                            <span><span class="mylabel">最近登录IP：</span></span>&nbsp;<span class="myinfo-tip"><input type="text" value="127.0.0.1" readonly="readonly" class="CanNotEditInput" /></span>
+                        </div>
+                        <hr class="myhr" />
+
+
+
+                    </div><!--【安全设置结束】-->
+
+                </div>
+            </div>
+
+
+
+            <!---------面板内容End------------->
+        </div>
+    </div>
+
+  
+    <!---------------------------------面板结束-------------------------------------------------------------->
+    @*<button type="button" class="btn btn-default btn-lg">
+            <span class="glyphicon glyphicon-star" aria-hidden="true"></span> Star
+        </button>*@
+    <!------------------------------------------------------------以上为页面内内容------------------------------------------------------------------->
+    <!------------------------------------------------------------尾部信息开始------------------------------------------------------------------->
+    @RenderPage("../Shared/Footer.cshtml")
+    <!------------------------------------------------------------尾部信息开始------------------------------------------------------------------->
+    @*<script src="~/MyContent/js/mootools.v1.11_updateemail.js"></script>
+    <script src="~/MyContent/js/sliding-tabs_updateemail.js"></script>*@
+    <script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/MyContent/js/myInfoJS.js"></script>
+   
+   
+
+    <script type="text/javascript">
+      
+        $(function () {
+            $('#myModal').on('shown.bs.modal', function () {
+                $('#myInput').focus();
+            });
+            $("ul[class$='nav']").children().eq(3).html("<a href='javascript:void(0)'>个人信息 <span class='sr-only'>(current)</span>").addClass("active");
+
+            $("#myTab").tabs();
+
+           
+        });
+        
+        function myHelpLink() {
+            $(".btn-lg").click();
+        }
+
+        function UpdateUserInfo_Re() {
+
+            $("#UpdateUserInfo_Btn").click();
+        }
+      
+    </script>
+
+
+    <!-- Small modal -->
+    <button  style="display:none;" type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm" id="UpdateUserInfo_Btn">Small modal</button>
+
+    <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                 <div style="background-color:#CCFFCC;border-radius:6px;padding:5px;color:#990066">提示信息：</div>
+                <div id="UpdateUserInfo_Result" style="padding:10px;"></div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,77 @@
+﻿ <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" style="display:none;" id="btnHelp">
+    Launch demo modal
+</button>
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">帮助中心</h4>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Button trigger modal -->
+<button style="display:none;" type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal2" id="btnShow">
+    Launch demo modal
+</button>
+<!-- Modal -->
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="showTitle">Modal title</h4>
+            </div>
+            <div class="modal-body" id="showContent">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="myFooter">
+    <div >
+        <span style="color:#990066"> <span class="glyphicon glyphicon-link" aria-hidden="true"></span> 友情链接：</span><a href="http://v3.bootcss.com/" target="_blank">Bootstrap</a> | <a href="http://glyphicons.com/" target="_blank">Glyphicons</a> | <span id="addLink"></span> <a href="javascript:void(0);" onclick="myHelpLink()">帮助</a>
+    </div>
+    <div>
+        2015-2016 &copy; <a href="#">Fly</a>
+    </div>
+    <style type="text/css">
+        .effect01 {
+            /*background-color: #7ABCFF;*/
+            color: #FFD300;
+            text-shadow: 0px 0px 0 #b89800, 1px -1px 0 #b39400, 2px -2px 0 #ad8f00, 3px -3px 0 #a88b00, 4px -4px 0 #a38700, 5px -5px 0 #9e8300, 6px -6px 0 #997f00, 7px -7px 0 #947a00, 8px -8px 0 #8f7600, 9px -9px 0 #8a7200, 10px -10px 0 #856e00, 11px -11px 0 #806a00, 12px -12px 0 #7a6500, 13px -13px 12px rgba(0, 0, 0, 0.55), 13px -13px 1px rgba(0, 0, 0, 0.5);
+        }
+        .effect02 {
+            animation: animateShadow 2s linear infinite;
+        }
+
+
+        .text {
+            /*font-family: "微软雅黑", "Dosis", sans-serif;*/
+            /*font-size: 80px;*/
+            text-align: center;
+            font-weight: bold;
+            /*line-height: 200px;*/
+            text-transform: uppercase;
+            position: relative;
+        }
+
+        
+    </style>
+</div>

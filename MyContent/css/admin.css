@@ -1,0 +1,105 @@
+@CHARSET "UTF-8";
+body,html{
+	font-family: "微软雅黑";
+	
+}
+.myboard1{
+	margin-left:7%;
+	width:200px;
+	height:200px;
+	background-color:#F2F2F2;
+	border:1px solid #CCFFFF;
+	border-radius:30%;
+	text-align: center;
+	
+	line-height: 200px;
+	font-size: 32px;
+	font-weight: bold;
+	
+	transition:transform .5s linear;
+}
+
+.myboard2{
+	margin-left:7%;
+	width:200px;
+	height:200px;
+	background-color:#F2F2F2;
+	border:1px solid skyblue;
+	border-radius:50%;
+	text-align: center;
+	
+	line-height: 200px;
+	font-size: 32px;
+	font-weight: bold;
+	
+	transition:transform .5s linear;
+}
+
+.myboard2:hover, .myboard1:hover{
+	cursor:pointer;
+	-webkit-transform: rotate(360deg);
+            transform: rotate(-45deg);
+     //transform:matrix(1, 1, -1, 1, 0, 0);
+            border-color: yellow;
+            opacity:0.7;
+           
+}
+
+.myboard2:VISITED, .myboard1:VISITED{
+	-webkit-transform: rotate(-90deg);
+		transform: rotate(-90deg);
+}
+
+.nav-sidebar{
+	font-size: 18px;
+}
+
+.glyphicon-eye-close{
+		color:#FF9999;
+	}
+	.glyphicon-eye-open{
+		color:green;
+	}
+	
+	
+#imgCode:hover{
+	cursor: pointer;
+}
+
+
+fieldset {
+            padding:10px;
+            margin:10px;
+            margin-top:12px;
+            color:#333;
+            border:#99CCFF solid 1px;
+            border-radius:6px;
+            background-color: #F5F5F5;
+            
+            
+            
+    padding:20px;
+        }
+
+   fieldset  legend {
+            text-decoration:none;
+            padding-left:5px;
+            padding-right:5px;
+            width:auto;
+            border:none;
+            background-color: white;
+            border:#99CCFF solid 1px;
+            
+            border-radius:6px;
+        }
+
+
+
+.nav-tabs button {
+	margin: 0px;
+}
+
+.nav-tabs li, .nav-tabs a{
+	padding: 0px;
+}
+

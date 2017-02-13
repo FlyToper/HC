@@ -1,0 +1,145 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>用户注册</title>
+
+    <link href="~/Content/themes/base/minified/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/MyContent/css/style2.css" rel="stylesheet" />
+</head>
+<body class="Register-bg4">
+
+    <!-----------------------------------导航条开始-------------------------------------------->
+    <nav class="navbar navbar-default navbar-fixed-top navbar-inverse">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <img class="navbar-brand" src="~/images/%e5%9b%be%e6%a0%87.jpg" />
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("主页", "Index", "Home")</li>
+                </ul>
+                <h3 class="nav navbar-nav navbar-right">
+                    @if (Session["username"] != null)
+                    { <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@Session["username"] <span class="caret"></span></a>
+                        <ul class="dropdown-menu mydropdowm">
+                            <li><hr /></li>
+                            <li>
+                                @Ajax.ActionLink("用户注销>>", "Exit", "User", new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "result" })
+                        </li>
+                    </ul>
+                    }
+                    else
+                    { @Html.ActionLink("登录", "LoginTest", "User");
+                    } 
+                </h3>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+    <!-------------------------------导航条结束--------------------------------------------->
+
+   
+
+
+    <br />
+    <h1>用户注册</h1>
+    <div class="page-container">
+        <div class="row">
+            <div class="col-md-3 col-xs-3"></div>
+            <div class="Register-form col-md-6 col-xs-6">
+                <!----------------表单内容开始------------------------>
+                <hr />
+                <div>
+                    <div id="myRegisterHeaderErrorMsg" class="errorMsg">&nbsp;</div>
+                </div>
+                <hr />
+                <hr />
+                <div >
+                    <span class="label">用&nbsp;&nbsp;户&nbsp;&nbsp;名：</span><input type="text" class="myRegisterInput" name="txtUsername" id="txtUserName" /><span id="msgUserName" >&nbsp;</span>
+                </div>
+                <hr />
+                <div>
+                    <span class="label ">邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱：</span><input type="text" class="myRegisterInput " name="txtEmail" id="txtEmail"  /><span id="msgEmail" >&nbsp;</span>
+                 </div>
+                <br />
+                <div id="divSendCode">
+                    <span id="spSendCode"></span><input type="button" class="myRegisterbutton" value="接收验证码" id="btnSendCode" onmouseover="btnOver(2)" onmouseout="btnOut(2)" onclick="btnSendCodeClick()" /><input type="text"  class="myRegisterInput" id="txtCode" name="txtCode"/><span id="msgCode">&nbsp;</span>
+                </div>
+                <hr />
+                <div>
+                    <span class="label">设备ID号：</span><input type="text" class="myRegisterInput" name="txtDeviceId" id="txtDeviceId" value="19210" readonly="readonly" /><span id="msgDeviceId">&nbsp;</span>
+                </div>
+                <hr />
+                <div>
+                    <span class="label ">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码：</span><input type="password" class="myRegisterInput " name="txtPwd1" id="txtPwd1" /><span id="msgPwd1" class="errorMsg">&nbsp;</span>
+                </div>
+                <hr />
+                <div>
+                    <span class="label ">重输密码：</span><input type="password" class="myRegisterInput " name="txtPwd2" id="txtPwd2" /><span id="msgPwd2" class="errorMsg">&nbsp;</span>
+                </div>
+                <hr />
+                <div>
+                    <span class="label ">验&nbsp;&nbsp;证&nbsp;&nbsp;码：</span><input type="text" class="myRegisterInput " name="txtCode2" id="txtCode2"  style="width:90px;"/><img class="myRegisterImage" src="../../Myashx/SendValidateCode.ashx" onclick="refreshCodeImage()" id="imgCode" /> <span id="msgCode2" class="errorMsg ">&nbsp;</span>
+                </div>
+                <hr />
+                <div>
+                    <div><input class="myRegisterbutton" type="button" value="注册"  id="btnRegister" onmouseover="btnOver(1)" onmouseout="btnOut(1)" /></div>
+                </div>
+                <hr />
+                <div>
+                    <div id="myRegisterFooterErrorMsg" class="errorMsg"></div>
+                </div>
+                <!-----------------表单内容结束------------------------->
+            </div>
+            <div class="col-md-3 col-xs-3"></div>
+        </div>
+    </div>
+
+    <!-------------------------------模态框开始--------------------------------------------->
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary btn-lg myhidedisplay" data-toggle="modal" data-target="#myModal" >
+        Launch demo modal
+    </button>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">恭喜您，注册成功！</h4><br />
+                    <div id="divLg"></div>
+                </div>
+                <div class="modal-body" >
+                    @Html.ActionLink("点击跳转登录页面", "LoginTest", "User")
+                </div>
+                @*<div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>*@
+            </div>
+        </div>
+    </div>
+
+    <!-------------------------------模态框结束--------------------------------------------->
+
+    <script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/MyContent/js/myRegisterJS.js"></script>
+</body>
+</html>
+

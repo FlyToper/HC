@@ -1,0 +1,100 @@
+﻿@{
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>登录</title>
+
+    @*<link href="css/bootstrap.min.css" rel="stylesheet">*@
+    <link href="~/Content/themes/base/minified/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/MyContent/css/style.css" rel="stylesheet" />
+   
+    <style type="text/css">
+        .warming {
+            color:red;
+        }
+        .bg1 {
+            background-image: url(/MyContent/images/backgrounds/Login-bg4-2.jpg);
+            background-repeat: no-repeat;
+        }
+        .bg2 {
+            background-image: url(/MyContent/images/backgrounds/Login-bg5.jpg);
+            background-repeat: no-repeat;
+        }
+    </style>
+
+    <script type="text/javascript">
+
+            function btnSubmit() {
+                if ($("#username").val() == "") {
+                    $("#msg").html("<strong>用户名不能为空！</strong>");
+                    return;
+                }
+                if ($("#password").val() == "") {
+                    $("#msg").html("<strong>密码不能为空！</strong>");
+                    return;
+                }
+                $("#form1").submit();
+            }
+    </script>
+</head>
+<body class="bg2">
+    <div class="page-container">
+        <h1>用户登录</h1>
+        <form id="form1" method="post">
+             <input type="text" name="Username" class="username" placeholder="Username | Eamil" id="username">
+            <input type="password" name="Password" class="password" placeholder="Password" id="password">
+            <button type="button" onclick="btnSubmit()" id="btn">提交 </button>
+            <div>@Html.ActionLink("忘了密码？", "UpdatePwd", "User") | @Html.ActionLink("还没账号？","Register","User")</div>
+            <div class="warming" id="msg">@if (Session["username"] == null) { @ViewData["error"]; }</div>
+        </form>
+    </div>
+
+
+
+    <script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+
+    @*<script type="text/javascript">
+        $(function () {
+            $("body").fadeIn(4000);
+
+        //    setInterval(ChangeBG, 3000);
+
+        //    function ChangeBG() {
+        //        if ($("body").hasClass("bg1")) {
+        //            $("body").addClass("bg2");
+        //            $("body").removeClass("bg1");
+        //        }
+        //        else {
+        //            $("body").addClass("bg1");
+        //            $("body").removeClass("bg2");
+        //        }
+        //    }
+
+        //    //$("body").hover(
+        //    //    function () {
+        //    //        $("body").addClass("bg1");
+        //    //        $("body").removeClass("bg2");
+        //    //    },
+        //    //    function () {
+        //    //        $("body").addClass("bg2");
+        //    //        $("body").removeClass("bg1");
+        //    //    });
+            
+        });
+        
+    </script>*@
+</body>
+</html>
+
+
+
+
+

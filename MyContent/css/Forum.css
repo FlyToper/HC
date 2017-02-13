@@ -1,0 +1,177 @@
+﻿body {
+    width:100%;
+    /*background-color:yellow;*/
+    margin:0 auto;
+}
+
+
+/**************【头部快速搜索边框】*******************/
+.content_header {
+    border-style:solid;
+     border-width:3px;
+    border-radius:6px;
+    border-color:#CCCCCC;
+
+    margin-top:25px;
+    margin-bottom:25px;
+    margin-left:10px;
+    margin-right:10px;
+
+    background-color:#eFFFFF;
+}
+
+/**************【论坛类型最外边的边框】*******************/
+.forumType_head {
+   margin-top:5px;
+   margin-left:1%;
+   margin-right:1%;
+}
+
+
+/**************【论坛类型上下每一行的边框】*******************/
+.forumType_head_group {
+    /*width:100%;*/
+    text-align:center;
+}
+
+
+/**************【论坛类型每一个单独一个的边框】*******************/
+.forumType_head  .forumType_head_item {
+    /*background-color:blue;*/
+    text-align:center;
+
+   
+
+    /*margin:5px;*/
+
+    /*background-color:#CCFFCC;*/
+    background-color:#eFFFFF;
+    
+}
+
+
+/**************【论坛类型每一个单独一个的边框的鼠标hover事件】*******************/
+    .forumType_head .forumType_head_item:hover {
+        background-color:#FFFFCC;
+        cursor:pointer;
+        /*border-style:none;*/
+
+         border-style:solid;
+    border-width:1px;
+    border-radius:6px;
+    border-color:#66CCFF;
+    }
+
+
+    /**************【论坛类型每一个单独的一个边框里面的标题样式】*******************/
+    .forumType_head .forumType_head_item .forumType_head_item_title {
+        font-size:30px;
+        color:#0099CC;
+    }
+
+
+     /**************【论坛类型每一个单独的一个边框里面的图片Image样式】*******************/
+    .forumType_head .forumType_head_item .forumType_head_item_image {
+        width:100%;
+       margin:5px;
+    }
+
+     /**************【最新发布和推荐的内容】*******************/
+.new_recommend_content {
+    border-style:solid;
+    border-width:3px;
+    border-radius:6px;
+
+    /*height:1000px;*/
+    margin:10px;
+}
+
+    /**************【最新发布和推荐的内容 的左边边框】*******************/
+    .new_recommend_content .new_recommend_content_left {
+        border-style:solid;
+        border-width:3px;
+        border-radius:6px;
+        border-color:#66CCFF;
+
+        height:100%;
+
+    }
+
+    /**************【最新发布和推荐的内容 的右边边框】*******************/
+    .new_recommend_content .new_recommend_content_right {
+        border-style:solid;
+        border-width:3px;
+        border-radius:6px;
+       border-color:#66CCFF;
+
+        height:100%;
+    }
+
+
+
+ /**************【论坛类型的分类展示样式】*******************/
+.ForumType_Table {
+    font-size:20px;
+}
+
+    .ForumType_Table tr, .ForumType_Table td {
+        border-style:solid;
+        border-width:1px;
+    }
+
+/**【单双行背景切换】**/
+.MyTr1 {
+    background-color:#eFFFFF;
+}
+
+.MyTr2 {
+    /*background-color:#CCCCCC;*/
+}
+
+/***********BootstrapDIV布局*****************/
+.MyForumDIV {
+    margin:10px;
+}
+
+    .MyForumDIV .MyForumDIV_Head {/**首行***/
+        padding-top:5px;
+        padding-bottom:5px;
+        font-size:25px;
+        background-color:#CCCCCC;
+    }
+
+    .MyForumDIV .MyForum_Tr1 {/**数据行1***/
+        margin-top:5px;
+        margin-bottom:5px;
+        padding-top:5px;
+        padding-bottom:5px;
+        font-size:23px;
+        background-color:white;
+    }
+
+    .MyForumDIV .MyForum_Tr2 {/**数据行2**/
+        margin-top:5px;
+        margin-bottom:5px;
+        padding-top:5px;
+        padding-bottom:5px;
+        font-size:23px;
+        /*background-color:#CCFFFF;*/
+    }
+
+    /*分页导航样式*/
+   .MyForum_PageNumber {
+        /*width:100%;*/
+        margin-top:10px;
+        margin-bottom:10px;
+        padding-bottom:10px;
+        padding-top:5px;
+        text-align:center;
+        font-size:35px;
+
+        background-color:#FFFF99;
+    }
+
+   /*当前页的字体颜色*/
+    .MyForum_PageNumber .currentPage {
+        color:black;
+    }

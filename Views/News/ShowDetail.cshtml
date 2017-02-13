@@ -1,0 +1,95 @@
+﻿@{
+    Layout = null;
+    int k = 1;
+}
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href="~/MyContent/images/ic_launcher.png" rel="shortcut icon" />
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>@ViewBag.Info.Title</title>
+
+    <!-- Bootstrap -->
+
+    <link href="~/Content/themes/base/minified/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/MyContent/css/mycss.css" rel="stylesheet" />
+    <link href="~/MyContent/css/myIndexcss.css" rel="stylesheet" />
+    <link href="~/MyContent/css/base.css" rel="stylesheet" />
+    <link href="~/MyContent/css/demo.css" rel="stylesheet" />
+    <link href="~/MyContent/css/default.css" rel="stylesheet" />
+    <link href="~/MyContent/css/News.css" rel="stylesheet" />
+
+
+
+</head>
+<body style="background:#f9f7f6;">
+    <!----------------------------------头部导航开始----------------------------------------->
+    @RenderPage("../Shared/Header.cshtml")
+    <!----------------------------------头部导航结束----------------------------------------->
+
+
+    <div class="main_content">
+       <div>
+           <div class="detail_title"> <h2>@ViewBag.Info.Title </h2></div>
+           <div class="detail_remark"><span > @ViewBag.Info.Remark </span></div>
+           <div class="detail_content"> @Html.Raw(ViewBag.Info.Content) </div>
+       </div>
+    </div>
+
+    <div class="BackToTop">
+        <a href="#BackToTop" class="scroll">&nbsp;&nbsp;<span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span>&nbsp;<span class="BackToTopLabel">Top</span></a>
+    </div>
+    <!-------------------------------------body内容结束-------------------------------------------------->
+    <!-------------------------------------底部内容开始-------------------------------------------------->
+    @RenderPage("../Shared/Footer.cshtml")
+
+    <!-------------------------------------底部内容结束-------------------------------------------------->
+
+
+
+    <script src="~/MyContent/js/jquery-1.11.2.min.js"></script>
+    @*<script src="~/Scripts/jquery-1.8.2.min.js"></script>*@
+    <script src="~/MyContent/js/jquery-2.1.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    @*<script src="~/MyContent/js/osSlider.js"></script>*@
+    <script src="~/MyContent/js/NewsJS.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#addLink").html(" <a href='http://www.jiankang.cn/info/'>中国健康网</a> | ");
+            $('#myModal').on('shown.bs.modal', function () {
+                $('#myInput').focus();
+            });
+            $("ul[class$='nav']").children().eq(1).html("<a href='javascript:void(0)'>健康资讯 <span class='sr-only'>(current)</span>").addClass("active");
+
+            setInterval("RollTitle()", 1000);
+        });
+
+        function RollTitle() {
+            var title = document.title;
+            var firstchar = title.charAt(0);
+            var leftstr = title.substring(1, title.length);
+            document.title = leftstr + firstchar;
+
+        }
+
+        function myHelpLink() {
+            $(".btn-lg").click();
+        }
+
+
+        jQuery(document).ready(function ($) {
+            $(".scroll").click(function (event) {
+                event.preventDefault();
+                $('html,body').animate({ scrollTop: $(this.hash).offset().top }, 1000);
+            });
+
+        });
+    </script>
+</body>
+
+</html>
