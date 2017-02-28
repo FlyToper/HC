@@ -27,7 +27,7 @@ function Load(pageIndex, pageSize) {
         }
         content.html("");
         for (var i = 0; i < rst["Total"]; i++) {
-            content.append("<div class='news_list_item'><span class='news_list_title'><a target='_blank' href='/News/ShowDetail?Id="+rst["Row"][i].Id+"'>" + rst["Row"][i].Title + "</a></span><span class='news_list_foornumber'>#" + parseInt(i + 1) + "</span><br /><span class='news_list_description'>--------------------</span> <span class='news_list_description'>"+rst["Row"][i].Remark+"</span></div>");
+            content.append("<hr><div class='news_list_item'><span class='news_list_title'><a target='_blank' href='/News/ShowDetail?Id="+rst["Row"][i].Id+"'>" + rst["Row"][i].Title + "</a></span><span class='news_list_foornumber'>#" + parseInt(i + 1) + "</span><br /><span class='news_list_description'>--------------------</span> <span class='news_list_description'>"+rst["Row"][i].Remark+"</span></div>");
         }
 
         $("#pageHtml").html(rst["PageHtml"]);

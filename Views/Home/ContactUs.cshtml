@@ -200,7 +200,11 @@
                             //show("1", "可以提交");
                             $.post("/Home/UpComment", { "code": code, "comment": comment, "contact": contact }, function (rst) {
                                 if (rst == "success") {
-                                    show("1", "提交成功!");
+                                    show("完成", "提交成功!");
+
+                                    setTimeout(function () {
+                                        document.location.href = "/Home/ContactUs";
+                                    }, 1000);
                                 } else if (rst == "error1") {
                                     $("#imgCode").click();
                                     show("警告", "验证码错误！");

@@ -100,7 +100,9 @@ namespace 基于云的Web管理系统.Controllers
                         }
                         else 
                         {
-                            Session["AdminUser"] = username;
+                            Session["AdminUser"] = user.AdminName;
+                            Session["AdminNum"] = user.Email;
+
                             return Content("success");
                         }
                     }
@@ -149,6 +151,7 @@ namespace 基于云的Web管理系统.Controllers
                 return Content("error");
             else {
                 Session.Remove("AdminUser");
+                Session.Remove("AdminNum");
                 return Content("success");
             }
         }
@@ -175,22 +178,74 @@ namespace 基于云的Web管理系统.Controllers
         /// </summary>
         /// <returns></returns>
         public ActionResult Index() {
-            try
-            {
+            //try
+            //{
                 if (IsLogin())
                 {
+                    DBContext = new WebManagementDBEntities();
+
+                    //1、查询需要处理的留言
+                    var comments = DBContext.CommentInfo.Where(u => u.IsRead == 0).OrderByDescending(u => u.SubData);
+
+                    //2.1 查询最新资讯距今的天数
+                    //var news = DBContext.HealthInfo.Where()
+
+                    ViewBag.Comment = comments;
                     return View();
                 }
                 else
                 {
                     return RedirectToAction("Login",new { referenUrl = "/Admin" });
                 }
+            //}
+            //catch
+            //{
+            //    return Redirect("/User/_404");
+            //}
+        }
+
+        public ActionResult CheckCommentStatus() 
+        {
+            try
+            {
+                if(!IsLogin())
+                    return Content("error3");
+
+                int cid = Convert.ToInt32(Request["id"]);
+                if (cid != 0)
+                {
+                    DBContext = new WebManagementDBEntities();
+                    var comment = DBContext.CommentInfo.Where(u => u.Id == cid && u.IsRead == 0).FirstOrDefault();
+
+                    if (comment != null)
+                    {
+                        comment.IsRead = 1;
+                        comment.ReDate = DateTime.Now;
+
+                        DBContext.CommentInfo.Attach(comment);
+                        DBContext.Entry(comment).State = System.Data.EntityState.Modified;
+                        DBContext.SaveChanges();
+
+                        AdminExecute.Insert(Session["AdminNum"].ToString(), Session["AdminUser"].ToString(), "操作用户建议为已读，id为：【"+cid+"】");
+
+
+                        return Content("success");
+
+                    }
+                    else 
+                    {
+                        return Content("error1");
+                    }
+                }
+                else
+                {
+                    return Content("error1");
+                }
             }
             catch
             {
-                return Redirect("/User/_404");
+                return Content("error");
             }
         }
-
     }
 }

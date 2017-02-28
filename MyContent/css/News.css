@@ -1,20 +1,46 @@
 ﻿body {
-    background-image:url("../../MyContent/images/healthBG.jpg");
+    /*background-image:url("../../MyContent/images/healthBG.jpg");*/
     /*background-color:#efFFFF;*/
     /*width:100%;*/
+     background-color:#f9f7f6;
 }
 
 .main_content {
     border-width:2px;
     /*border-style:solid;*/
     /*height:1200px;*/
-    margin-left:2%;
+    /*margin-left:2%;
     margin-right:2%;
     margin-bottom:20px;
-    margin-top:10px;
-
+    margin-top:10px;*/
+    /*margin:0 auto;*/
+    float:left;
+    width:60%;
+    margin-left:2%;
+    
     border-radius:6px;
 }
+
+/*20170228修改*/
+.hot_content {
+    float:right;
+    margin-right:2%;
+    width:35%;
+    /*background-color:white;*/
+    /*border:2px solid #CCCCCC;
+    border-radius:6px;*/
+
+    margin-top:20px;
+}
+
+    .hot_content .news_top {
+        background-color:white;
+        padding:3%;
+        margin:2%;
+    }
+        .hot_content .news_top .word1 {
+            color:#cccccc;
+        }
 
 /*******************【头部CSS开始】*********************/
 .content_header {
@@ -52,7 +78,10 @@
      margin-right:5px;
     /*border-radius:6px;*/
 
-    background-color:#eFFFFF;
+    /*20170228 修改背景颜色*/
+    /*background-color:#eFFFFF;*/
+    background-color:white;
+
     border-color:#CCCCCC;
 
      border-bottom-style:none;
@@ -79,10 +108,10 @@
             margin:15px;
             padding:10px;
 
-            border-color:#99FFCC;
+            /*border-color:#99FFCC;
             border-style:solid;
             border-width:1px;
-            border-radius:6px;
+            border-radius:6px;*/
 
         }
             .content_news_content .news_list .news_list_item:hover {

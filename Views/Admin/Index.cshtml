@@ -1,5 +1,6 @@
 ﻿@{
     Layout = null;
+    int k = 1;
 }
 
 
@@ -24,9 +25,6 @@
     <link href="MyContent/css/dashboard.css" rel="stylesheet">
 
     <link href="MyContent/css/admin.css" rel="stylesheet">
-
-    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
     <script src="MyContent/css/ie-emulation-modes-warning.js"></script>
 
     
@@ -119,62 +117,35 @@
                 </div>
 
                 <br> <br>
-                <h2 class="sub-header">卖驾照分登记记录(待处理)</h2>
+                <h2 class="sub-header"><span class="glyphicon glyphicon-star" style="color:darkslateblue"></span> 用户建议（待处理）</h2>
                 <div class="table-responsive" style="text-align: center;">
                     <table class="table table-striped">
                         <tbody>
                             <tr style="font-weight: bold; background-color: #FFFFCC;">
                                 <td>#</td>
-                                <td>姓名</td>
-                                <td>联系电话</td>
-                                <td>可卖驾照分</td>
-
-                                <td>登记时间</td>
+                                <td>联系方式</td>
+                                <td>建议内容</td>
+                                <td>提交时间</td>
                                 <td>操作</td>
                             </tr>
                             <tr>
                                 <td colspan="6"></td>
                             </tr>
-                            <foreach name="order_info" item="info" key="k">
-                                <tr>
-                                    <td>{$k + 1}</td>
-                                    <td>{$info["name"]}</td>
-                                    <td>{$info["phone"]}</td>
-                                    <td>{$info["score"]}</td>
-
-                                    <td>{$info["subtime"]}</td>
-                                    <td>
-                                        <if condition="$info['remark'] == ''">
-                                            <button class="btn btn-info" data-toggle="collapse"
-                                                    data-target="#demo{$info['id']}" aria-expanded="false"
-                                                    aria-controls="demo{$info['id']}">
-                                                <span class="glyphicon glyphicon-eye-close"></span>
-                                                查看详情
-                                            </button> <else /> <button class="btn btn-info" data-toggle="collapse"
-                                                                       data-target="#demo{$info['id']}" aria-expanded="false"
-                                                                       aria-controls="demo{$info['id']}">
-                                                <span class="glyphicon glyphicon-eye-open"></span>
-                                                查看详情
-                                            </button>
-                                        </if>
-                                        &nbsp;&nbsp;
-                                        <button class="btn btn-info" onclick="hasDo({$info.id})">处理</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td colspan="6">
-                                        <div id="demo{$info['id']}"
-                                             class="collapse">
-                                            <if condition="$info['remark'] == ''">
-                                                <span style="color: red">暂无详情</span> <else /> {$info['remark']}
-                                            </if>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </foreach>
+                           @foreach (var comment in ViewBag.Comment) { 
+                               <tr>
+                                <td>@k</td>
+                                <td>@comment.Contact</td>
+                                <td>@comment.Content</td>
+                                <td>@comment.SubData</td>
+                                <td><button class="btn btn-info btn-isRead" key-id="@comment.Id" >已读</button></td>
+                            </tr> 
+                               k++;
+                           }
+                            
+                            
                         </tbody>
                     </table>
-
+                    @*<button id="btnTest">测试</button>*@
 
 
 
@@ -193,7 +164,7 @@
     <!-- 【模态框开始】 -->
     <!-- Button trigger modal -->
     <button type="button" class="btn btn-primary btn-lg"
-            data-toggle="modal" data-target="#myModal" style="display: none;">
+            data-toggle="modal" data-target="#myModal" style="display: none;" id="btnShow">
         Launch demo modal
     </button>
 
@@ -206,12 +177,11 @@
                     <button type="button" class="close" data-dismiss="modal">
                         <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
                     </button>
-                    <h4 class="modal-title" id="myModalLabel">
-                        <span class="glyphicon glyphicon glyphicon-exclamation-sign"></span>
+                    <h4 class="modal-title" id="showTitle"> 
                         来自网页的提示
                     </h4>
                 </div>
-                <div class="modal-body" id="msgShow">请输入正确的姓名！</div>
+                <div class="modal-body" id="showContent">请输入正确的姓名！</div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-warning" data-dismiss="modal">关闭</button>
 
@@ -232,6 +202,24 @@
     <script type="text/javascript">
         $(function() {
 
+        });
+
+        $(".btn-isRead").click(function () {
+            var element = $(this);
+            var id = $(this).attr("key-id");
+            $.post("/Admin/CheckCommentStatus", { "id": id }, function (rst) {
+                if (rst == "success") {
+                    element.parent().parent().remove();
+                } else {
+                    show("警告", "操作失败,请重试！");
+                }
+            });
+        });
+
+       
+
+        $("#btnTest").click(function () {
+            show("警告", "点击了");
         });
     </script>
 </body>
