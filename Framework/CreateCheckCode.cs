@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Web;
 
+
 namespace 基于云的Web管理系统.Models
 {
     public class CreateCheckCode
@@ -94,5 +95,18 @@ namespace 基于云的Web管理系统.Models
             }
         }
 
+        ///// <summary>
+        ///// 【验证验证码是否正确】
+        /////  20170225
+        ///// </summary>
+        ///// <returns></returns>
+        //public static bool CheckCode(string type, string code)
+        //{
+        //    if (code == (string)Session["admin_" + type])
+        //        return true;
+        //    else
+        //        return false;
+
+        //}
     }//类结束
 }

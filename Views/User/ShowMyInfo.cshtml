@@ -285,7 +285,8 @@
     <!------------------------------------------------------------尾部信息开始------------------------------------------------------------------->
     @*<script src="~/MyContent/js/mootools.v1.11_updateemail.js"></script>
     <script src="~/MyContent/js/sliding-tabs_updateemail.js"></script>*@
-    <script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
+    
+    <script src="~/MyContent/js/jquery-1.11.2.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
     <script src="~/MyContent/js/myInfoJS.js"></script>
    
@@ -305,7 +306,7 @@
         });
         
         function myHelpLink() {
-            $(".btn-lg").click();
+            $("#btnHelp").click();
         }
 
         function UpdateUserInfo_Re() {
@@ -317,7 +318,7 @@
 
 
     <!-- Small modal -->
-    <button  style="display:none;" type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm" id="UpdateUserInfo_Btn">Small modal</button>
+    @*<button  style="display:none;" type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm" id="UpdateUserInfo_Btn">Small modal</button>
 
     <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
         <div class="modal-dialog modal-sm">
@@ -326,7 +327,7 @@
                 <div id="UpdateUserInfo_Result" style="padding:10px;"></div>
             </div>
         </div>
-    </div>
+    </div>*@
 </body>
 
 </html>

@@ -117,7 +117,7 @@
           <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Email" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="Phone" Type="nvarchar" MaxLength="20" />
-          <Property Name="UserPwd" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="UserPwd" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="NickName" Type="nvarchar" MaxLength="20" />
           <Property Name="TrueName" Type="nvarchar" MaxLength="20" />
           <Property Name="Gender" Type="nvarchar" MaxLength="10" />
@@ -246,7 +246,7 @@
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Email" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="UserPwd" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserPwd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="NickName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="TrueName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="Gender" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />

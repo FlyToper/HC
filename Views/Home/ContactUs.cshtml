@@ -33,7 +33,7 @@
         }
 
         .myCom:hover {
-            background-color:#A1CFF3;
+            /*background-color:#A1CFF3;*/
         }
 
         fieldset {
@@ -78,7 +78,7 @@
 
     <div class="container" style="overflow: hidden;margin-top:30px;">
         
-        <div class="panel panel-info myPanel" >
+        <div class="panel panel-info myPanel" style="float:left;width:50%;margin-top:25px;height:100%;" >
             <!-- Default panel contents -->
             <div class="panel-heading"><span class="glyphicon glyphicon-earphone"></span> 通过以下方式联系我们</div>
             <div class="panel-body">
@@ -91,27 +91,22 @@
                     </p><br>
                     <p><i class="fa fa-qq"></i> Q&nbsp;&nbsp;Q：874847721</p><br>
                     <p><span class="glyphicon glyphicon-envelope"></span> 电子邮箱：fly13138@163.com   </p><br>
-                </div>
-                
-               
-
-                
+                </div> 
                
             </div>
-
-
+            <br /><br />
 
             <!-- List group -->
             <ul class="list-group">
-                <li class="list-group-item myCom"><span class="glyphicon glyphicon-record"></span> 个人健康管理系统</li>
+                <li class="list-group-item myCom"><span class="glyphicon glyphicon-record"></span> 个人健康信息管理系统</li>
 
             </ul>
         </div>
 
-        <br>
+     
 
 
-        <fieldset style="float: left;">
+        <fieldset style="float: left; width: 45%; height: 100%;">
             <legend>请填写您的建议</legend>
             <div style="text-align: center; margin-left: 10%; margin-right: 10%;">
                 <div class="input-group input-group-lg">
@@ -142,7 +137,7 @@
 
                 </div>
                 <br>
-
+                
                 <button class="btn btn-info" onclick="btnSubCommit()">提交</button>
             </div>
         </fieldset>
@@ -188,7 +183,7 @@
 
                 $("#imgCode").click(function () {
                     var s = Math.random();
-                    $(this).attr("src", "/Admin/CreateCode?type=login&s=" + s);
+                    $(this).attr("src", "/Admin/CreateCode?type=comment&s=" + s);
                 });
             });
 

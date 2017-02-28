@@ -19,7 +19,7 @@
 
     <style type="text/css">
         fieldset {
-            padding: 20px;
+            padding: 5%;
             margin:0 auto;
             margin-top: 12px;
             color: #333;
@@ -41,9 +41,7 @@
         }
 
 
-        fieldset input {
-            width: 80%;
-        }
+       
 
         .register_footer {
             text-align:center;
@@ -56,6 +54,28 @@
         .spanMsg {
             display:none;
         }
+
+        .spanSuccess {
+            color: green;
+            display: none;
+        }
+
+        .spanError {
+            color: red;
+            display: none;
+        }
+
+        #imgCode:hover {
+            cursor:pointer;
+        }
+
+
+        .errorTips {
+            text-align:right;
+            color:red;
+            display:none;
+        }
+        
     </style>
 </head>
 <body>
@@ -111,57 +131,102 @@
         <fieldset >
             <legend>注册信息</legend>
 
-            <div class="input-group">
+            <div class="input-group input-group-lg">
                 <span class="input-group-addon" id="basic-addon1">用&nbsp;&nbsp;户&nbsp;&nbsp;名：</span>
-                
+
                 <input type="text" class="form-control" placeholder="用户名" aria-describedby="basic-addon1" id="txtNickName">
-                <span class="input-group-addon"><span class="spanRequired">*</span> <span class="spanMsg">不能为空</span></span>
+                <span class="input-group-addon"><span class="spanRequired">*</span> <span class="spanMsg">不能为空</span><span class=" glyphicon glyphicon-ok spanSuccess"></span></span>
             </div>
             <br>
-            <div class="input-group">
+            <div class="input-group input-group-lg">
                 <span class="input-group-addon" id="basic-addon1">邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱：</span>
-                <input type="text" class="form-control" placeholder="邮箱" aria-describedby="basic-addon1">
-                <span class="input-group-addon"><span class="spanRequired">*</span> <span class="spanMsg">不能为空</span></span>
+                <input type="text" class="form-control" placeholder="邮箱" aria-describedby="basic-addon1" id="txtEmail">
+                <span class="input-group-addon">
+                    <span class="spanRequired">*</span>
+                    <span class="spanMsg">不能为空</span>
+                    <span class=" glyphicon glyphicon-ok spanSuccess"></span>
+                    <span class=" glyphicon glyphicon-remove spanError"></span>
+                </span>
+            </div>
+            <p class="errorTips" id="msgEmail">邮箱已存在</p>
+            <br>
+
+            <div class="input-group input-group-lg">
+                <span class="input-group-addon" id="basic-addon1">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码：</span>
+                <input type="password" class="form-control" placeholder="密码" aria-describedby="basic-addon1" id="txtPassword1">
+                <span class="input-group-addon">
+                    <span class="spanRequired">*</span>
+                    <span class="spanMsg">不能为空</span>
+                    <span class=" glyphicon glyphicon-ok spanSuccess"></span>
+                    <span class=" glyphicon glyphicon-remove spanError"></span>
+                </span>
             </div>
             <br>
 
-            <div class="input-group">
+            <div class="input-group input-group-lg">
+                <span class="input-group-addon" id="basic-addon1">再次密码：</span>
+                <input type="password" class="form-control" placeholder="再次密码" aria-describedby="basic-addon1" id="txtPassword2">
+                <span class="input-group-addon">
+                    <span class="spanRequired">*</span>
+                    <span class="spanMsg">不能为空</span>
+                    <span class=" glyphicon glyphicon-ok spanSuccess"></span>
+                    <span class=" glyphicon glyphicon-remove spanError"></span>
+                </span>
+            </div>
+            <p class="errorTips" id="msgPassword">两次密码不一致</p>
+            <br>
+
+            <div class="input-group input-group-lg">
                 <span class="input-group-addon" id="basic-addon1">联系电话：</span>
-                <input type="text" class="form-control" placeholder="联系电话" aria-describedby="basic-addon1">
-                <span class="input-group-addon"><span class="spanRequired">*</span> <span class="spanMsg">不能为空</span></span>
+                <input type="text" class="form-control" placeholder="联系电话" aria-describedby="basic-addon1" id="txtPhone">
+                <span class="input-group-addon"><span class="spanRequired">*</span> <span class="spanMsg">不能为空</span><span class=" glyphicon glyphicon-ok spanSuccess"></span>
+                    <span class=" glyphicon glyphicon-remove spanError"></span></span>
             </div>
             <br>
 
-            <div class="input-group">
+            <div class="input-group input-group-lg">
                 <span class="input-group-addon" id="basic-addon1">真实姓名：</span>
-                <input type="text" class="form-control" placeholder="真实姓名" aria-describedby="basic-addon1">
-                <span class="input-group-addon"><span class="spanRequired">*</span> <span class="spanMsg">不能为空</span></span>
+                <input type="text" class="form-control" placeholder="真实姓名" aria-describedby="basic-addon1" id="txtTrueName">
+                <span class="input-group-addon"><span class="spanRequired">*</span> <span class="spanMsg">不能为空</span><span class=" glyphicon glyphicon-ok spanSuccess"></span></span>
             </div>
             <br>
 
-            <div class="input-group">
-                <span class="input-group-addon" id="basic-addon1">性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：</span>
-                <input type="text" class="form-control" placeholder="性别" aria-describedby="basic-addon1">
-                <span class="input-group-addon"><span class="spanRequired">*</span> <span class="spanMsg">不能为空</span></span>
+            <div class="input-group-lg">
+                <span class="">&nbsp;性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：</span>
+                <label for="man">&nbsp;&nbsp;男</label>&nbsp;&nbsp;<input type="radio" name="gender" id="man" checked="checked" value="男" />&nbsp;&nbsp;
+                <label for="woman">女</label>&nbsp;&nbsp;<input type="radio" name="gender" id="woman" value="女" />&nbsp;&nbsp;
+                <label for="baomi">保密</label>&nbsp;&nbsp;<input type="radio" name="gender" id="baomi" value="保密"/>
+                @*<input type="text" class="form-control" placeholder="性别" aria-describedby="basic-addon1">*@
+
             </div>
             <br>
 
-            <div class="input-group">
+            <div class="input-group input-group-lg">
                 <span class="input-group-addon" id="basic-addon1">设&nbsp;&nbsp;备&nbsp;ID：</span>
-                <input type="text" class="form-control" placeholder="设备ID" aria-describedby="basic-addon1">
-                <span class="input-group-addon"><span class="spanRequired">*</span> <span class="spanMsg">不能为空</span></span>
+                <input type="text" class="form-control" placeholder="设备ID" aria-describedby="basic-addon1" id="txtDeviceId">
+                <span class="input-group-addon"><span class="spanRequired">*</span> <span class="spanMsg">不能为空</span><span class=" glyphicon glyphicon-ok spanSuccess"></span></span>
             </div>
             <br>
 
-           
+            <div class="input-group input-group-lg">
+                <span class="input-group-addon" id="basic-addon1">输入验证码：</span>
+                <input type="text" class="form-control" placeholder="请输入验证码"
+                       maxlength="5" id="txtCode"> <span class="input-group-addon" style="padding: 0px;">
+                    <img alt="验证码" src="/Admin/createCode?type=register" height="100%" id="imgCode">
+                </span>
+
+            </div>
+            <br>
             <br>
 
            <div class="register_footer">
-               <button class="btn btn-info" >提交</button>
-               <button class="btn btn-warning">取消</button>
+               
+               <button class="btn btn-info" id="btnSubmit">提交</button>
+               <button class="btn btn-warning" id="btnCancel">取消</button>
            </div>
             </fieldset>
 </div>
+    <input type="hidden" value="1" id="txtIsEmailExist" />
 
     <!-------------------------------------底部内容开始-------------------------------------------------->
     @RenderPage("../Shared/Footer.cshtml")
@@ -172,14 +237,170 @@
     <script src="~/MyContent/js/public.js"></script>
     <script type="text/javascript">
         $(function () {
-            $(".form-control").blur(function () {
-                if ($(this).val() == "")
-                    $(this).next().show();
-            });
+            //alert(123);
         });
+
+        //输入框焦点离开事件
         $(".form-control").blur(function () {
-            if ($(this).val() == "")
-                $(this).next().show();
+            
+
+            if ($(this).val() == "") {
+                $(this).next().find("span").eq(0).fadeIn(1000);
+                $(this).next().find("span").eq(1).fadeIn(1000);
+                $(this).next().find("span").eq(2).fadeOut(1000);
+            } else if ($(this).attr("id") == "txtEmail") {
+                //alert("email");
+                if (CheckEmail($(this).val()) != 1) {
+                    //show("警告", "邮箱格式错误");
+                    $("#msgEmail").html("邮箱格式错误");
+                    $("#msgEmail").show();
+                    return;
+                }
+
+                $.post("/User/CheckEmail", { "email": $(this).val() }, function (rst) {
+                    if (rst == "success") {//邮箱验证可用
+                        $("#txtEmail").next().find("span").eq(0).fadeOut(1000);
+                        $("#txtEmail").next().find("span").eq(2).fadeIn(1000);
+                        $("#txtEmail").next().find("span").eq(3).fadeOut(1000);
+                       
+                        $("#txtIsEmailExist").val(0);
+                    } else {
+                        $("#txtEmail").next().find("span").eq(0).fadeOut(1000);
+                        $("#txtEmail").next().find("span").eq(2).fadeOut(1000);
+                        $("#txtEmail").next().find("span").eq(3).fadeIn(1000);
+                        $("#txtIsEmailExist").val(1);//邮箱已存在
+
+                        $("#msgEmail").html("邮箱已存在");
+                        $("#msgEmail").show();
+                    }
+                });
+            } else if ($(this).attr("id") == "txtPhone") {
+                if (CheckPhone($(this).val()) != 1) {
+                    $("#txtPhone").next().find("span").eq(0).fadeOut(1000);
+                    $("#txtPhone").next().find("span").eq(2).fadeOut(1000);
+                    $("#txtPhone").next().find("span").eq(3).fadeIn(1000);
+                } else {
+                    $("#txtPhone").next().find("span").eq(0).fadeOut(1000);
+                    $("#txtPhone").next().find("span").eq(2).fadeIn(1000);
+                    $("#txtPhone").next().find("span").eq(3).fadeOut(1000);
+                }
+
+            } else if ($(this).attr("id") == "txtPassword2") {
+                if ($(this).val() != $("#txtPassword1").val()) {
+                    $(this).next().find("span").eq(0).fadeOut(1000);
+                    $(this).next().find("span").eq(2).fadeOut(1000);
+                    $(this).next().find("span").eq(3).fadeIn(1000);
+
+                    $("#msgPassword").show();
+                } else {
+                    $(this).next().find("span").eq(0).fadeOut(1000);
+                    $(this).next().find("span").eq(2).fadeIn(1000);
+                    $(this).next().find("span").eq(3).fadeOut(1000);
+
+                    $("#msgPassword").hide();
+                }
+
+            }else {
+                $(this).next().find("span").eq(0).fadeOut(1000);
+                $(this).next().find("span").eq(2).fadeIn(1000);
+            }
+
+                
+        });
+
+        $(".form-control").focus(function () {
+            $(this).next().find("span").eq(1).fadeOut(1000);
+
+        });
+
+        $("#txtEmail").keyup(function () {
+            $("#msgEmail").hide();
+        });
+
+        //注册提交
+        $("#btnSubmit").click(function () {
+            var txtNickName = $("#txtNickName").val();
+            var txtEmail = $("#txtEmail").val();
+            var txtPassword1 = $("#txtPassword1").val();
+            var txtPassword2 = $("#txtPassword2").val();
+            var txtPhone = $("#txtPhone").val();
+            var txtTrueName = $("#txtTrueName").val();
+            var txtDeviceId = $("#txtDeviceId").val();
+            var txtCode = $("#txtCode").val();
+            var gender = $("input:radio[name='gender']:checked").val();
+
+
+            //验证需要填写的数据是否为空
+            if ( txtNickName == "" || txtEmail == "" || txtPhone == "" || txtTrueName == "" || txtDeviceId == "" || txtCode == "" || txtPassword1 == "" || txtPassword2 == "" ) {
+                show("警告", "请填写完整信息！");
+                return;
+            }
+
+            //邮箱格式验证
+            if (CheckEmail(txtEmail) != 1 || $("#txtIsEmailExist").val() == "1") {
+                //当前邮箱格式错过或者已经存在
+                show("警告", "邮箱格式错误或者已经存在！");
+                return;   
+            }
+
+            //验证两次密码输入是否一致
+            if (txtPassword1 != txtPassword2) {
+                show("警告", "两次密码输入不一致！");
+
+                $(this).next().find("span").eq(0).fadeOut(1000);
+                $(this).next().find("span").eq(2).fadeOut(1000);
+                $(this).next().find("span").eq(3).fadeIn(1000);
+
+                $("#msgPassword").show();
+                return;
+            }
+
+
+
+            $.post("/User/RegisterIn", { "nickname": txtNickName, "email": txtEmail,"password1":txtPassword1,"password2":txtPassword2 ,"phone": txtPhone, "truename": txtTrueName, "gender":gender , "deviceid": txtDeviceId, "code": txtCode }, function (rst) {
+                if (rst == "success") {
+                    show("注册成功", rst);
+                } else if (rst == "error2") {
+                    show("警告", "验证码错误");
+
+                } else {
+                    show("警告", "注册失败！");
+                }
+            });
+
+            //show("注册成功", "恭喜您，注册成功！");
+        });
+
+        //取消注册
+        $("#btnCancel").click(function () {
+            $(".form-control").val("");
+        });
+
+        function CheckEmail(email) {
+            var strReg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+
+            if (!strReg.test(email)) {
+                return -1;
+            }
+            return 1;
+        }
+
+
+        //验证联系电话的方式
+        function CheckPhone(phone) {
+            var phoneReg = /^(13+\d{9})|(147+\d{8})|(150+\d{8})|(151+\d{8})|(152+\d{8})|(153+\d{8})|(155+\d{8})|(156+\d{8})|(157+\d{8})|(158+\d{8})(159+\d{8})|(180+\d{8})|(182+\d{8})|(185+\d{8})|(186+\d{8})|(187+\d{8})|(188+\d{8})|(189+\d{8})$/;
+
+            if (!phoneReg.test(phone) || phone.length != 11) {
+                return -1;
+            }
+            return 1;
+        }
+
+
+        //点解修改验证码
+        $("#imgCode").click(function () {
+            var s = Math.random();
+            $(this).attr("src", "/Admin/CreateCode?type=register&s=" + s);
         });
 
     </script>

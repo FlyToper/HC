@@ -98,7 +98,9 @@ namespace 基于云的Web管理系统.Controllers
             {
                 //创建上下文
                 DBContext = new WebManagementDBEntities();
-                var user = DBContext.UserInfo.Where(u => u.Email == username && u.UserPwd == password && u.DelFlag == 0).FirstOrDefault();
+                string passmd5 = Basic.GetMD5(password);
+
+                var user = DBContext.UserInfo.Where(u => u.Email == username && u.UserPwd == passmd5 && u.DelFlag == 0 ).FirstOrDefault();
                 if (user == null)
                 {
                     return Content("error2");
@@ -126,9 +128,10 @@ namespace 基于云的Web管理系统.Controllers
                         return Content("error3");
                     }
                 }
-                
+
             }
-            catch {
+            catch
+            {
                 return RedirectToAction("_404");
             }
 
@@ -157,6 +160,8 @@ namespace 基于云的Web管理系统.Controllers
 
         public ActionResult Register()
         {
+            //ViewBag.Time = DateTime.Now;
+            ViewBag.Code = Basic.GetMD5("123");
             return View("Register2");
         }
 
@@ -616,5 +621,146 @@ namespace 基于云的Web管理系统.Controllers
         {
             return View();
         }
+
+        /// <summary>
+        ///  【检查邮箱是否存在】
+        ///  20170216
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult CheckEmail() {
+            try
+            {
+                string email = Request["email"];
+                DBContext = new WebManagementDBEntities();
+
+                var user = DBContext.UserInfo.Where(u => u.Email == email).FirstOrDefault();
+
+                if (user == null)
+                {
+                    return Content("success");
+                }
+                else
+                {
+                    return Content("error");
+                }
+
+               
+            }
+            catch 
+            {
+                return RedirectToAction("_404");//跳转404
+            }
+        }
+
+
+        /// <summary>
+        /// 【验证验证码】
+        ///  20170225
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="code"></param>
+        /// <returns></returns>
+        private bool CheckCode(string type, string code)
+        {
+            if (code == (string)Session["admin_" + type])
+                return true;
+            else
+                return false;
+
+        }
+       
+
+        /// <summary>
+        /// 【注册用户插入数据】
+        /// 20170225
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult RegisterIn() {
+            //try
+            //{
+                string nickname = Request["nickname"];//用户名字
+                string email = Request["email"];//邮箱
+                string password1 = Request["password1"];//密码1
+                string password2 = Request["password2"];//密码2
+                string phone = Request["phone"];//联系电话
+                string truename = Request["truename"];//真是姓名
+                string gender = Request["gender"];//性别
+                string deviceid = Request["deviceid"];//设备id
+                string code = Request["code"];//验证码
+
+                if (string.IsNullOrEmpty(nickname) || string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password1) || string.IsNullOrEmpty(password2) || string.IsNullOrEmpty(phone) || string.IsNullOrEmpty(truename) || string.IsNullOrEmpty(gender) || string.IsNullOrEmpty(deviceid) || string.IsNullOrEmpty(code)) { 
+                    //数据验证不正确
+                    return Content("error1");
+                }
+
+                string emailStr = @"([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,5})+";
+                
+
+                if (!Regex.IsMatch(email, emailStr))//邮箱格式不正确
+                {
+                    return Content("error4");
+                }
+
+                if (password1 != password2) {
+                    return Content("error3");//两次输入的密码不一致
+                }
+
+                if (this.CheckCode("register", code))
+                {
+                    DBContext = new WebManagementDBEntities();//创建数据上下文
+                    UserInfo user = new UserInfo();
+
+                    user.TrueName = truename;
+                    user.Email = email;
+                    user.UserPwd = Basic.GetMD5( password2);
+                    user.Phone = phone;
+                    user.NickName = nickname;
+                    user.Gender = gender;
+                    user.DeviceId = deviceid;
+                    user.RegisterCode = Basic.GetMD5(code);
+
+                    //设置默认数据
+                    user.State = "正常";//用户的状态
+                    user.SubDate = DateTime.Now;//当前时间
+                    user.DelFlag = 0;//还没删除
+                    user.IsRegister = 0;//表示还没完成注册 0-还没注册完成，1-注册完成
+
+                    DBContext.UserInfo.Attach(user);
+                    DBContext.Entry(user).State = System.Data.EntityState.Added;
+
+                    DBContext.SaveChanges();
+
+                    var user2 = DBContext.UserInfo.Where(u => u.Email == email).FirstOrDefault();
+                    int uid = (int)user2.Id;
+                    return Content("success");
+
+                    //服务器的邮箱----发送邮件
+                    //string serverEmail = ConfigurationManager.AppSettings["ServerEmailId"];
+                    //string serverEmailPwd = ConfigurationManager.AppSettings["ServerEmailPwd"];
+                    //string url = ConfigurationManager.AppSettings["WebUrl"] + "/Public/CheckRegisterCode?registerCode="+Basic.GetMD5(code)+"&uid="+uid;
+
+                    //string tiltle = "新用户注册";
+                    //string content = "尊敬的用户：欢迎注册本系统，通过邮箱验证完成注册，如果确认为本人操作，请点击如下链接完成注册<br/><a href='"+url+"' ></a>";
+
+                    //SendEmail myemail = new SendEmail(email, tiltle, content, serverEmail, serverEmailPwd);
+
+                    //myemail.sendEmail();//发送邮件
+
+                    
+                    
+                }
+                else 
+                {
+                    return Content("error2");//验证码不正确
+                }
+
+                
+            //}
+            //catch 
+            //{
+            //    return RedirectToAction("_404");//跳转404
+            //}
+        }
+
     }
 }
