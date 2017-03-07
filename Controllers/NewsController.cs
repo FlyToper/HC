@@ -63,7 +63,9 @@ namespace 基于云的Web管理系统.Controllers
                 {
                     Id = row.Id,
                     Title = row.Title,
-                    Remark = row.Remark
+                    //Remark = row.Remark
+                    Description = row.Description,
+                    ImgUrl = string.IsNullOrEmpty(row.ImageUrls)?"/MyContent/images/4.jpg":row.ImageUrls
                 };
                s.Add(hel);
             }

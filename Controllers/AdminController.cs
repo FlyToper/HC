@@ -188,9 +188,21 @@ namespace 基于云的Web管理系统.Controllers
                     var comments = DBContext.CommentInfo.Where(u => u.IsRead == 0).OrderByDescending(u => u.SubData);
 
                     //2.1 查询最新资讯距今的天数
-                    //var news = DBContext.HealthInfo.Where()
+                    var  news = DBContext.HealthInfo.Where(u => u.DelFlag == 0).OrderByDescending(u => u.SubDate).Take(1);
+
+                    TimeSpan ts = new TimeSpan();
+                    foreach (HealthInfo n in news)
+                    {   
+                        ts = (TimeSpan)(DateTime.Now - n.SubDate);
+                    }
+                    
+                    
+                    
+                    
+
 
                     ViewBag.Comment = comments;
+                    ViewBag.NewsDays = Convert.ToInt32(ts.TotalDays);
                     return View();
                 }
                 else

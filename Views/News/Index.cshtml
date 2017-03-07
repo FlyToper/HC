@@ -35,12 +35,12 @@
 
     <div style="overflow:auto;">
         <div class="main_content">
+           
             <!--【头部开始】-->
             <!--【头部结束】-->
             <!--【标题和描述展示开始】-->
             <div class="content_news_content">
-                
-
+               
 
                 <!--【普通的资讯】-->
                 <div class="news_list" id="news_list_table">
@@ -66,45 +66,8 @@
 
                 </div><!--普通资讯结束-->
 
-                <div class="news_list" id="news_list_table">
-
-
-                    <div class="news_list_item" style="overflow:auto">
-                        <div style="float:left;width:20%;margin-right:20px;">
-                            <img src="~/MyContent/images/4.jpg" width="100%" />
-                        </div>
-                        <div style="float:left;">
-                            <span class="news_list_title">
-                                <a href="javascript:void(0);">标题</a>
-                            </span>
-
-                            <br />
-                            <span class="news_list_description">--------------------</span> <span class="news_list_description">MI奥数123123</span>
-                        </div>
-                    </div>
-
-                    <hr>
-                    <div class="news_list_item" style="overflow:auto">
-                        <div style="float:left;width:20%;margin-right:20px;">
-                            <img src="~/MyContent/images/4.jpg" width="100%" />
-                        </div>
-                        <div style="float:left;">
-                            <span class="news_list_title">
-                                <a href="javascript:void(0);">标题</a>
-                            </span>
-
-                            <br />
-                            <span class="news_list_description">--------------------</span> <span class="news_list_description">MI奥数123123</span>
-                        </div>
-                    </div>
-
-                </div><!--普通资讯结束-->
-                @*<ul style="margin-left:30px;">
-                        <li>看“脸色”吃饭 5种面色的食疗调理</li>
-                        <li>每天吃盐少于一啤酒瓶盖 对降低高血压有明显作用</li>
-                        <li>每天吃盐少于一啤酒瓶盖 对降低高血压有明显作用</li>
-                        <li>每天吃盐少于一啤酒瓶盖 对降低高血压有明显作用</li>
-                    </ul>*@
+               
+                
             </div>
             <!--【标题和描述展示结束】-->
 
@@ -116,15 +79,17 @@
 
         <div class="hot_content">
             <!--【置顶项】-->
-            <h2>热门消息</h2>
+            
                 @foreach (var hotnews in ViewBag.HotNews)
 {
     <a href="/News/ShowDetail?Id=@hotnews.Id" target="_blank" style="color:inherit;">
         <div class="news_top">
-            <p style="font-size:25px;">@hotnews.Title</p>
-            <p class="word1">2月28</p>
-            <img src="~/MyContent/images/index-tiwen.jpg" width="100%" />
-            <p class="word1">对于很多人来时123按时间都好几年按实际回到家基本就吧2后半句</p>
+            <p style="font-size:25px;" class="top_title wrap-line" title="@hotnews.Title"><span class="glyphicon glyphicon-star hot-star"></span> @hotnews.Title</p>
+            <p class="word1 top_date">@hotnews.SubDate</p>
+
+   
+            <img src="@if( !string.IsNullOrEmpty( hotnews.ImageUrls)) {@hotnews.ImageUrls;}else{@Html.Raw("/MyContent/images/bg1.jpg")}" width="100%" />
+            <p class="word1 wrap-line" style="margin-top:4px;margin-bottom:4px;" title="@hotnews.Description">@hotnews.Description</p>
             <br>
             <p>查看全文</p>
         </div>
@@ -138,7 +103,9 @@
     @RenderPage("../Shared/Footer.cshtml")
    
     <!-------------------------------------底部内容结束-------------------------------------------------->
-
+    <div class="BackToTop">
+        <a href="#BackToTop" class="scroll">&nbsp;&nbsp;<span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span>&nbsp;<span class="BackToTopLabel">Top</span></a>
+    </div>
 
 
     <script src="~/MyContent/js/jquery-1.11.2.min.js"></script>
@@ -159,6 +126,11 @@
         function myHelpLink() {
             $("#btnHelp").click();
         }
+
+        $(".scroll").click(function (event) {
+            event.preventDefault();
+            $('html,body').animate({ scrollTop: $(this.hash).offset().top }, 1000);
+        });
     </script>
 </body>
 
