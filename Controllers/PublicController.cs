@@ -145,5 +145,61 @@ namespace 基于云的Web管理系统.Controllers
                 return Content("error");
             }
         }
+
+        /// <summary>
+        /// 【保存异步上传图片】
+        ///  20170309
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult SaveImage() {
+            try
+            {
+                if (Request.Files.Count > 0)
+                {
+                    //1、获取文件
+                    HttpPostedFileBase proImage = Request.Files["uploadImage"];//获取上传图片
+
+                    //2、判断大小
+                    if (proImage.ContentLength > 5 * 1024 * 1024) 
+                    {
+                        return Content("error1");
+                    }
+
+                    //3、截取图片类型 image/png
+                    string[] filetype = proImage.ContentType.Split('/');
+
+                    //4、判断图片类型
+                    if (filetype[1] == "jpg" || filetype[1] == "jpeg" || filetype[1] == "png" || filetype[1] == "gif")
+                    {
+                        //5、给上传文件重命名
+                        string filename = DateTime.Now.ToString("yyyyMMddHHmmssfff") + Guid.NewGuid().ToString();
+
+                        //6、文件保存路径
+                        string serverpath = "/Uploadfile/AjaxFiles/"+filename+"."+filetype[1];
+                        string filepath = Server.MapPath("~" + serverpath );
+
+                        //7、保存图片
+                        proImage.SaveAs(filepath);
+
+                        return Content(serverpath);
+                    }
+                    else
+                    {
+                        return Content("error2");
+                    }
+                    
+                }
+                else
+                {
+                    //图片数目小于0
+                    return Content("error2");
+                }
+            }
+            catch
+            {
+                //上传失败
+                return Content("error2");
+            }
+        }
     }
 }

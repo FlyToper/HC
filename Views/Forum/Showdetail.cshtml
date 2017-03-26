@@ -102,7 +102,7 @@
                 </div><!--【内容】-->
                 <div class="row" style="margin: 0px; margin-bottom:0px; border-top-style: solid; border-width: 1px; border-color: #A9CBEE;background-color:#eff4fb ; ">
                     <div class="col-md-7">回复次数： <span id="AnwserNum">@ViewBag.ForumInfo.FloorCount</span> </div>
-                    <div class="col-md-5" style="text-align:right;"><a href="javascript:void(0);" onclick="CountUsefulAndUseless(1,1,@ViewBag.ForumInfo.Id)">对我有用[<span id="usefulCount_@ViewBag.ForumInfo.Id">@ViewBag.ForumInfo.UsefulCount</span>]</a> <a href="javascript:void(0);" onclick="CountUsefulAndUseless(1,2,@ViewBag.ForumInfo.Id)">对我有用[<span id="uselessCount_@ViewBag.ForumInfo.Id">@ViewBag.ForumInfo.UselessCount</span>]</a>  举报</div>
+                    <div class="col-md-5" style="text-align:right;"><a href="javascript:void(0);" onclick="CountUsefulAndUseless(1,1,@ViewBag.ForumInfo.Id)">对我有用[<span id="usefulCount_@ViewBag.ForumInfo.Id">@ViewBag.ForumInfo.UsefulCount</span>]</a> <a href="javascript:void(0);" onclick="CountUsefulAndUseless(1,2,@ViewBag.ForumInfo.Id)">丢个板砖[<span id="uselessCount_@ViewBag.ForumInfo.Id">@ViewBag.ForumInfo.UselessCount</span>]</a>  举报</div>
                 </div><!--【底部】-->
             </div>
         </div><!--【楼主层结束】-->
@@ -136,7 +136,7 @@
                     </div><!--【内容】-->
                     <div class="row" style="margin: 0px; margin-bottom:0px; border-top-style: solid; border-width: 1px; border-color: #A9CBEE;background-color:#eff4fb ; ">
                         @*<div class="col-md-7">回复次数： <span id="AnwserNum">5</span> </div>*@
-                        <div class="col-md-12" style="text-align:right;"><a href="javascript:void(0);" onclick="CountUsefulAndUseless(2,1,@answerInfo.Id)">对我有用[<span id="Answer_usefulCount_@answerInfo.Id">@answerInfo.UsefulCount</span>]</a> <a href="javascript:void(0);" onclick="CountUsefulAndUseless(2,2,@answerInfo.Id)">对我有用[<span id="Answer_uselessCount_@answerInfo.Id">@answerInfo.UselessCount</span>]</a>  举报</div>
+                        <div class="col-md-12" style="text-align:right;"><a href="javascript:void(0);" onclick="CountUsefulAndUseless(2,1,@answerInfo.Id)">对我有用[<span id="Answer_usefulCount_@answerInfo.Id">@answerInfo.UsefulCount</span>]</a> <a href="javascript:void(0);" onclick="CountUsefulAndUseless(2,2,@answerInfo.Id)">丢个板砖[<span id="Answer_uselessCount_@answerInfo.Id">@answerInfo.UselessCount</span>]</a>  举报</div>
                     </div><!--【底部】-->
                 </div>
             </div><!--【回复结束】-->

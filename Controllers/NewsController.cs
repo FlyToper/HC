@@ -29,7 +29,7 @@ namespace 基于云的Web管理系统.Controllers
             {
                 ViewBag.HotNews = hotNews;
             }
-            var newsInfo = DBContext.HealthInfo.Where(u => u.DelFlag == 0 && u.IsHot == 0).Take(10);
+            var newsInfo = DBContext.HealthInfo.Where(u => u.DelFlag == 0 && u.IsHot == 0).OrderByDescending(u=> u.SubDate).Take(10);
             if (newsInfo != null)
             {
                 ViewBag.NewsInfo = newsInfo;
@@ -53,7 +53,7 @@ namespace 基于云的Web管理系统.Controllers
             //获取相关数据的总数
             int total = DBContext.HealthInfo.Where(u=>u.DelFlag == 0 && u.IsHot == 0).Count();
             //获取数据
-            var list = DBContext.HealthInfo.Where(u => u.DelFlag == 0 && u.IsHot == 0).OrderBy(u=>u.SubDate).Skip(pageSize * (pageIndex - 1)).Take(pageSize);
+            var list = DBContext.HealthInfo.Where(u => u.DelFlag == 0 && u.IsHot == 0).OrderByDescending(u=>u.SubDate).Skip(pageSize * (pageIndex - 1)).Take(pageSize);
             
             //要来做数据处理的新数组
             ArrayList s = new ArrayList();

@@ -223,9 +223,9 @@ namespace 基于云的Web管理系统.Controllers
         public ActionResult GetDataPoint(string sensor) 
         {
             //【①】
-            var client = new WebClient();
-            client.Headers.Add("U-Apikey", Apikey);
-            string url = string.Format("http://api.yeelink.net/v1.1/device/{0}/sensor/{1}/datapoints", DeviceId, sensorsId[sensor]);
+            var client = new WebClient();//创建对象
+            client.Headers.Add("U-Apikey", Apikey);//这里的Apikey即系Userkey
+            string url = string.Format("http://api.yeelink.net/v1.1/device/{0}/sensor/{1}/datapoints", DeviceId, sensorsId[sensor]);//DeviceId为设备Id、sensorsId为传感器Id
             string content = client.DownloadString(url);
 
 

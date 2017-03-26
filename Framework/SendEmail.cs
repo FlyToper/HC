@@ -41,21 +41,22 @@ namespace 基于云的Web管理系统.Framework
         {
             try
             {
-                MailAddress from = new MailAddress(FormUser);
-                MailAddress to = new MailAddress(tomail);
-                MailMessage MyMessage = new MailMessage(from, to);
-                MyMessage.Priority = MailPriority.Normal;
+                MailAddress from = new MailAddress(FormUser);//发件人邮箱
+                MailAddress to = new MailAddress(tomail);//接收人邮箱
+                MailMessage MyMessage = new MailMessage(from, to);//创建邮件对象
+                MyMessage.Priority = MailPriority.Normal;//邮件优先级
 
-                MyMessage.IsBodyHtml = true;
+                MyMessage.IsBodyHtml = true;//设置邮件正文为Html格式
                 MyMessage.Body = content +code;//发送邮件正文和验证码
                 MyMessage.BodyEncoding = System.Text.Encoding.UTF8;
-                MyMessage.Subject = title;
+                MyMessage.Subject = title;//邮件标题
 
-                string SmtpServer = "SMTP.163.com";
-                SmtpClient client = new SmtpClient(SmtpServer);
-                System.Net.NetworkCredential cred = new System.Net.NetworkCredential(FormUser, userPwd);
+                string SmtpServer = "SMTP.163.com";//指定服务器
+
+                SmtpClient client = new SmtpClient(SmtpServer);//设置发送
+                System.Net.NetworkCredential cred = new System.Net.NetworkCredential(FormUser, userPwd);//设置系统邮箱和密码
                 client.Credentials = cred;
-                client.Send(MyMessage);
+                client.Send(MyMessage);//发送
 
             }
             catch 

@@ -78,7 +78,7 @@ namespace 基于云的Web管理系统.Controllers
             int total = DBContext.ForumInfo.Where(f => f.ForumType == type).Count();
 
             //获取相关分页数据
-            var forumInfo = DBContext.ForumInfo.Where(f => f.ForumType == type && f.DelFlag == 0).OrderBy(f => f.SubDate).Skip(pageSize * (pageIndex - 1)).Take(pageSize);
+            var forumInfo = DBContext.ForumInfo.Where(f => f.ForumType == type && f.DelFlag == 0).OrderByDescending(f => f.SubDate).Skip(pageSize * (pageIndex - 1)).Take(pageSize);
 
             //要来处理数据的新数组
             ArrayList list = new ArrayList();

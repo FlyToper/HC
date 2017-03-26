@@ -128,7 +128,7 @@
                 <p style="margin:10px;font-size:20px;">【热门帖子】</p>
                 <ol>
                     @foreach (var forumInfo in ViewBag.ForumInfo) { 
-                    <li style="margin:10px;font-size:20px;"><a href="/Forum/ShowDetail?Id=@forumInfo.Id" target="_blank">@forumInfo.Title</a><span style="float:right"><a href="#">@forumInfo.ForumName</a></span></li>
+                    <hr><li style="margin:10px;font-size:20px;"><a href="/Forum/ShowDetail?Id=@forumInfo.Id" target="_blank">@forumInfo.Title</a><span style="float:right"><a href="#">@forumInfo.ForumName</a></span></li>
                     }
                     
                 </ol> 

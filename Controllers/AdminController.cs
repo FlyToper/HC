@@ -150,8 +150,8 @@ namespace 基于云的Web管理系统.Controllers
             if (Session["AdminUser"] == null)
                 return Content("error");
             else {
-                Session.Remove("AdminUser");
-                Session.Remove("AdminNum");
+                Session.Remove("AdminUser");//用户名
+                Session.Remove("AdminNum");//用户邮箱
                 return Content("success");
             }
         }
@@ -196,10 +196,13 @@ namespace 基于云的Web管理系统.Controllers
                         ts = (TimeSpan)(DateTime.Now - n.SubDate);
                     }
                     
-                    
-                    
-                    
+                    //2.2 查询医生认证的人数
 
+                    //2.3 查询待审阅的建议条数
+                    ViewBag.Coment_Count = DBContext.CommentInfo.Where(u => u.IsRead == 0).Count();
+                   
+
+                   
 
                     ViewBag.Comment = comments;
                     ViewBag.NewsDays = Convert.ToInt32(ts.TotalDays);
@@ -216,6 +219,11 @@ namespace 基于云的Web管理系统.Controllers
             //}
         }
 
+        /// <summary>
+        /// 【修改建议的状态--已读】
+        ///  20170228
+        /// </summary>
+        /// <returns>成功与否标识</returns>
         public ActionResult CheckCommentStatus() 
         {
             try
@@ -259,5 +267,107 @@ namespace 基于云的Web管理系统.Controllers
                 return Content("error");
             }
         }
+
+        /// <summary>
+        /// 【发布新闻的视图】
+        ///  20170308
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult News() {
+            if (IsLogin())
+            {
+
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login", new { referenUrl = "/Admin/News" });
+            }
+        }
+
+        /// <summary>
+        /// 【保存新闻】
+        ///  20170309
+        /// </summary>
+        /// <returns></returns>
+        [ValidateInput(false)]
+        public ActionResult SaveNews()
+        {
+            //try
+            //{
+                if(!IsLogin())
+                {
+                    return Content("error2");//请先登录
+                }
+
+                //1、获取参数
+                string title = Request["title"];//标题
+                string description = Request["description"];//描述
+                string from = Request["from"];//来源
+                string image = Request["image"];//封面地址
+                string content = Request["content"];//主题内容
+
+                //2、判断是否为空
+                if (string.IsNullOrEmpty(title) || string.IsNullOrEmpty(description) || string.IsNullOrEmpty(from) || string.IsNullOrEmpty(image) || string.IsNullOrEmpty(content)) {
+                    return Content("error-3");
+                }
+
+                //3、创建上下文
+                DBContext = new WebManagementDBEntities();
+                HealthInfo hi = new HealthInfo();
+                
+                //4、数据填充
+                hi.Title = title;
+                hi.Description = description;
+                hi.Content = content;
+                hi.IsHot = 0;
+                hi.ImageUrls = image;
+                hi.SubDate = DateTime.Now;
+                hi.SubNum = Session["AdminNum"].ToString();
+                hi.SubName = Session["AdminUser"].ToString();
+                hi.DelFlag = 0;
+                hi.Remark = "发表时间： " + DateTime.Now + "来源：" + from;
+
+                DBContext.HealthInfo.Attach(hi);
+                DBContext.Entry(hi).State = System.Data.EntityState.Added;
+
+                if (DBContext.SaveChanges() > 0)//执行保存
+                {
+                    var model = DBContext.HealthInfo.Where(u => u.Title == title).FirstOrDefault();
+                    if (model != null)
+                    {
+                        AdminExecute.Insert(Session["AdminNum"].ToString(), Session["AdminUser"].ToString(), "发布新资讯，id为：【" + model.Id + "】");
+                        return Content("success");
+                    }
+                }
+                return Content("error-2");//保存失败
+
+
+                
+            //}
+            //catch
+            //{
+            //    return Content("error-1");
+            //}
+        }
+
+
+        /// <summary>
+        /// 【查看新闻资讯】
+        ///  20170309
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult NewsRecord() 
+        {
+            if (IsLogin())
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login", new { referenUrl = "/Admin/NewsRecord" });
+            }
+        }
+
     }
 }

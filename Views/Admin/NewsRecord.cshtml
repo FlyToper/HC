@@ -13,32 +13,31 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <style type="text/css">
-
     </style>
     <title>管理后台</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="MyContent/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/MyContent/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="MyContent/css/dashboard.css" rel="stylesheet">
+    <link href="/MyContent/css/dashboard.css" rel="stylesheet">
 
-    <link href="MyContent/css/admin.css" rel="stylesheet">
-    <script src="MyContent/css/ie-emulation-modes-warning.js"></script>
+    <link href="/MyContent/css/admin.css" rel="stylesheet">
+    <script src="/MyContent/css/ie-emulation-modes-warning.js"></script>
     <style type="text/css">
         .number {
-            font-size:60px;
+            font-size: 60px;
         }
+
         .number1 {
-            color:red;
+            color: red;
         }
 
         .number2 {
-            color:green;
+            color: green;
         }
-
     </style>
-    
+
 </head>
 
 <body>
@@ -58,7 +57,7 @@
                     <li><a href="javascript:void(0);">@Session["AdminUser"].ToString()</a></li>
                     <li><a href="javascript:void(0);">|</a></li>
                     <li><a href="javascript:void(0);" onclick="exit()">退出</a></li>
-                    
+
                 </ul>
 
             </div>
@@ -69,9 +68,9 @@
         <div class="row">
             <div class="col-sm-3 col-md-2 sidebar">
                 <ul class="nav nav-sidebar">
-                    <li class="active"><a href="javascript:void(0);">我的记事板</a></li>
+                    <li ><a href="/Admin">我的记事板</a></li>
                     <li><a href="/Admin/News">发布健康资讯</a></li>
-                    <li><a href="/Admin/NewsRecord">资讯纪录</a></li>
+                    <li class="active"><a href="avascript:void(0);">资讯纪录</a></li>
                     <li><a href="/Admin/Index/showNotice">发布公告</a></li>
                     <li><a href="/Admin/Index/showNews">发布新闻资讯</a></li>
                     <li><a href="/Admin/Index/showRecords">公告&新闻历史记录</a></li>
@@ -81,53 +80,8 @@
 
             <!-- content 开始 -->
             <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                <h1 class="page-header">我的记事板</h1>
+                <h1 class="page-header">已发布资讯</h1>
 
-                <div class="row placeholders">
-                    <div class="col-xs-6 col-sm-3 placeholder">
-                        <a href="/Admin/Index/showOrder" style="text-decoration:none;">
-                            <div class="myboard2">
-                                <span class="number">@ViewBag.NewsDays</span> 天
-                            </div>
-                        </a>
-                        <br>
-                        <h4>最新资讯距今的天数</h4>
-                        <span class="text-muted"></span>
-                    </div>
-                    <div class="col-xs-6 col-sm-3 placeholder">
-                        <a href="/Admin/Index/showWZ" style="text-decoration:none;">
-                            <div class="myboard2">
-                                <span class="number">0</span> 个
-                            </div>
-                        </a>
-                        <br>
-                        <h4>待审核医生认证</h4>
-                        <span class="text-muted"></span>
-                    </div>
-                    <div class="col-xs-6 col-sm-3 placeholder">
-                        <a href="/Admin/Index/showNotice" style="text-decoration:none;">
-                            <div class="myboard2">
-                                <span class="number" >@ViewBag.Coment_Count</span> 条
-                            </div>
-                        </a>
-                        <br>
-                        <h4>待审阅的建议</h4>
-                        <span class="text-muted"></span>
-                    </div>
-                    <div class="col-xs-6 col-sm-3 placeholder">
-                        <a href="/Admin/Index/showNews" style="text-decoration:none;">
-                            <div class=" myboard2">
-                                <span class="number" >0</span> 天
-                            </div>
-                        </a>
-                        <br>
-                        <h4>最新资讯距今的天数</h4>
-                        <span class="text-muted"></span>
-                    </div>
-                </div>
-
-                <br> <br>
-                <h2 class="sub-header"><span class="glyphicon glyphicon-star" style="color:darkslateblue"></span> 用户建议（待处理）</h2>
                 <div class="table-responsive" style="text-align: center;">
                     <table class="table table-striped">
                         <tbody>
@@ -141,18 +95,19 @@
                             <tr>
                                 <td colspan="6"></td>
                             </tr>
-                           @foreach (var comment in ViewBag.Comment) { 
-                               <tr>
-                                <td>@k</td>
-                                <td>@comment.Contact</td>
-                                <td>@comment.Content</td>
-                                <td>@comment.SubData</td>
-                                <td><button class="btn btn-info btn-isRead" key-id="@comment.Id" >已读</button></td>
-                            </tr> 
-                               k++;
-                           }
-                            
-                            
+                            @for(int i= 0; i< 10;i ++)
+                            {
+                                <tr>
+                                    <td>k</td>
+                                    <td>comment.Contact</td>
+                                    <td>comment.Content</td>
+                                    <td>comment.SubData</td>
+                                    <td><button class="btn btn-info btn-isRead" key-id="comment.Id">已读</button></td>
+                                </tr>
+                                
+                            }
+
+
                         </tbody>
                     </table>
                     @*<button id="btnTest">测试</button>*@
@@ -160,10 +115,9 @@
 
 
                 </div>
-                <!-- content 结束-->
-                <div class="well">
-                    带 <span class="glyphicon glyphicon-eye-close"></span> 表示暂无详情，带 <span class="glyphicon glyphicon-eye-open"></span> 表示有详情内容。线下处理完成的可以点击  “处理” 按钮即可。
-                </div>
+               
+
+                
             </div>
 
 
@@ -187,7 +141,7 @@
                     <button type="button" class="close" data-dismiss="modal">
                         <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
                     </button>
-                    <h4 class="modal-title" id="showTitle"> 
+                    <h4 class="modal-title" id="showTitle">
                         来自网页的提示
                     </h4>
                 </div>
@@ -203,17 +157,17 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="MyContent/js/jquery-2.1.1.min.js"></script>
-    <script src="MyContent/js/bootstrap.min.js"></script>
-    <script src="MyContent/js/docs.min.js"></script>
+    <script src="/MyContent/js/jquery-2.1.1.min.js"></script>
+    <script src="/MyContent/js/bootstrap.min.js"></script>
+    <script src="/MyContent/js/docs.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="MyContent/js/ie10-viewport-bug-workaround.js"></script>
-    <script src="MyContent/js/public.js"></script>
+    <script src="/MyContent/js/ie10-viewport-bug-workaround.js"></script>
+    <script src="/MyContent/js/public.js"></script>
     <script type="text/javascript">
-        $(function() {
+        $(function () {
             $(".number").each(function () {
                 //alert($(this).html());
-                
+
                 if ($(this).html() <= 10) {
                     if ($(this).html() < 0) {
                         $(this).html("0");
@@ -239,7 +193,7 @@
             });
         });
 
-       
+
 
         $("#btnTest").click(function () {
             show("警告", "点击了");

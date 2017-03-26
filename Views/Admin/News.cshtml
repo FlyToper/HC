@@ -1,0 +1,316 @@
+﻿@{
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+   
+    <style type="text/css">
+    </style>
+    <title>管理后台</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/MyContent/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="/MyContent/css/dashboard.css" rel="stylesheet">
+
+    <link href="/MyContent/css/admin.css" rel="stylesheet">
+   
+    <script src="/MyContent/css/ie-emulation-modes-warning.js"></script>
+    <style type="text/css">
+        body {
+            background-color:white;
+        }
+        .edit-main {
+            /*border:1px solid red;*/
+            overflow:auto;
+        }
+
+        .edit-left {
+            float:left;
+            width:60%;
+        }
+            .edit-left fieldset {
+                background-color:white;
+            }
+            
+        .edit-right {
+            float: left;
+            width: 37%;
+            margin-left:3%;
+            
+        }
+
+
+        .news_top {
+            border: 1px solid white;
+            padding:2%;
+            background-color:white;
+        }
+
+        .word1, word2 {
+            color:gray;
+        }
+
+        .ok {
+            margin-left:10px;
+            font-size:30px;
+            color:green;
+            vertical-align:middle;
+            display:none;
+        }
+
+        .input-group-addon {
+            background-color: #99ccff;
+            font:bold;
+            color:white;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed"
+                        data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+                        aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="javascript:void(0);">个人健康信息管理平台</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="javascript:void(0);">@Session["AdminUser"].ToString()</a></li>
+                    <li><a href="javascript:void(0);">|</a></li>
+                    <li><a href="javascript:void(0);" onclick="exit()">退出</a></li>
+
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-3 col-md-2 sidebar">
+                <ul class="nav nav-sidebar">
+                    <li><a href="/Admin"><span class="glyphicon glyphicon-list-alt"></span> 我的记事板</a></li>
+                    <li class="active">
+                        <a href="javascript:void(0);">发布健康资讯</a>
+                       
+                    </li>
+                    <li><a href="/Admin/NewsRecord">资讯纪录</a></li>
+                    <li><a href="/Admin/Index/showNotice">发布公告</a></li>
+                    <li><a href="/Admin/Index/showNews">发布新闻资讯</a></li>
+                    <li><a href="/Admin/Index/showRecords">公告&新闻历史记录</a></li>
+                </ul>
+
+            </div>
+
+            
+               
+            <!-- content 开始 -->
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                <h1 class="page-header">发布健康资讯</h1>
+
+                <div class="well">
+                    <p>健康资讯，一般发布最近关于健康话题、养生或者医疗最新发展等一些资讯。</p>
+
+                    
+
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="home"></div>
+                        <div role="tabpanel" class="tab-pane" id="profile"><img src="{$Think.const.IMG_URL}showNews1.png" width="100%"></div>
+                        <div role="tabpanel" class="tab-pane" id="messages"><img src="{$Think.const.IMG_URL}showNotice2.png" width="100%"></div>
+                        <div role="tabpanel" class="tab-pane" id="settings">
+                            <img src="{$Think.const.IMG_URL}showNotice3-1.png" width="100%"><br>
+                            <img src="{$Think.const.IMG_URL}showNotice3-2.png" width="100%">
+                        </div>
+                    </div>
+
+
+                </div>
+
+
+                <br>
+                <h3 style="text-align: center;">开始编辑</h3>
+
+               
+                <fieldset style="border: 1px solid #99ccff; border-radius: 6px;">
+                    <legend>请输入内容</legend>
+                    <div class="edit-main">
+                        <div class="edit-left">
+                            <div class="input-group input-group-lg">
+                                <span class="input-group-addon">资讯&nbsp;标题&nbsp;</span>
+                                <input type="text" class="form-control " placeholder="Title"
+                                        id="txtTitle">
+                            </div>
+                            <br>
+                            <div class="input-group input-group-lg">
+                                <span class="input-group-addon" >简单&nbsp;描述&nbsp;</span>
+                                <input type="text" class="form-control" placeholder="Description"
+                                        id="txtDescription">
+                            </div>
+                            <br>
+                            <div class="input-group input-group-lg">
+                                <span class="input-group-addon">来源(作者)</span>
+                                <input type="text" class="form-control " placeholder="From"
+                                        id="txtFrom" value="管理员">
+                            </div>
+                            <br>
+
+                            <div class="input-group input-group-lg">
+                                @*<span class="input-group-addon"
+                                      style="background-color: #ECF4FA; font-weight: bold;">设置封面</span>*@
+                                <button title="点击选择图片上传，设置为封面图片" class="btn-lg btn-info" onclick="setImage()">设置封面图片</button> <span class="glyphicon glyphicon-ok-sign ok"></span>
+                                
+                                <input type="file" alt="上传封面图片" class="" placeholder="From" id="uploadImage" onchange="ajaxFileupload()" name="uploadImage"  style="display:none;">
+                                <input type="hidden" id="txtImage" />
+                            </div>
+                            <br>
+
+                            <div>
+                                <textarea rows="30" cols="50" class="ckeditor" id="t1">
+                                    <span style="font-size: 30px">请在此输入<span style="color: red"> 正文 </span></span>
+                                </textarea>
+                            </div>
+
+                            <br> <br>
+
+                            <div style="text-align:center;">
+                                <button type="button" class="btn-lg btn-warning" style="width:20%;" onclick="submit()">
+                                    提交
+                                </button>
+                            </div>
+                        
+                        </div>
+                        <!--------------------【左右分界线】-------------------------->
+                        <div class="edit-right">
+                            <div class="news_top">
+                                <p style="font-size:25px;" class="top_title wrap-line" title="hotnews.Title"><span class="glyphicon glyphicon-star hot-star"></span> 标题</p>
+                                <p class="word1 top_date">hotnews.SubDate</p>
+
+
+                               
+                                <img src="~/MyContent/images/2.jpg" width="100%" class="top_image" />
+                                <p class="word1 wrap-line top_description" style="margin-top:4px;margin-bottom:4px;" title="hotnews.Description">描述</p>
+                                <br>
+                                <p>查看全文</p>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+    
+                <br> <br> <br> <br> <br> <br>
+
+
+
+                <!--
+        <video width="320" height="240" controls="controls">
+          <source src="http://www.w3school.com.cn/i/movie.ogg" type="video/ogg">
+
+        Your browser does not support the video tag.
+        </video>-->
+
+
+            </div>
+            <!-- content 结束-->
+
+
+
+        </div>
+    </div>
+
+    <!-- 【模态框开始】 -->
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary btn-lg"
+            data-toggle="modal" data-target="#myModal" style="display: none;" id="btnShow">
+        Launch demo modal
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                    </button>
+                    <h4 class="modal-title" id="showTitle">
+                        来自网页的提示
+                    </h4>
+                </div>
+                <div class="modal-body" id="showContent">请输入正确的姓名！</div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-warning" data-dismiss="modal">关闭</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 【模态框结束】 -->
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="/MyContent/js/jquery-2.1.1.min.js"></script>
+    <script src="/MyContent/js/bootstrap.min.js"></script>
+    <script src="/MyContent/js/docs.min.js"></script>
+
+    <script type="text/javascript" src="/MyContent/ckeditor/ckeditor.js"></script>
+    <script src="/MyContent/js/public.js"></script>
+    <script src="~/MyContent/js/ajaxfileupload.js"></script>
+    <script src="~/MyContent/js/publicNews.js"></script>
+   
+    <script type="text/javascript">
+        $(function () {
+            var mydate = new Date();
+            $(".top_date").html(mydate.toLocaleString());
+
+            $(".number").each(function () {
+                //alert($(this).html());
+
+                if ($(this).html() <= 10) {
+                    if ($(this).html() < 0) {
+                        $(this).html("0");
+                    }
+                    $(this).removeClass("number1");//红色
+                    $(this).addClass("number2");//绿色
+                } else {
+                    $(this).removeClass("number2");//红色
+                    $(this).addClass("number1");//绿色
+                }
+            });
+        });
+
+        $(".btn-isRead").click(function () {
+            var element = $(this);
+            var id = $(this).attr("key-id");
+            $.post("/Admin/CheckCommentStatus", { "id": id }, function (rst) {
+                if (rst == "success") {
+                    element.parent().parent().remove();
+                } else {
+                    show("警告", "操作失败,请重试！");
+                }
+            });
+        });
+
+
+
+        $("#btnTest").click(function () {
+            show("警告", "点击了");
+        });
+    </script>
+</body>
+</html>

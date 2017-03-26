@@ -17,7 +17,8 @@
     margin-left:10px;
     margin-right:10px;
 
-    background-color:#eFFFFF;
+    /*background-color:#eFFFFF;*/
+    background-color:white;
 }
 
 /**************【论坛类型最外边的边框】*******************/
@@ -25,6 +26,10 @@
    margin-top:5px;
    margin-left:1%;
    margin-right:1%;
+
+   border:3px solid #cccccc;
+   border-radius:6px;
+   padding:0 1.3%;
 }
 
 
@@ -45,7 +50,10 @@
     /*margin:5px;*/
 
     /*background-color:#CCFFCC;*/
-    background-color:#eFFFFF;
+
+    /*20170311修改*/
+    /*background-color:#eFFFFF;*/
+    background-color:white;
     
 }
 
@@ -81,17 +89,27 @@
     border-style:solid;
     border-width:3px;
     border-radius:6px;
-
+    border-color:#f9f7f6;
     /*height:1000px;*/
     margin:10px;
+    background-color:white;
 }
+.new_recommend_content_left li {
+    display:block;
+    line-height:100%;
+    padding:1%;
+}
+.new_recommend_content_left li:hover {
+    background-color:#f9f7f6;
+}
+
 
     /**************【最新发布和推荐的内容 的左边边框】*******************/
     .new_recommend_content .new_recommend_content_left {
-        border-style:solid;
+        /*border-style:solid;
         border-width:3px;
         border-radius:6px;
-        border-color:#66CCFF;
+        border-color:#66CCFF;*/
 
         height:100%;
 
