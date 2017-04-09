@@ -2,6 +2,8 @@
  * 共用js
  */
 
+
+
 function hasDo(id){
 			$.post("/Admin/Score/dealWith", { "id":id}, function(rst){
 				if(rst == "success"){

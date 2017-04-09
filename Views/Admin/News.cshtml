@@ -14,17 +14,19 @@
    
     <style type="text/css">
     </style>
-    <title>管理后台</title>
+    <title>发布资讯</title>
 
     <!-- Bootstrap core CSS -->
+    
     <link href="/MyContent/css/bootstrap.min.css" rel="stylesheet">
-
+    <link href="~/MyContent/css/metisMenu.min.css" rel="stylesheet" />
     <!-- Custom styles for this template -->
     <link href="/MyContent/css/dashboard.css" rel="stylesheet">
-
-    <link href="/MyContent/css/admin.css" rel="stylesheet">
    
-    <script src="/MyContent/css/ie-emulation-modes-warning.js"></script>
+    <link href="/MyContent/css/admin.css" rel="stylesheet">
+
+    <link href="~/MyContent/css/sidebar-demo.css" rel="stylesheet" />
+    
     <style type="text/css">
         body {
             background-color:white;
@@ -78,51 +80,24 @@
 
 <body>
 
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed"
-                        data-toggle="collapse" data-target="#navbar" aria-expanded="false"
-                        aria-controls="navbar">
-                    <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="javascript:void(0);">个人健康信息管理平台</a>
-            </div>
-            <div id="navbar" class="navbar-collapse collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="javascript:void(0);">@Session["AdminUser"].ToString()</a></li>
-                    <li><a href="javascript:void(0);">|</a></li>
-                    <li><a href="javascript:void(0);" onclick="exit()">退出</a></li>
-
-                </ul>
-
-            </div>
-        </div>
-    </nav>
+    @RenderPage("../Shared/Navbar.cshtml")
 
     <div class="container-fluid">
         <div class="row">
-            <div class="col-sm-3 col-md-2 sidebar">
-                <ul class="nav nav-sidebar">
-                    <li><a href="/Admin"><span class="glyphicon glyphicon-list-alt"></span> 我的记事板</a></li>
-                    <li class="active">
-                        <a href="javascript:void(0);">发布健康资讯</a>
-                       
-                    </li>
-                    <li><a href="/Admin/NewsRecord">资讯纪录</a></li>
-                    <li><a href="/Admin/Index/showNotice">发布公告</a></li>
-                    <li><a href="/Admin/Index/showNews">发布新闻资讯</a></li>
-                    <li><a href="/Admin/Index/showRecords">公告&新闻历史记录</a></li>
-                </ul>
+           
+           @RenderPage("../Shared/SideBar.cshtml")
 
-            </div>
-
-            
+           
                
             <!-- content 开始 -->
             <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                <h1 class="page-header">发布健康资讯</h1>
 
+                <h1 class="page-header">发布健康资讯</h1>
+                <ol class="breadcrumb">
+                    <li><a href="#">管理后台</a></li>
+                    <li><a href="#">资讯管理</a></li>
+                    <li class="active">发布资讯</li>
+                </ol>
                 <div class="well">
                     <p>健康资讯，一般发布最近关于健康话题、养生或者医疗最新发展等一些资讯。</p>
 
@@ -141,7 +116,7 @@
 
 
                 </div>
-
+               
 
                 <br>
                 <h3 style="text-align: center;">开始编辑</h3>
@@ -215,15 +190,6 @@
                 <br> <br> <br> <br> <br> <br>
 
 
-
-                <!--
-        <video width="320" height="240" controls="controls">
-          <source src="http://www.w3school.com.cn/i/movie.ogg" type="video/ogg">
-
-        Your browser does not support the video tag.
-        </video>-->
-
-
             </div>
             <!-- content 结束-->
 
@@ -232,35 +198,7 @@
         </div>
     </div>
 
-    <!-- 【模态框开始】 -->
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary btn-lg"
-            data-toggle="modal" data-target="#myModal" style="display: none;" id="btnShow">
-        Launch demo modal
-    </button>
-
-    <!-- Modal -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
-         aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">
-                        <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
-                    </button>
-                    <h4 class="modal-title" id="showTitle">
-                        来自网页的提示
-                    </h4>
-                </div>
-                <div class="modal-body" id="showContent">请输入正确的姓名！</div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-warning" data-dismiss="modal">关闭</button>
-
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- 【模态框结束】 -->
+   
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
@@ -272,26 +210,15 @@
     <script src="/MyContent/js/public.js"></script>
     <script src="~/MyContent/js/ajaxfileupload.js"></script>
     <script src="~/MyContent/js/publicNews.js"></script>
+    <script src="~/MyContent/js/metisMenu.min.js"></script>
    
     <script type="text/javascript">
         $(function () {
-            var mydate = new Date();
-            $(".top_date").html(mydate.toLocaleString());
+            $('#menu').metisMenu();
+            //$("#menu").find("li").eq(1).addClass("active");
+            $("#menu").find("li").eq(1).find("a").click();
 
-            $(".number").each(function () {
-                //alert($(this).html());
-
-                if ($(this).html() <= 10) {
-                    if ($(this).html() < 0) {
-                        $(this).html("0");
-                    }
-                    $(this).removeClass("number1");//红色
-                    $(this).addClass("number2");//绿色
-                } else {
-                    $(this).removeClass("number2");//红色
-                    $(this).addClass("number1");//绿色
-                }
-            });
+            
         });
 
         $(".btn-isRead").click(function () {

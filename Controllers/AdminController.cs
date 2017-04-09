@@ -178,8 +178,8 @@ namespace 基于云的Web管理系统.Controllers
         /// </summary>
         /// <returns></returns>
         public ActionResult Index() {
-            //try
-            //{
+            try
+            {
                 if (IsLogin())
                 {
                     DBContext = new WebManagementDBEntities();
@@ -212,11 +212,11 @@ namespace 基于云的Web管理系统.Controllers
                 {
                     return RedirectToAction("Login",new { referenUrl = "/Admin" });
                 }
-            //}
-            //catch
-            //{
-            //    return Redirect("/User/_404");
-            //}
+            }
+            catch
+            {
+                return Redirect("/User/_404");
+            }
         }
 
         /// <summary>
@@ -361,11 +361,80 @@ namespace 基于云的Web管理系统.Controllers
         {
             if (IsLogin())
             {
-                return View();
+                try
+                {
+                    DBContext = new WebManagementDBEntities();
+                    ViewBag.HInfos = DBContext.HealthInfo.Where(h => h.DelFlag == 0).OrderByDescending(h => h.SubDate);
+
+                    return View();
+                }
+                catch
+                {
+                    return Redirect("/User/_404");
+                }
+               
             }
             else
             {
                 return RedirectToAction("Login", new { referenUrl = "/Admin/NewsRecord" });
+            }
+        }
+
+        /// <summary>
+        /// 【浏览历史留言】
+        ///  20170408
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult CommentRecord()
+        {
+            if (IsLogin())
+            {
+                try
+                {
+                    DBContext = new WebManagementDBEntities();
+                    ViewBag.CInfos  = DBContext.CommentInfo.Where(c=>c.Id >0).OrderByDescending(c=>c.SubData);
+
+
+
+                    return View();
+                }
+                catch 
+                {
+                    return Redirect("/User/_404");
+                }
+                
+                
+            }
+            else 
+            {
+                return RedirectToAction("Login", new { referenUrl = "/Admin/CommentRecord" });
+            }
+        }
+
+        /// <summary>
+        /// 【最新留言--即系未读留言展示】
+        ///  20170409
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult Comment() 
+        {
+            if (IsLogin())
+            {
+                try
+                {
+                    DBContext = new WebManagementDBEntities();
+                    ViewBag.CInfos = DBContext.CommentInfo.Where(c => c.IsRead == 0).OrderByDescending(c => c.SubData).ToList();
+
+                    return View();
+                }
+                catch
+                {
+                    return Redirect("/User/_404");
+                }
+            }
+            else 
+            {
+                return RedirectToAction("Login", new { referenUrl = "/Admin/Comment" });
             }
         }
 

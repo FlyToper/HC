@@ -107,6 +107,11 @@ namespace 基于云的Web管理系统.Controllers
                 }
                 else
                 {
+                    if (user.IsRegister == 0) 
+                    {
+                        return Content("error4");//未注册完成
+                    }
+
                     if (user.State == "正常")
                     {
                         //保存相关Session
@@ -732,19 +737,21 @@ namespace 基于云的Web管理系统.Controllers
 
                     var user2 = DBContext.UserInfo.Where(u => u.Email == email).FirstOrDefault();
                     int uid = (int)user2.Id;
-                    return Content("success");
+                    
 
                     //服务器的邮箱----发送邮件
-                    //string serverEmail = ConfigurationManager.AppSettings["ServerEmailId"];
-                    //string serverEmailPwd = ConfigurationManager.AppSettings["ServerEmailPwd"];
-                    //string url = ConfigurationManager.AppSettings["WebUrl"] + "/Public/CheckRegisterCode?registerCode="+Basic.GetMD5(code)+"&uid="+uid;
+                    string serverEmail = ConfigurationManager.AppSettings["ServerEmailId"];
+                    string serverEmailPwd = ConfigurationManager.AppSettings["ServerEmailPwd"];
+                    string url = ConfigurationManager.AppSettings["WebUrl"] + "/Public/CheckRegisterCode?registerCode="+Basic.GetMD5(code)+"&uid="+uid;
 
-                    //string tiltle = "新用户注册";
-                    //string content = "尊敬的用户：欢迎注册本系统，通过邮箱验证完成注册，如果确认为本人操作，请点击如下链接完成注册<br/><a href='"+url+"' ></a>";
+                    string tiltle = "新用户注册---"+ConfigurationManager.AppSettings["SystemName"];
+                    string content = "尊敬的用户：欢迎注册本系统，通过邮箱验证完成注册，如果确认为本人操作，请点击如下链接完成注册<br/><a href='"+url+"' >"+url+"</a>";
 
-                    //SendEmail myemail = new SendEmail(email, tiltle, content, serverEmail, serverEmailPwd);
+                    SendEmail myemail = new SendEmail(email, tiltle, content, serverEmail, serverEmailPwd);
 
-                    //myemail.sendEmail();//发送邮件
+                    myemail.sendEmail();//发送邮件
+
+                    return Content("success");
 
                     
                     

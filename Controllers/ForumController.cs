@@ -38,33 +38,8 @@ namespace 基于云的Web管理系统.Controllers
             int forumType = Request["forumType"] == null ? 1 : int.Parse(Request["forumType"]);
 
             DBContext = new WebManagementDBEntities();
-            string type;
-            #region 字符串转义
-            if (forumType == 1)//营养美食
-            {
-                type = "YYMS";
-            }
-            else if (forumType == 2)//塑身美体
-            {
-                type = "SSMT";
-            }
-            else if (forumType == 3)//健康宝典
-            {
-                type = "JKBD";
-            }
-            else if (forumType == 4)//育儿宝典
-            {
-                type = "YEBD";
-            }
-            else if (forumType == 5)//娱乐杂评
-            {
-                type = "YLZP";
-            }
-            else//男人女人
-            {
-                type = "NRNR";
-            }
-            #endregion
+            string type = Basic.num2En(forumType);
+            
             //List<UserInfo> users = new List<UserInfo>();
             //for (int i = 0; i < 20; i++) 
             //{
@@ -84,13 +59,15 @@ namespace 基于云的Web管理系统.Controllers
             ArrayList list = new ArrayList();
             foreach (var row in forumInfo)
             {
+                DateTime dt = (DateTime)row.SubDate;
+                string date =  dt.ToLongDateString().ToString();
                 var f = new
                 {
                     Id = row.Id,
                     Title = row.Title,
                     SubName = row.SubName,
                     FloorCount = row.FloorCount,
-                    SubDate = row.SubDate.ToString()
+                    SubDate = date
                 };
                 list.Add(f);
             }
@@ -99,7 +76,7 @@ namespace 基于云的Web管理系统.Controllers
             {
                 Total = list.Count,
                 Row = list.ToArray(),
-                PageNumber = Page.ShowPageNavigate(pageIndex, pageSize, list.Count, forumType)//这个方法为分页导航条的字符串
+                PageNumber = Page.ShowPageNavigate(pageIndex, pageSize, total, forumType)//这个方法为分页导航条的字符串
             };
 
 
@@ -563,6 +540,106 @@ namespace 基于云的Web管理系统.Controllers
             else
             {
                 return RedirectToAction("../Home/Login", new { referenUrl = "/Forum/PostForum" });
+            }
+        }
+
+        /// <summary>
+        /// 【快速查找论坛信息】
+        ///  20170402
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult Search() {
+            try
+            {
+                string type = Request["type"];
+                int pageSize = Request["pageSize"] == null ? 10 : int.Parse(Request["pageSize"]);
+                int pageIndex = Request["pageIndex"] == null ? 1 : int.Parse(Request["pageIndex"]);
+                string cname = Request["cname"];
+                string ltime = Request["ltime"];
+                string name = Request["name"];
+                string sql = "";
+
+                int total = 0;
+                List<ForumInfo> ls = null;
+            
+                DBContext = new WebManagementDBEntities();//创建上下文对象
+
+                //1、查找所有的信息
+                if (type == "1")
+                {
+                    total = DBContext.ForumInfo.Count(f => f.DelFlag == 0);//查询所有的信息
+                    ls = DBContext.ForumInfo.Where(f=>f.DelFlag == 0).OrderByDescending(f => f.SubDate).Skip(pageSize * (pageIndex - 1)).Take(pageSize).ToList();
+
+                }
+                else //2、按条件查找
+                {
+                    DateTime dt1 = Basic.num2DT(ltime);
+                    string cname1 = Basic.num2En(int.Parse(cname));
+                    
+                    string codition = "DelFlag = 0";
+                    if (cname != "0")
+                        codition += " and ForumType = '" + cname1+"'";
+                    if (ltime != "0" && ltime != "5")
+                        codition += " and SubDate >= '" + dt1+"'";
+                    if (name != "0")
+                        codition += " and SubName = '" + name+"'";
+                    if(ltime == "5")
+                        codition +=  " and SubDate <= '" + Basic.num2DT("4")+"'";
+                    sql = "SELECT * FROM ForumInfo WHERE " + codition;
+
+                    //return Content(sql);
+                    //SELECT * FROM ForumInfo WHERE DelFlag = 0 and ForumType = 'YYMS' and SubDate >='2017/3/31 17:44:22 and SubName = '45'
+                    ls = DBContext.ForumInfo.SqlQuery(sql).OrderByDescending(f => f.SubDate).Skip(pageSize * (pageIndex - 1)).Take(pageSize).ToList();
+                    total = DBContext.ForumInfo.SqlQuery(sql).Count();
+                    //DBContext.Database.ExecuteSqlCommand("select * from ForumInfo").OrderByDescending(f => f.SubDate).Skip(pageSize * (pageIndex - 1)).Take(pageSize);
+                    //forumInfo = (IQueryable)DBContext.ForumInfo.SqlQuery("select * from ForumInfo").OrderByDescending(f => f.SubDate).Skip(pageSize * (pageIndex - 1)).Take(pageSize);
+                    //total = DBContext.ForumInfo.Where("12").Count();//获取总条数
+
+                    
+                   // forumInfo = DBContext.ForumInfo.Where(f => f.DelFlag == 0 && (f.ForumType == cname1 && f.SubDate >= dt1 && f.SubName == name )).OrderByDescending(f => f.SubDate).Skip(pageSize * (pageIndex - 1)).Take(pageSize);//获取数据
+                    
+                    
+                }
+
+
+                //要来处理数据的新数组
+                ArrayList list = new ArrayList();
+                int pageTotalNum = pageSize*(pageIndex - 1);
+                int k = 1;
+                foreach (ForumInfo row in ls)
+                {
+                    DateTime dt = (DateTime)row.SubDate;
+                    string date = dt.ToLongDateString().ToString();
+                    
+
+                    var f = new
+                    {   
+                        Id = row.Id,
+                        SortNum = pageTotalNum + k,
+                        Title = row.Title,
+                        SubName = row.SubName,
+                        FloorCount = row.FloorCount,
+                        SubDate = date,
+                        Type = row.ForumName,
+                       
+                    };
+                    k++;
+                    list.Add(f);
+                }
+
+                var data = new
+                {
+                    Total = list.Count,
+                    Row = list.ToArray(),
+                    AllTotal = total,
+                    PageNumber = Page.ShowForumSearchNavigate(type,pageIndex, pageSize, total, cname, ltime,name),//这个方法为分页导航条的字符串
+                    //Sql = sql
+                };
+                return Json(data, JsonRequestBehavior.AllowGet);//返回数据
+            }
+            catch 
+            {
+                return Content("error");
             }
         }
     }

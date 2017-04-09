@@ -15,15 +15,17 @@
     <style type="text/css">
 
     </style>
-    <title>管理后台</title>
+    <title>工作任务</title>
 
     <!-- Bootstrap core CSS -->
     <link href="MyContent/css/bootstrap.min.css" rel="stylesheet">
-
+    <link href="~/MyContent/css/metisMenu.min.css" rel="stylesheet" />
     <!-- Custom styles for this template -->
     <link href="MyContent/css/dashboard.css" rel="stylesheet">
 
     <link href="MyContent/css/admin.css" rel="stylesheet">
+    <link href="~/MyContent/css/sidebar-demo.css" rel="stylesheet" />
+
     <script src="MyContent/css/ie-emulation-modes-warning.js"></script>
     <style type="text/css">
         .number {
@@ -43,42 +45,13 @@
 
 <body>
 
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed"
-                        data-toggle="collapse" data-target="#navbar" aria-expanded="false"
-                        aria-controls="navbar">
-                    <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="javascript:void(0);">个人健康信息管理平台</a>
-            </div>
-            <div id="navbar" class="navbar-collapse collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="javascript:void(0);">@Session["AdminUser"].ToString()</a></li>
-                    <li><a href="javascript:void(0);">|</a></li>
-                    <li><a href="javascript:void(0);" onclick="exit()">退出</a></li>
-                    
-                </ul>
-
-            </div>
-        </div>
-    </nav>
+    @RenderPage("../Shared/Navbar.cshtml")
 
     <div class="container-fluid">
         <div class="row">
-            <div class="col-sm-3 col-md-2 sidebar">
-                <ul class="nav nav-sidebar">
-                    <li class="active"><a href="javascript:void(0);">我的记事板</a></li>
-                    <li><a href="/Admin/News">发布健康资讯</a></li>
-                    <li><a href="/Admin/NewsRecord">资讯纪录</a></li>
-                    <li><a href="/Admin/Index/showNotice">发布公告</a></li>
-                    <li><a href="/Admin/Index/showNews">发布新闻资讯</a></li>
-                    <li><a href="/Admin/Index/showRecords">公告&新闻历史记录</a></li>
-                </ul>
+            @RenderPage("../Shared/SideBar.cshtml")
 
-            </div>
-
+           
             <!-- content 开始 -->
             <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
                 <h1 class="page-header">我的记事板</h1>
@@ -171,46 +144,21 @@
         </div>
     </div>
 
-    <!-- 【模态框开始】 -->
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary btn-lg"
-            data-toggle="modal" data-target="#myModal" style="display: none;" id="btnShow">
-        Launch demo modal
-    </button>
-
-    <!-- Modal -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
-         aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">
-                        <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
-                    </button>
-                    <h4 class="modal-title" id="showTitle"> 
-                        来自网页的提示
-                    </h4>
-                </div>
-                <div class="modal-body" id="showContent">请输入正确的姓名！</div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-warning" data-dismiss="modal">关闭</button>
-
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- 【模态框结束】 -->
+    
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="MyContent/js/jquery-2.1.1.min.js"></script>
     <script src="MyContent/js/bootstrap.min.js"></script>
     <script src="MyContent/js/docs.min.js"></script>
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="MyContent/js/ie10-viewport-bug-workaround.js"></script>
+   
+    
     <script src="MyContent/js/public.js"></script>
+    <script src="~/MyContent/js/metisMenu.min.js"></script>
+
     <script type="text/javascript">
-        $(function() {
+        $(function () {
+            $('#menu').metisMenu();
             $(".number").each(function () {
                 //alert($(this).html());
                 

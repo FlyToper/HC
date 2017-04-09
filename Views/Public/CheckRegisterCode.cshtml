@@ -1,0 +1,78 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/MyContent/images/ic_launcher.png" rel="shortcut icon" />
+
+    <title>用户注册---完成邮箱验证</title>
+
+    <link href="~/Content/themes/base/minified/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/MyContent/css/mycss.css" rel="stylesheet" />
+    <link href="~/MyContent/css/myIndexcss.css" rel="stylesheet" />
+    <link href="~/MyContent/css/base.css" rel="stylesheet" />
+    <link href="~/MyContent/css/demo.css" rel="stylesheet" />
+    <link href="~/MyContent/css/default.css" rel="stylesheet" />
+</head>
+<body>
+    <nav class="navbar navbar-default navbar-inverse mynavbar" style="margin-bottom:0px;border-radius:0px">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @*<img class="navbar-brand" src="~/images/%e5%9b%be%e6%a0%87.jpg" />*@
+                @*<a href="javascript:void(0);" style="padding-bottom:15px;padding-top:15px;">Kang</a>*@
+                <img class="navbar-brand" src="~/MyContent/images/ic_launcher.png" />
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("主页", "Index", "Home")</li>
+                    <li>@Html.ActionLink("健康资讯", "Index", "News")</li>
+                    <li>@Html.ActionLink("健康论坛", "Index", "Forum")</li>
+                    <li>@Html.ActionLink("个人信息", "ShowMyInfo", "User")</li>
+                    <li>@Html.ActionLink("我的数据", "ShowMyData", "Home")</li>
+                    <li>@Html.ActionLink("联系我们", "ContactUs", "Home")</li>
+                    @*<li class="dropdown" style="">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Action</a></li>
+                                <li><a href="#">Another action</a></li>
+                                <li><a href="#">Something else here</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="#">Separated link</a></li>
+                            </ul>
+                        </li>*@
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+
+                    <li><a href="/User/Login">登录</a></li>
+
+                </ul>
+
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+    <div class="well" style="text-align:center;margin:20px 10%;height:70%;">
+        <h2>注册成功</h2>
+        <br />
+        <p><span style="color:green;" class="glyphicon glyphicon-ok-circle"></span> 恭喜您，完成了邮箱验证，正式成为本系统的注册用户。您的登登录账号为：<span style="color:red;">@ViewBag.UserEmail</span></p>
+        <br />
+        <p><a class="btn btn-success" href="/Home/Login?referenUrl=/Home">立刻登录</a> <a href="/Home" class="btn btn-info">返回首页</a></p>
+    </div>
+    @RenderPage("../Shared/Footer.cshtml")
+
+    <script src="~/MyContent/js/jquery-2.1.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+</body>
+</html>

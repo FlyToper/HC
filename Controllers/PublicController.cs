@@ -113,6 +113,7 @@ namespace 基于云的Web管理系统.Controllers
         /// <returns></returns>
         public ActionResult CheckRegisterCode() 
         {
+            
             try
             {
                 int uid = Convert.ToInt32(Request["uid"]);
@@ -131,7 +132,9 @@ namespace 基于云的Web管理系统.Controllers
                     DBContext.Entry(user).State = System.Data.EntityState.Modified;
                     DBContext.SaveChanges();
 
-                    return Content("success");
+                    ViewBag.UserEmail = user.Email;
+                    return View();
+                    //return Content("success");
                 }
                 else
                 {
@@ -201,5 +204,7 @@ namespace 基于云的Web管理系统.Controllers
                 return Content("error2");
             }
         }
+
+       
     }
 }

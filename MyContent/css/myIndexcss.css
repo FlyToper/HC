@@ -83,6 +83,7 @@ h2 {
 }
 
 .myFooter {
+    color:gray;
     /*background-image:url("../../MyContent/images/footBG.jpg");*/
     text-align:center;
     font-size:20px;
@@ -92,6 +93,10 @@ h2 {
     /*border-style:solid;
     border-width:2px;*/
 }
+
+    .myFooter a {
+        color:gray;
+    }
 
 .myTipTitleColor {
     color:yellow;

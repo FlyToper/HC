@@ -1,0 +1,150 @@
+﻿@{
+    Layout = null;
+    int k = 1;
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <style type="text/css">
+    </style>
+    <title>最新留言</title>
+
+    <!-- Bootstrap core CSS -->
+
+    <link href="/MyContent/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/MyContent/css/metisMenu.min.css" rel="stylesheet" />
+    <!-- Custom styles for this template -->
+    <link href="/MyContent/css/dashboard.css" rel="stylesheet">
+
+    <link href="/MyContent/css/admin.css" rel="stylesheet">
+
+    <link href="~/MyContent/css/sidebar-demo.css" rel="stylesheet" />
+
+    <style type="text/css">
+        body {
+            background-color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+    @RenderPage("../Shared/Navbar.cshtml")
+
+    <div class="container-fluid">
+        <div class="row">
+
+            @RenderPage("../Shared/SideBar.cshtml")
+
+
+
+            <!-- content 开始 -->
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+
+                <h1 class="page-header">最新留言</h1>
+                <ol class="breadcrumb">
+                    <li><a href="#">管理后台</a></li>
+                    <li><a href="#">留言管理</a></li>
+                    <li class="active">最新留言</li>
+                </ol>
+
+                <div class="myRowTable">
+                    <div class="row row-head">
+                        <div class="col-md-2 col-sm-12"><span class="glyphicon glyphicon-sort-by-order"></span> 序号</div>
+                        <div class="col-md-2 col-sm-12"><span class="glyphicon glyphicon-phone-alt"></span> 联系方式</div>
+                        <div class="col-md-2 col-sm-12"><span class="glyphicon glyphicon-comment"></span> 建议内容</div>
+                        <div class="col-md-2 col-sm-12 row-center"><span class="glyphicon glyphicon-time"></span> 提交时间</div>
+                        <div class="col-md-2 col-sm-12 row-center"><span class="glyphicon glyphicon-time"></span> 审阅时间</div>
+                        <div class="col-md-2 col-sm-12 row-center"><span class="glyphicon glyphicon-cog"></span> 操作</div>
+                    </div>
+                    @if (ViewBag.CInfos.Count <= 0) { 
+                          <div class="row row-body"><div class="col-md-2 col-sm-12" style="color:#ff6a00">暂无数据</div></div>
+                    }
+                    @foreach (var cinfo in ViewBag.CInfos)
+                    {
+
+                        <div class="row row-body">
+                            <div class="col-md-2 col-sm-12">@k</div>
+
+                            <div class="col-md-2 col-sm-12"><span class="wrap-line" title="@cinfo.Contact">@cinfo.Contact</span> </div>
+                            <div class="col-md-2 col-sm-12"><span class="wrap-line" title="@cinfo.Content">@cinfo.Content</span> </div>
+                            <div class="col-md-2 col-sm-12 row-center"><span class="wrap-line" title="@cinfo.SubData">@cinfo.SubData</span> </div>
+                            <div class="col-md-2 col-sm-12 row-center"><span class="wrap-line" title="@cinfo.ReDate">@cinfo.ReDate</span> </div>
+                            <div class="col-md-2 col-sm-12 row-center">
+                                @if (cinfo.IsRead == 0)
+                                {
+                                    <button class="btn btn-info btn-isRead" key-id="@cinfo.Id">审阅</button>
+                                }
+                                else
+                                {
+                                    <span>已读</span>
+                                }
+                        </div>
+                    </div>
+
+                                k++;
+
+                    }
+
+                    <div class="row-foot"></div>
+                </div>
+
+
+
+
+
+
+            </div>
+            <!-- content 结束-->
+
+
+
+        </div>
+    </div>
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="/MyContent/js/jquery-2.1.1.min.js"></script>
+    <script src="/MyContent/js/bootstrap.min.js"></script>
+    <script src="/MyContent/js/docs.min.js"></script>
+
+    <script type="text/javascript" src="/MyContent/ckeditor/ckeditor.js"></script>
+    <script src="/MyContent/js/public.js"></script>
+    <script src="~/MyContent/js/ajaxfileupload.js"></script>
+    <script src="~/MyContent/js/publicNews.js"></script>
+    <script src="~/MyContent/js/metisMenu.min.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            $('#menu').metisMenu();
+            //$("#menu").find("li").eq(1).addClass("active");
+            $("#menu").find("li").eq(10).find("a").click();
+
+
+        });
+
+        $(".btn-isRead").click(function () {
+            var element = $(this);
+            var id = $(this).attr("key-id");
+            $.post("/Admin/CheckCommentStatus", { "id": id }, function (rst) {
+                if (rst == "success") {
+                    element.parent().parent().remove();
+                } else {
+                    show("警告", "操作失败,请重试！");
+                }
+            });
+        });
+
+    </script>
+</body>
+</html>
