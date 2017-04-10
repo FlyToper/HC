@@ -438,5 +438,92 @@ namespace 基于云的Web管理系统.Controllers
             }
         }
 
+        /// <summary>
+        /// 【用户管理】
+        /// 20170409
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult User()
+        {
+            if (IsLogin())
+            {
+                try
+                {
+                    DBContext = new WebManagementDBEntities();
+                    ViewBag.UInfos = DBContext.UserInfo.Where(u => u.Id > 0 && u.IsRegister == 1).OrderByDescending(u=>u.Id).ToList();
+                    return View();
+
+                }
+                catch
+                {
+                    return Redirect("/User/_404");
+                }
+            }
+            else 
+            {
+                return RedirectToAction("Login", new { referenUrl = "/Admin/User" });
+            }
+        }
+
+        /// <summary>
+        /// 【浏览未完成注册的用户】
+        ///  20170409
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult NRUser()
+        {
+            if(!IsLogin())
+                return RedirectToAction("Login", new { referenUrl = "/Admin/NRUser" });
+            try
+            {
+                DBContext = new WebManagementDBEntities();
+                ViewBag.UInfos = DBContext.UserInfo.Where(u => u.IsRegister == 0).OrderByDescending(u => u.Id).ToList();
+
+                return View();
+            }
+            catch
+            {
+                return Redirect("/User/_404");
+            }
+        }
+
+        /// <summary>
+        /// 【修改用户的状态】
+        ///  20170409
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="status"></param>
+        /// <returns></returns>
+        public ActionResult ChangeUserStatus(int id, int status) 
+        {
+            if (!IsLogin())
+                return RedirectToAction("Login", new { referenUrl = "/Admin/User" });
+            try
+            {
+            DBContext = new WebManagementDBEntities();
+                var user = DBContext.UserInfo.Where(u => u.Id == id).FirstOrDefault();
+                if (user == null)
+                    return Content("error1");//找不到用户
+                user.DelFlag = (byte)status;
+                DBContext.UserInfo.Attach(user);
+                DBContext.Entry(user).State = System.Data.EntityState.Modified;
+
+                if (DBContext.SaveChanges() > 0)
+                {
+                    AdminExecute.Insert(Session["AdminNum"].ToString(), Session["AdminUser"].ToString(), "修改用户状态为"+status+"，用户id为：【" + id + "】");
+                    
+                    return Content("success");
+                }
+                else
+                {
+                    return Content("error2");//保存失败
+                }
+
+            }
+            catch
+            {
+                return Redirect("/User/_404");
+            }
+        }
     }
 }

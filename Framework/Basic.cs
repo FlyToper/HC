@@ -153,5 +153,67 @@ namespace 基于云的Web管理系统.Framework
                 return "YYMS";
         
         }
+
+        /// <summary>
+        /// 【设置最近登录信息】
+        ///  20170410
+        /// </summary>
+        /// <param name="lastInfo">最近登录信息</param>
+        /// <param name="currentItem">当前登录信息</param>
+        /// <returns></returns>
+        public static string setLastLoginInfo(string lastInfo, string currentItem)
+        {
+            //lastInfo = 旧|新
+            try
+            {
+                string[] str1 = lastInfo.Split('|');
+                return str1[1] + "|" + currentItem;
+            }
+            catch
+            {
+                return "0";
+            }
+            
+            
+        }
+
+        /// <summary>
+        /// 【获取最近的登陆信息】
+        ///  20170410
+        /// </summary>
+        /// <param name="lastInfo">最近登录信息</param>
+        /// <returns></returns>
+        public static string getLoginInfo(string lastInfo)
+        {
+            string[] str1 = lastInfo.Split('|');
+            return str1[0];
+        }
+
+
+        /// <summary>
+        /// 【获取用户状态】
+        ///  20170410
+        /// </summary>
+        /// <param name="status">状态码</param>
+        /// <returns>状态</returns>
+        public static string getUserStatus(byte? status)
+        {
+            if (status == 0) 
+            {
+                return "正常";
+            }
+            else if (status == 11)
+            {
+                return "已删除";
+            }
+            else if (status == 12)
+            {
+                return "已禁用";
+            }
+            else 
+            {
+                return "未知";
+            }
+        }
     }
 }

@@ -60,6 +60,17 @@
           <Property Name="IsRead" Type="tinyint" />
           <Property Name="ReDate" Type="datetime" />
         </EntityType>
+        <!--生成过程中发现错误:
+警告 6013: 表/视图“WebManagementDB.dbo.DoctorInfo”未定义主键，并且无法推断有效的主键。已排除了此表/视图。若要使用实体，将需要检查您的架构、添加正确的键并取消对实体的注释。
+        <EntityType Name="DoctorInfo">
+          <Property Name="Id" Type="int" />
+          <Property Name="Email" Type="nvarchar" MaxLength="20" />
+          <Property Name="Pwd" Type="nvarchar" MaxLength="20" />
+          <Property Name="Name" Type="nvarchar" MaxLength="20" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="20" />
+          <Property Name="RegisterCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="State" Type="tinyint" />
+        </EntityType>-->
         <EntityType Name="ForumInfo">
           <Key>
             <PropertyRef Name="Id" />
@@ -110,6 +121,20 @@
           <Property Name="DelFlag" Type="tinyint" />
           <Property Name="Remark" Type="nvarchar" MaxLength="250" />
         </EntityType>
+        <!--生成过程中发现错误:
+警告 6013: 表/视图“WebManagementDB.dbo.NotifyInfo”未定义主键，并且无法推断有效的主键。已排除了此表/视图。若要使用实体，将需要检查您的架构、添加正确的键并取消对实体的注释。
+        <EntityType Name="NotifyInfo">
+          <Property Name="Id" Type="bigint" />
+          <Property Name="UserId" Type="bigint" />
+          <Property Name="UserType" Type="tinyint" />
+          <Property Name="Title" Type="nvarchar" MaxLength="250" />
+          <Property Name="Content" Type="nvarchar(max)" />
+          <Property Name="Type" Type="tinyint" />
+          <Property Name="DelFlag" Type="tinyint" />
+          <Property Name="SubDate" Type="datetime" />
+          <Property Name="SubNum" Type="nvarchar" MaxLength="50" />
+          <Property Name="SubName" Type="nvarchar" MaxLength="50" />
+        </EntityType>-->
         <EntityType Name="UserInfo">
           <Key>
             <PropertyRef Name="Id" />
@@ -123,8 +148,8 @@
           <Property Name="Gender" Type="nvarchar" MaxLength="10" />
           <Property Name="DeviceId" Type="nvarchar" MaxLength="30" />
           <Property Name="State" Type="nvarchar" MaxLength="10" />
-          <Property Name="LastIP" Type="nvarchar" MaxLength="30" />
-          <Property Name="LastLoginTime" Type="datetime" />
+          <Property Name="LastIP" Type="nvarchar" MaxLength="100" />
+          <Property Name="LastLoginTime" Type="nvarchar" MaxLength="100" />
           <Property Name="SubDate" Type="datetime" />
           <Property Name="DelFlag" Type="tinyint" />
           <Property Name="Remark" Type="nvarchar" MaxLength="250" />
@@ -239,27 +264,6 @@
           <Property Name="Remark" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="IsHot" Type="Byte" />
         </EntityType>
-        <EntityType Name="UserInfo">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Email" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="UserPwd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="NickName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="TrueName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="Gender" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="DeviceId" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-          <Property Name="State" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="LastIP" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-          <Property Name="LastLoginTime" Type="DateTime" Precision="3" />
-          <Property Name="SubDate" Type="DateTime" Precision="3" />
-          <Property Name="DelFlag" Type="Byte" />
-          <Property Name="Remark" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="RegisterCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="IsRegister" Type="Byte" />
-        </EntityType>
         <EntityContainer Name="WebManagementDBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AdminExecuteInfo" EntityType="Self.AdminExecuteInfo" />
           <EntitySet Name="AdminInfo" EntityType="Self.AdminInfo" />
@@ -267,8 +271,8 @@
           <EntitySet Name="ForumInfo" EntityType="Self.ForumInfo" />
           <EntitySet Name="ForumType" EntityType="Self.ForumType" />
           <EntitySet Name="HealthInfo" EntityType="Self.HealthInfo" />
-          <EntitySet Name="UserInfo" EntityType="Self.UserInfo" />
           <EntitySet Name="CommentInfo" EntityType="WebManagementDBModel.CommentInfo" />
+          <EntitySet Name="UserInfo" EntityType="WebManagementDBModel.UserInfo" />
         </EntityContainer>
         <EntityType Name="CommentInfo">
           <Key>
@@ -280,6 +284,27 @@
           <Property Name="SubData" Type="DateTime" Precision="3" />
           <Property Name="IsRead" Type="Byte" />
           <Property Name="ReDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="UserInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="UserPwd" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NickName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="TrueName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Gender" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="DeviceId" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="State" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="LastIP" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="LastLoginTime" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SubDate" Type="DateTime" Precision="3" />
+          <Property Name="DelFlag" Type="Byte" />
+          <Property Name="Remark" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="RegisterCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsRegister" Type="Byte" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -387,28 +412,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="UserInfo">
-            <EntityTypeMapping TypeName="WebManagementDBModel.UserInfo">
-              <MappingFragment StoreEntitySet="UserInfo">
-                <ScalarProperty Name="IsRegister" ColumnName="IsRegister" />
-                <ScalarProperty Name="RegisterCode" ColumnName="RegisterCode" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="UserPwd" ColumnName="UserPwd" />
-                <ScalarProperty Name="NickName" ColumnName="NickName" />
-                <ScalarProperty Name="TrueName" ColumnName="TrueName" />
-                <ScalarProperty Name="Gender" ColumnName="Gender" />
-                <ScalarProperty Name="DeviceId" ColumnName="DeviceId" />
-                <ScalarProperty Name="State" ColumnName="State" />
-                <ScalarProperty Name="LastIP" ColumnName="LastIP" />
-                <ScalarProperty Name="LastLoginTime" ColumnName="LastLoginTime" />
-                <ScalarProperty Name="SubDate" ColumnName="SubDate" />
-                <ScalarProperty Name="DelFlag" ColumnName="DelFlag" />
-                <ScalarProperty Name="Remark" ColumnName="Remark" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="CommentInfo">
             <EntityTypeMapping TypeName="WebManagementDBModel.CommentInfo">
               <MappingFragment StoreEntitySet="CommentInfo">
@@ -417,6 +420,28 @@
                 <ScalarProperty Name="SubData" ColumnName="SubData" />
                 <ScalarProperty Name="Content" ColumnName="Content" />
                 <ScalarProperty Name="Contact" ColumnName="Contact" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserInfo">
+            <EntityTypeMapping TypeName="WebManagementDBModel.UserInfo">
+              <MappingFragment StoreEntitySet="UserInfo">
+                <ScalarProperty Name="IsRegister" ColumnName="IsRegister" />
+                <ScalarProperty Name="RegisterCode" ColumnName="RegisterCode" />
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="DelFlag" ColumnName="DelFlag" />
+                <ScalarProperty Name="SubDate" ColumnName="SubDate" />
+                <ScalarProperty Name="LastLoginTime" ColumnName="LastLoginTime" />
+                <ScalarProperty Name="LastIP" ColumnName="LastIP" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="DeviceId" ColumnName="DeviceId" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="TrueName" ColumnName="TrueName" />
+                <ScalarProperty Name="NickName" ColumnName="NickName" />
+                <ScalarProperty Name="UserPwd" ColumnName="UserPwd" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -436,7 +461,7 @@
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="false" />
-        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="False" />
         <DesignerProperty Name="UseLegacyProvider" Value="true" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
       </DesignerInfoPropertySet>

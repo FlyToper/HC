@@ -22,6 +22,4 @@ namespace 基于云的Web管理系统.Models
         public Nullable<byte> DelFlag { get; set; }
         public string Remark { get; set; }
     }
-
-    
 }

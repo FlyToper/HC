@@ -31,7 +31,7 @@ namespace 基于云的Web管理系统.Models
         public DbSet<ForumInfo> ForumInfo { get; set; }
         public DbSet<ForumType> ForumType { get; set; }
         public DbSet<HealthInfo> HealthInfo { get; set; }
-        public DbSet<UserInfo> UserInfo { get; set; }
         public DbSet<CommentInfo> CommentInfo { get; set; }
+        public DbSet<UserInfo> UserInfo { get; set; }
     }
 }

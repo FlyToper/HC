@@ -118,9 +118,11 @@ namespace 基于云的Web管理系统.Controllers
                         Session["UserName"] = username;
                         Session["NickName"] = user.NickName;
 
+                        //旧|新
+
                         //执行更新
-                        user.LastLoginTime = DateTime.Now;
-                        user.LastIP = Request.UserHostAddress;
+                        user.LastLoginTime = Basic.setLastLoginInfo(user.LastLoginTime, DateTime.Now.ToString());
+                        user.LastIP = Basic.setLastLoginInfo(user.LastIP, Request.UserHostAddress);
                         DBContext.UserInfo.Attach(user);
                         DBContext.Entry(user).State = System.Data.EntityState.Modified;
                         DBContext.SaveChanges();
@@ -351,6 +353,9 @@ namespace 基于云的Web管理系统.Controllers
                     }
                     else
                     {
+                        user.LastLoginTime = Basic.getLoginInfo(user.LastLoginTime);
+                        user.LastIP = Basic.getLoginInfo(user.LastIP);
+
                         ViewBag.UserInfo = user;
                         return View();
                     }
@@ -723,6 +728,8 @@ namespace 基于云的Web管理系统.Controllers
                     user.Gender = gender;
                     user.DeviceId = deviceid;
                     user.RegisterCode = Basic.GetMD5(code);
+                    user.LastLoginTime = "0|0";
+                    user.LastIP = "0|0";
 
                     //设置默认数据
                     user.State = "正常";//用户的状态

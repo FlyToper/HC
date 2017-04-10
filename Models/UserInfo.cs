@@ -24,7 +24,7 @@ namespace 基于云的Web管理系统.Models
         public string DeviceId { get; set; }
         public string State { get; set; }
         public string LastIP { get; set; }
-        public Nullable<System.DateTime> LastLoginTime { get; set; }
+        public string LastLoginTime { get; set; }
         public Nullable<System.DateTime> SubDate { get; set; }
         public Nullable<byte> DelFlag { get; set; }
         public string Remark { get; set; }

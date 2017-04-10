@@ -54,3 +54,17 @@ function show(title, content) {
     $("#btnShow").click();
 }
 
+function changeShow(title, content, isShow) {
+    if (title == "警告") {
+        $("#showContent").css("color", "#ff6a00");
+    } else {
+        $("#showContent").css("color", "black");
+    }
+
+    $("#showTitle").html(title);
+    $("#showContent").html(content);
+
+    if (isShow == 1) {
+        $("#btnShow").click();
+    }
+}

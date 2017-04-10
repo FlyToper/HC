@@ -1,0 +1,221 @@
+﻿@{
+    Layout = null;
+    int k = 1;
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <style type="text/css">
+    </style>
+    <title>全部用户</title>
+
+    <!-- Bootstrap core CSS -->
+
+    <link href="/MyContent/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/MyContent/css/metisMenu.min.css" rel="stylesheet" />
+    <!-- Custom styles for this template -->
+    <link href="/MyContent/css/dashboard.css" rel="stylesheet">
+
+    <link href="/MyContent/css/admin.css" rel="stylesheet">
+
+    <link href="~/MyContent/css/sidebar-demo.css" rel="stylesheet" />
+
+    <style type="text/css">
+        body {
+            background-color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+    @RenderPage("../Shared/Navbar.cshtml")
+
+    <div class="container-fluid">
+        <div class="row">
+
+            @RenderPage("../Shared/SideBar.cshtml")
+
+
+
+            <!-- content 开始 -->
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+
+                <h1 class="page-header">全部用户(已完成注册)</h1>
+                <ol class="breadcrumb">
+                    <li><a href="#">管理后台</a></li>
+                    <li><a href="#">用户管理</a></li>
+                    <li class="active">全部用户</li>
+                </ol>
+
+                <div class="myRowTable">
+                    <div class="row row-head">
+                        <div class="col-md-1 col-sm-12">
+                            序号
+                        </div>
+                        <div class="col-md-3 col-sm-12">
+                            账号
+                        </div>
+                        <div class="col-md-1 col-sm-12">
+                            用户名
+                        </div>
+                        <div class="col-md-2 col-sm-12 row-center">真实姓名</div>
+                        <div class="col-md-1 col-sm-12 row-center">性别</div>
+                        <div class="col-md-1 col-sm-12 row-center">状态</div>
+                        <div class="col-md-3 col-sm-12 row-center"><span class="glyphicon glyphicon-cog"></span> 操作</div>
+
+                    </div>
+                    @if (ViewBag.UInfos.Count <= 0)
+                    {
+                        <div class="row row-body"><div class="col-md-2 col-sm-12" style="color:#ff6a00">暂无数据</div></div>
+                    }
+                    @foreach (var uinfo in ViewBag.UInfos)
+                    {
+
+                        <div class="row row-body">
+                            <div class="col-md-1 col-sm-12">@k</div>
+
+                            <div class="col-md-3 col-sm-12"><span class="wrap-line" title="@uinfo.Email">@uinfo.Email</span> </div>
+                            <div class="col-md-1 col-sm-12"><span class="wrap-line" title="@uinfo.NickName">@uinfo.NickName</span> </div>
+                            <div class="col-md-2 col-sm-12 row-center"><span class="wrap-line" title="@uinfo.TrueName">@uinfo.TrueName</span> </div>
+                            <div class="col-md-1 col-sm-12 row-center"><span class="wrap-line" title="@uinfo.Gender">@uinfo.Gender</span> </div>
+                            <div class="col-md-1 col-sm-12 row-center">@if (uinfo.DelFlag == 11)
+{
+    <span style="color:#ff6a00">已删除</span>
+
+}
+else if (uinfo.DelFlag == 12)
+{
+    <span style="color:#ffd800">已禁用</span>
+
+}
+else
+{
+    <span>正常</span>
+}</div>
+
+                            <div class="col-md-3 col-sm-12 row-center">
+                                <button class="btn btn-info" title="查看更多用户信息" onclick="GetMore(@uinfo.Id)">更多</button>
+                                @if (uinfo.DelFlag == 11)
+{
+
+    <button class="btn btn-success" title="恢复被删除的用户" onclick="ChangeStatus(0, @uinfo.Id)" >恢复</button>
+    <button class="btn btn-warning" title="禁用该用户，将无法登录" onclick="ChangeStatus(12,@uinfo.Id)">禁用</button>
+
+}
+                                else if (uinfo.DelFlag == 12)
+                                {
+
+                                    <button class="btn btn-success" title="恢复被禁用的用户" onclick="ChangeStatus(0,@uinfo.Id)">恢复</button>
+    <button class="btn btn-danger" title="删除该用户，将无法登录" onclick="ChangeStatus(11,@uinfo.Id)" >删除</button>
+
+                                }
+                                else
+                                {
+
+                                    
+    <button class="btn btn-warning" title="禁用该用户，将无法登录" onclick="ChangeStatus(12,@uinfo.Id)">禁用</button>
+                                    <button class="btn btn-danger" title="删除该用户，将无法登录" onclick="ChangeStatus(11,@uinfo.Id)">删除</button>
+
+                                }
+                                <button class="btn btn-success" onclick="Notify(@uinfo.Id, '@uinfo.Email')">通知</button>
+                            </div>
+                        </div>
+
+                                k++;
+
+                    }
+
+                    <div class="row-foot"></div>
+                </div>
+
+
+
+
+
+
+            </div>
+            <!-- content 结束-->
+
+
+
+        </div>
+    </div>
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="/MyContent/js/jquery-2.1.1.min.js"></script>
+    <script src="/MyContent/js/bootstrap.min.js"></script>
+    <script src="/MyContent/js/docs.min.js"></script>
+
+    <script type="text/javascript" src="/MyContent/ckeditor/ckeditor.js"></script>
+    <script src="/MyContent/js/public.js"></script>
+    <script src="~/MyContent/js/ajaxfileupload.js"></script>
+    <script src="~/MyContent/js/publicNews.js"></script>
+    <script src="~/MyContent/js/metisMenu.min.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            $('#menu').metisMenu();
+            //$("#menu").find("li").eq(1).addClass("active");
+            $("#menu").find("li").eq(8).find("a").click();
+
+
+        });
+
+        //修改用户状态
+        function ChangeStatus(status,id) {
+            //show("123", status+"=="+id);
+            if(status == 11 || status == 12){
+                if(!confirm("你确定要执行本操作？执行之后用户将无法登录。"))
+                    return;
+            }
+
+            $.post("/Admin/ChangeUserStatus",{"id":id, "status":status},function(rst){
+                if(rst == "success"){
+                    show("系统提示","操作成功！");
+                    setTimeout(function(){
+                        window.location.href="/Admin/User";
+                    },1000);
+                }else{
+                    show("警告","操作失败！");
+                }
+            });
+        }
+
+        function GetMore(id) {
+            //<div class='row'>  <div class='col-md-6'>用户名</div><div class='col-md-6'>123</div> </div>
+            show("数据正在加载中...", "<img style='margin-left:25%;' width='50%' src='/MyContent/images/loading.gif'>");
+            //return;
+            setTimeout(function () {
+                $.post("/AdminFun/GetUserInfo", { "id": id }, function (data) {
+                    var title = data["Email"];
+                    var content = "<div class='row'>  <div class='col-md-6'>用户名</div><div class='col-md-6'>" + data["NickName"] + "</div> </div> <div class='row'>  <div class='col-md-6'>真实姓名</div><div class='col-md-6'>" + data["TrueName"] + "</div> </div> <div class='row'>  <div class='col-md-6'>联系电话</div><div class='col-md-6'>" + data["Phone"] + "</div> </div> <div class='row'>  <div class='col-md-6'>性别</div><div class='col-md-6'>" + data["Gender"] + "</div> </div> <div class='row'>  <div class='col-md-6'>设备ID</div><div class='col-md-6'>" + data["DeviceId"] + "</div> </div> <div class='row'>  <div class='col-md-6'>最近登录时间</div><div class='col-md-6'>" + data["LastLoginTime"] + "</div> </div> <div class='row'>  <div class='col-md-6'>最近登录IP</div><div class='col-md-6'>" + data["LastLoginIP"] + "</div> </div> <div class='row'>  <div class='col-md-6'>注册时间</div><div class='col-md-6'>" + data["SubDate"] + "</div> </div> <div class='row'>  <div class='col-md-6'>状态</div><div class='col-md-6'>" + data["Status"] + "</div> </div><hr>";
+
+                    changeShow(title, content,0);
+                });
+                
+            }, 0);
+            
+        }
+
+        function Notify(id, email){
+            var title = "给用户发送通知：";
+            var content = "<form><div class='form-group'><label for='recipient-name' class='control-label'>主题:</label><input type='text' class='form-control' id='recipient-name'></div><div class='form-group'><label for='message-text' class='control-label'>内容:</label><textarea class='form-control' id='message-text'></textarea></div></form>";
+            $("#showBtn").prepend(" <> <button type='button' class='btn btn-info'>发送</button>");
+            changeShow(title,content, 1);
+        }
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,181 @@
+﻿@{
+    Layout = null;
+    int k = 1;
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <style type="text/css">
+    </style>
+    <title>未完成注册用户</title>
+
+    <!-- Bootstrap core CSS -->
+
+    <link href="/MyContent/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/MyContent/css/metisMenu.min.css" rel="stylesheet" />
+    <!-- Custom styles for this template -->
+    <link href="/MyContent/css/dashboard.css" rel="stylesheet">
+
+    <link href="/MyContent/css/admin.css" rel="stylesheet">
+
+    <link href="~/MyContent/css/sidebar-demo.css" rel="stylesheet" />
+
+    <style type="text/css">
+        body {
+            background-color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+    @RenderPage("../Shared/Navbar.cshtml")
+
+    <div class="container-fluid">
+        <div class="row">
+
+            @RenderPage("../Shared/SideBar.cshtml")
+
+
+
+            <!-- content 开始 -->
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+
+                <h1 class="page-header">未完成注册用户</h1>
+                <ol class="breadcrumb">
+                    <li><a href="#">管理后台</a></li>
+                    <li><a href="#">用户管理</a></li>
+                    <li class="active">未完成注册用户</li>
+                </ol>
+
+                <div class="myRowTable">
+                    <div class="row row-head">
+                        <div class="col-md-1 col-sm-12">
+                            序号
+                        </div>
+                        <div class="col-md-3 col-sm-12">
+                            账号
+                        </div>
+                        <div class="col-md-1 col-sm-12">
+                            用户名
+                        </div>
+                        <div class="col-md-2 col-sm-12 row-center">真实姓名</div>
+                        <div class="col-md-1 col-sm-12 row-center">性别</div>
+                        <div class="col-md-2 col-sm-12 row-center">状态</div>
+                        <div class="col-md-2 col-sm-12 row-center"><span class="glyphicon glyphicon-cog"></span> 操作</div>
+
+                    </div>
+                    @if (ViewBag.UInfos.Count <= 0)
+                    {
+                        <div class="row row-body"><div class="col-md-2 col-sm-12" style="color:#ff6a00">暂无数据</div></div>
+                    }
+                    @foreach (var uinfo in ViewBag.UInfos)
+                    {
+
+                        <div class="row row-body">
+                            <div class="col-md-1 col-sm-12">@k</div>
+
+                            <div class="col-md-3 col-sm-12"><span class="wrap-line" title="@uinfo.Email">@uinfo.Email</span> </div>
+                            <div class="col-md-1 col-sm-12"><span class="wrap-line" title="@uinfo.NickName">@uinfo.NickName</span> </div>
+                            <div class="col-md-2 col-sm-12 row-center"><span class="wrap-line" title="@uinfo.TrueName">@uinfo.TrueName</span> </div>
+                            <div class="col-md-1 col-sm-12 row-center"><span class="wrap-line" title="@uinfo.Gender">@uinfo.Gender</span> </div>
+                            <div class="col-md-2 col-sm-12 row-center">
+                                @if (uinfo.IsRegister == 0)
+                                {
+                                    <span style="color:#ff6a00">未完成注册</span>
+                                }
+                                
+                        </div>
+
+                        <div class="col-md-2 col-sm-12 row-center">
+                            <button class="btn btn-info" title="查看更多用户信息" onclick="GetMore(@uinfo.Id)">更多</button>
+                            <button class="btn btn-success">通知</button>
+                            
+                        </div>
+                    </div>
+
+                            k++;
+
+                    }
+
+                    <div class="row-foot"></div>
+                </div>
+
+
+
+
+
+
+            </div>
+            <!-- content 结束-->
+
+
+
+        </div>
+    </div>
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="/MyContent/js/jquery-2.1.1.min.js"></script>
+    <script src="/MyContent/js/bootstrap.min.js"></script>
+    <script src="/MyContent/js/docs.min.js"></script>
+
+    <script type="text/javascript" src="/MyContent/ckeditor/ckeditor.js"></script>
+    <script src="/MyContent/js/public.js"></script>
+    <script src="~/MyContent/js/ajaxfileupload.js"></script>
+    <script src="~/MyContent/js/publicNews.js"></script>
+    <script src="~/MyContent/js/metisMenu.min.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            $('#menu').metisMenu();
+            //$("#menu").find("li").eq(1).addClass("active");
+            $("#menu").find("li").eq(8).find("a").click();
+
+
+        });
+
+        //修改用户状态
+        function ChangeStatus(status,id) {
+            //show("123", status+"=="+id);
+            $.post("/Admin/ChangeUserStatus",{"id":id, "status":status},function(rst){
+                if(rst == "success"){
+                    show("系统提示","操作成功！");
+                    setTimeout(function(){
+                        window.location.href="/Admin/User";
+                    },1000);
+                }else{
+                    show("警告","操作失败！");
+                }
+            });
+        }
+        function GetMore(id) {
+            //<div class='row'>  <div class='col-md-6'>用户名</div><div class='col-md-6'>123</div> </div>
+            show("数据正在加载中...", "<img style='margin-left:25%;' width='50%' src='/MyContent/images/loading.gif'>");
+            //return;
+            setTimeout(function () {
+                $.post("/AdminFun/GetUserInfo", { "id": id }, function (data) {
+                    var title = data["Email"];
+                    var content = "<div class='row'>  <div class='col-md-6'>用户名</div><div class='col-md-6'>" + data["NickName"] + "</div> </div> <div class='row'>  <div class='col-md-6'>真实姓名</div><div class='col-md-6'>" + data["TrueName"] + "</div> </div> <div class='row'>  <div class='col-md-6'>联系电话</div><div class='col-md-6'>" + data["Phone"] + "</div> </div> <div class='row'>  <div class='col-md-6'>性别</div><div class='col-md-6'>" + data["Gender"] + "</div> </div> <div class='row'>  <div class='col-md-6'>设备ID</div><div class='col-md-6'>" + data["DeviceId"] + "</div> </div> <div class='row'>  <div class='col-md-6'>最近登录时间</div><div class='col-md-6'>" + data["LastLoginTime"] + "</div> </div> <div class='row'>  <div class='col-md-6'>最近登录IP</div><div class='col-md-6'>" + data["LastLoginIP"] + "</div> </div> <div class='row'>  <div class='col-md-6'>注册时间</div><div class='col-md-6'>" + data["SubDate"] + "</div> </div> <div class='row'>  <div class='col-md-6'>状态</div><div class='col-md-6'>" + data["Status"] + "</div> </div><hr>";
+
+                    changeShow(title, content,0);
+                });
+
+            }, 0);
+
+        }
+
+
+    </script>
+</body>
+</html>
