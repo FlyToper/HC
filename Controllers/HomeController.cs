@@ -16,6 +16,7 @@ namespace 基于云的Web管理系统.Controllers
     
     public class HomeController : Controller
     {
+        
         private string  Apikey{get;set;}
         private string DeviceId { get;set; }
         private Dictionary<string, string> sensorsId { get; set; }
@@ -64,9 +65,10 @@ namespace 基于云的Web管理系统.Controllers
         {   //创建数据上下文
             var DBContext = new WebManagementDBEntities();
             //获取数据
-            var list = DBContext.HealthInfo.Where(u => u.DelFlag == 0 && u.IsHot == 0).OrderBy(u => u.SubDate).Take(3);
-
+            var list = DBContext.HealthInfo.Where(u => u.DelFlag == 12).OrderBy(u => u.SubDate).Take(3);
+            int uid = Convert.ToInt32(Session["UId"]);
             ViewBag.News = list;
+            ViewBag.NotifyCount = DBContext.NotifyInfo.Where(n => n.UserId == uid && (n.Type == 2 || n.Type == 3) && n.IsRead == 0).Count();
             return View();
         }
 
@@ -258,11 +260,14 @@ namespace 基于云的Web管理系统.Controllers
 
             if (Session["username"] != null)
             {
+                DBContext = new WebManagementDBEntities();
+                int uid = Convert.ToInt32(Session["UId"]);
+                ViewBag.NotifyCount = DBContext.NotifyInfo.Where(n => n.UserId == uid && (n.Type == 2 || n.Type == 3) && n.IsRead == 0).Count();
                 return View();
             }
             else
             {
-                return Redirect("/Home/Login");
+                return RedirectToAction("../Home/Login", new { referenUrl = "/Home/ShowMyData" });
             }
         }
 
@@ -328,7 +333,9 @@ namespace 基于云的Web管理系统.Controllers
         /// <returns></returns>
         public ActionResult ContactUs()
         {
-            
+            DBContext = new WebManagementDBEntities();
+            int uid = Convert.ToInt32(Session["UId"]);
+            ViewBag.NotifyCount = DBContext.NotifyInfo.Where(n => n.UserId == uid && (n.Type == 2 || n.Type == 3) && n.IsRead == 0).Count();
             return View();
         }
 
@@ -376,6 +383,11 @@ namespace 基于云的Web管理系统.Controllers
 
         }
 
+
+        /// <summary>
+        /// 【上传评论】
+        /// </summary>
+        /// <returns></returns>
         public ActionResult UpComment()
         {
             try
@@ -424,5 +436,7 @@ namespace 基于云的Web管理系统.Controllers
             }
             
         }
+
+
     }
 }

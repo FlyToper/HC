@@ -38,6 +38,53 @@
         .number2 {
             color: green;
         }
+
+        .edit-main {
+            /*border:1px solid red;*/
+            /*overflow: auto;*/
+            clear:both;
+            overflow:hidden;
+        }
+
+        .edit-left {
+            float: left;
+            width: 60%;
+        }
+
+            .edit-left fieldset {
+                background-color: white;
+            }
+
+        .edit-right {
+            float: left;
+            width: 37%;
+            margin-left: 3%;
+        }
+
+
+        .news_top {
+            border: 1px solid white;
+            padding: 2%;
+            background-color: white;
+        }
+
+        .word1, word2 {
+            color: gray;
+        }
+
+        .ok {
+            margin-left: 10px;
+            font-size: 30px;
+            color: green;
+            vertical-align: middle;
+            display: none;
+        }
+
+        .input-group-addon {
+            /*background-color: #99ccff;*/
+            font: bold;
+            /*color: white;*/
+        }
     </style>
 
 </head>
@@ -60,45 +107,143 @@
                     <li><a href="#">资讯管理</a></li>
                     <li class="active">历史资讯</li>
                 </ol>
-                <div class="table-responsive" >
-                    <table class="table table-striped">
-                        <tbody>
-                            <tr style="font-weight: bold; background-color: #FFFFCC;">
-                                <td>#</td>
-                                <td>标题</td>
-                                <td>描述</td>
-                                <td>发布人</td>
-                                <td>发布时间</td>
-                                <td>备注</td>
-                                <td>操作</td>
-                            </tr>
-                            <tr>
-                                <td colspan="6"></td>
-                            </tr>
-                            @foreach(var hinfo in ViewBag.HInfos)
+                <h3 style="text-align: center; " class="number1"><span  class="glyphicon glyphicon-fire"></span> 热门资讯</h3>
+                <div class="myRowTable">
+                    <div class="row row-head">
+                        <div class="col-md-1 col-sm-12">
+                            序号
+                        </div>
+                        <div class="col-md-2 col-sm-12">
+                            标题
+                        </div>
+                        <div class="col-md-2 col-sm-12">
+                            描述
+                        </div>
+                        <div class="col-md-2 col-sm-12 row-center">来源</div>
+                        <div class="col-md-1 col-sm-12 row-center">时间</div>
+                        <div class="col-md-1 col-sm-12 row-center">状态</div>
+                        <div class="col-md-1 col-sm-12 row-center">备注</div>
+                        <div class="col-md-2 col-sm-12 row-center">操作</div>
+
+                    </div>
+                    <input type="hidden" id="txtTotalHot" value="@ViewBag.Hinfos" />
+                    @if (ViewBag.HInfos.Count <= 0)
+                    {
+                        <div class="row row-body"><div class="col-md-2 col-sm-12" style="color:#ff6a00">暂无数据</div></div>
+                    }
+                    @foreach (var hinfo in ViewBag.HInfos)
+                    {
+                        if (hinfo.DelFlag == 12) { 
+                        <div class="row row-body">
+                            <div class="col-md-1 col-sm-12">@k</div>
+
+                            <div class="col-md-2 col-sm-12"><span class="wrap-line" title="@hinfo.Title"><a href="/News/ShowDetail?id=@hinfo.Id" target="_blank">@hinfo.Title</a></span> </div>
+                            <div class="col-md-2 col-sm-12"><span class="wrap-line" title="@hinfo.Description">@hinfo.Description</span> </div>
+                            <div class="col-md-2 col-sm-12 row-center"><span class="wrap-line" title="@hinfo.SubName">@hinfo.SubName</span> </div>
+                            <div class="col-md-1 col-sm-12 row-center"><span class="wrap-line" title="@hinfo.SubDate">@hinfo.SubDate</span> </div>
+                            <div class="col-md-1 col-sm-12 row-center">
+                                @if (hinfo.DelFlag == 11)
+                                { <span class="number1" title="已删除">已删除</span>}
+                                else
+                                { <span title="正常">正常</span> }
+                        </div>
+                        <div class="col-md-1 col-sm-12 row-center" title=""><span class="wrap-line" title="@hinfo.Remark">@hinfo.Remark</span></div>
+
+                        <div class="col-md-2 col-sm-12 row-center">
+                            <a href="/News/ShowDetail?id=@hinfo.Id" target="_blank"><span class="glyphicon glyphicon-eye-open" title="查看更多详情"></span></a>&nbsp;
+                            <a href="javascript:void(0)" onclick="EditNews(@hinfo.Id)"><span class="glyphicon glyphicon-edit" title="编辑资讯"></span></a>&nbsp;
+                            @if (hinfo.DelFlag == 11)
                             {
-                                <tr>
-                                    <td>k</td>
-                                    <td ><span class="wrap-line">@hinfo.Title</span></td>
-                                    <td ><span class="wrap-line">@hinfo.Description</span></td>
-                                    <td>@hinfo.SubName</td>
-                                    <td>@hinfo.SubDate</td>
-                                    <td>@hinfo.Remark</td>
-                                    <td></td>
-                                </tr>
-                                
+                                <a href="javascript:void(0)" onclick="ChangeStatus(@hinfo.Id, 0)"><span class="glyphicon glyphicon-wrench" title="恢复为正常状态"></span></a>
+                            }
+                            else
+                            {
+                                <a href="javascript:void(0)" onclick="ChangeStatus(@hinfo.Id, 11)"><span class="glyphicon glyphicon-trash" title="删除该资讯"></span></a>
+                            }&nbsp;
+                            <a href="javascript:void(0)" onclick="ChangeStatus(@hinfo.Id, 0)"> <span class="glyphicon glyphicon-arrow-down" title="设置为普通资讯"></span></a>&nbsp;
+     
+                        </div>
+                    </div>
+                            k++;
+                    }
+
+                            
+
+                    }
+                    <input type="hidden" id="txtHotTotal" value="@k" />
+
+                    <div class="row-foot"></div>
+                </div>
+
+                <br>
+                <h3 style="text-align:center;"> 普通资讯</h3>
+                <div class="myRowTable">
+                    <div class="row row-head">
+                        <div class="col-md-1 col-sm-12">
+                            序号
+                        </div>
+                        <div class="col-md-2 col-sm-12">
+                            标题
+                        </div>
+                        <div class="col-md-2 col-sm-12">
+                            描述
+                        </div>
+                        <div class="col-md-2 col-sm-12 row-center">来源</div>
+                        <div class="col-md-1 col-sm-12 row-center">时间</div>
+                        <div class="col-md-1 col-sm-12 row-center">状态</div>
+                        <div class="col-md-1 col-sm-12 row-center">备注</div>
+                        <div class="col-md-2 col-sm-12 row-center">操作</div>
+
+                    </div>
+                    @if (ViewBag.HInfos.Count <= 0)
+                    {
+                        <div class="row row-body"><div class="col-md-2 col-sm-12" style="color:#ff6a00">暂无数据</div></div>
+                    }
+                    else 
+                    {
+                        k = 1;
+                    }
+                    
+                    @foreach (var hinfo in ViewBag.HInfos)
+                    {
+                        if (hinfo.DelFlag != 12) { 
+                        <div class="row row-body">
+                            <div class="col-md-1 col-sm-12">@k</div>
+
+                            <div class="col-md-2 col-sm-12"><a href="/News/ShowDetail?id=@hinfo.Id" target="_blank"><span class="wrap-line" title="@hinfo.Title">@hinfo.Title</span></a> </div>
+                            <div class="col-md-2 col-sm-12"><span class="wrap-line" title="@hinfo.Description">@hinfo.Description</span> </div>
+                            <div class="col-md-2 col-sm-12 row-center"><span class="wrap-line" title="@hinfo.SubName">@hinfo.SubName</span> </div>
+                            <div class="col-md-1 col-sm-12 row-center"><span class="wrap-line" title="@hinfo.SubDate">@hinfo.SubDate</span> </div>
+                            <div class="col-md-1 col-sm-12 row-center">@if (hinfo.DelFlag == 11)
+{ <span class="number1" title="已删除">已删除</span>}
+else
+{ <span title="正常">正常</span> }</div>
+                            <div class="col-md-1 col-sm-12 row-center" title=""><span class="wrap-line" title="@hinfo.Remark">@hinfo.Remark</span></div>
+
+                        <div class="col-md-2 col-sm-12 row-center">
+                            <a href="/News/ShowDetail?id=@hinfo.Id" target="_blank"><span class="glyphicon glyphicon-eye-open" title="查看更多详情"></span></a>&nbsp;
+                            <a href="javascript:void(0)" onclick="EditNews(@hinfo.Id)"><span class="glyphicon glyphicon-edit" title="编辑资讯"></span></a>&nbsp;
+                           @if (hinfo.DelFlag == 11)
+{
+    <a href="javascript:void(0)" onclick="ChangeStatus(@hinfo.Id, 0)"><span class="glyphicon glyphicon-wrench" title="恢复为正常状态"></span></a>
+}
+                           else
+                           {
+                            <a href="javascript:void(0)" onclick="ChangeStatus(@hinfo.Id, 11)"><span class="glyphicon glyphicon-trash" title="删除该资讯"></span></a>
+                           }&nbsp;
+                            <a href="javascript:void(0)" onclick="ChangeStatus(@hinfo.Id,12)"> <span class="glyphicon glyphicon-arrow-up" title="设置为热门资讯"></span></a>&nbsp;
+                        </div>
+                    </div>
+
+                            k++;
                             }
 
+                    }
 
-                        </tbody>
-                    </table>
-                    @*<button id="btnTest">测试</button>*@
-
-
-
+                    <div class="row-foot"></div>
                 </div>
-               
 
+  
                 
             </div>
 
@@ -118,6 +263,11 @@
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="/MyContent/js/ie10-viewport-bug-workaround.js"></script>
     <script src="/MyContent/js/public.js"></script>
+    <script src="~/MyContent/js/ajaxfileupload.js"></script>
+    <script src="~/MyContent/js/publicNews.js"></script>
+    <script src="~/MyContent/js/adminNews.js"></script>
+    <script type="text/javascript" src="/MyContent/ckeditor/ckeditor.js"></script>
+    
     
 
     <script type="text/javascript">
@@ -141,24 +291,6 @@
                     $(this).addClass("number1");//绿色
                 }
             });
-        });
-
-        $(".btn-isRead").click(function () {
-            var element = $(this);
-            var id = $(this).attr("key-id");
-            $.post("/Admin/CheckCommentStatus", { "id": id }, function (rst) {
-                if (rst == "success") {
-                    element.parent().parent().remove();
-                } else {
-                    show("警告", "操作失败,请重试！");
-                }
-            });
-        });
-
-
-
-        $("#btnTest").click(function () {
-            show("警告", "点击了");
         });
     </script>
 </body>

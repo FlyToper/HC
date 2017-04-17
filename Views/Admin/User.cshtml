@@ -126,7 +126,7 @@ else
                                     <button class="btn btn-danger" title="删除该用户，将无法登录" onclick="ChangeStatus(11,@uinfo.Id)">删除</button>
 
                                 }
-                                <button class="btn btn-success" onclick="Notify(@uinfo.Id, '@uinfo.Email')">通知</button>
+                                <button class="btn btn-success" onclick="Notify(@uinfo.Id, '@uinfo.Email','@uinfo.NickName')">通知</button>
                             </div>
                         </div>
 
@@ -149,7 +149,7 @@ else
 
         </div>
     </div>
-
+    
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
@@ -163,6 +163,7 @@ else
     <script src="~/MyContent/js/ajaxfileupload.js"></script>
     <script src="~/MyContent/js/publicNews.js"></script>
     <script src="~/MyContent/js/metisMenu.min.js"></script>
+    <script src="~/MyContent/js/adminUser.js"></script>
 
     <script type="text/javascript">
         $(function () {
@@ -173,48 +174,7 @@ else
 
         });
 
-        //修改用户状态
-        function ChangeStatus(status,id) {
-            //show("123", status+"=="+id);
-            if(status == 11 || status == 12){
-                if(!confirm("你确定要执行本操作？执行之后用户将无法登录。"))
-                    return;
-            }
-
-            $.post("/Admin/ChangeUserStatus",{"id":id, "status":status},function(rst){
-                if(rst == "success"){
-                    show("系统提示","操作成功！");
-                    setTimeout(function(){
-                        window.location.href="/Admin/User";
-                    },1000);
-                }else{
-                    show("警告","操作失败！");
-                }
-            });
-        }
-
-        function GetMore(id) {
-            //<div class='row'>  <div class='col-md-6'>用户名</div><div class='col-md-6'>123</div> </div>
-            show("数据正在加载中...", "<img style='margin-left:25%;' width='50%' src='/MyContent/images/loading.gif'>");
-            //return;
-            setTimeout(function () {
-                $.post("/AdminFun/GetUserInfo", { "id": id }, function (data) {
-                    var title = data["Email"];
-                    var content = "<div class='row'>  <div class='col-md-6'>用户名</div><div class='col-md-6'>" + data["NickName"] + "</div> </div> <div class='row'>  <div class='col-md-6'>真实姓名</div><div class='col-md-6'>" + data["TrueName"] + "</div> </div> <div class='row'>  <div class='col-md-6'>联系电话</div><div class='col-md-6'>" + data["Phone"] + "</div> </div> <div class='row'>  <div class='col-md-6'>性别</div><div class='col-md-6'>" + data["Gender"] + "</div> </div> <div class='row'>  <div class='col-md-6'>设备ID</div><div class='col-md-6'>" + data["DeviceId"] + "</div> </div> <div class='row'>  <div class='col-md-6'>最近登录时间</div><div class='col-md-6'>" + data["LastLoginTime"] + "</div> </div> <div class='row'>  <div class='col-md-6'>最近登录IP</div><div class='col-md-6'>" + data["LastLoginIP"] + "</div> </div> <div class='row'>  <div class='col-md-6'>注册时间</div><div class='col-md-6'>" + data["SubDate"] + "</div> </div> <div class='row'>  <div class='col-md-6'>状态</div><div class='col-md-6'>" + data["Status"] + "</div> </div><hr>";
-
-                    changeShow(title, content,0);
-                });
-                
-            }, 0);
-            
-        }
-
-        function Notify(id, email){
-            var title = "给用户发送通知：";
-            var content = "<form><div class='form-group'><label for='recipient-name' class='control-label'>主题:</label><input type='text' class='form-control' id='recipient-name'></div><div class='form-group'><label for='message-text' class='control-label'>内容:</label><textarea class='form-control' id='message-text'></textarea></div></form>";
-            $("#showBtn").prepend(" <> <button type='button' class='btn btn-info'>发送</button>");
-            changeShow(title,content, 1);
-        }
+        
 
     </script>
 </body>

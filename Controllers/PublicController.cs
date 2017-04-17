@@ -132,7 +132,8 @@ namespace 基于云的Web管理系统.Controllers
                     DBContext.Entry(user).State = System.Data.EntityState.Modified;
                     DBContext.SaveChanges();
 
-                    ViewBag.UserEmail = user.Email;
+                    ViewBag.UserEmail = user.Email;//邮箱
+                    ViewBag.Title = "用户注册---完成邮箱验证";
                     return View();
                     //return Content("success");
                 }
@@ -205,6 +206,49 @@ namespace 基于云的Web管理系统.Controllers
             }
         }
 
-       
+        /// <summary>
+        /// 【验证邮箱注册码】
+        ///  20170417
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult CheckApplyCode()
+        {
+
+            try
+            {
+                int uid = Convert.ToInt32(Request["uid"]);
+                string code = Request["registerCode"];
+
+                DBContext = new WebManagementDBEntities();
+
+                //1、查找是否有此用户
+                var doc = DBContext.DoctorInfo.Where(u => u.Id == uid && u.RegisterCode == code).FirstOrDefault();
+
+                //验证
+                if (doc != null)
+                {
+                    doc.State = 2;
+                    DBContext.DoctorInfo.Attach(doc);
+                    DBContext.Entry(doc).State = System.Data.EntityState.Modified;
+                    DBContext.SaveChanges();
+
+                    ViewBag.UserEmail = doc.Email;
+                    ViewBag.Title = "申请认证医生---完成邮箱验证";
+
+                    return View("CheckRegisterCode");
+                    //return Content("success");
+                }
+                else
+                {
+                    return Content("error");
+
+                }
+
+            }
+            catch
+            {
+                return Content("error");
+            }
+        }
     }
 }

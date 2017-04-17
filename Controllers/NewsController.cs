@@ -24,12 +24,14 @@ namespace 基于云的Web管理系统.Controllers
         {
             //创建数据上下文
             DBContext = new WebManagementDBEntities();
-            var hotNews =  DBContext.HealthInfo.Where(u => u.IsHot == 1 && u.DelFlag == 0).Take(3);
+            var hotNews =  DBContext.HealthInfo.Where( u=>u.DelFlag == 12).Take(3);
+            int uid = Convert.ToInt32(Session["UId"]);
+            ViewBag.NotifyCount = DBContext.NotifyInfo.Where(n => n.UserId == uid && (n.Type == 2 || n.Type == 3) && n.IsRead == 0).Count();
             if (hotNews != null)
             {
                 ViewBag.HotNews = hotNews;
             }
-            var newsInfo = DBContext.HealthInfo.Where(u => u.DelFlag == 0 && u.IsHot == 0).OrderByDescending(u=> u.SubDate).Take(10);
+            var newsInfo = DBContext.HealthInfo.Where(u => u.DelFlag == 0 ).OrderByDescending(u=> u.SubDate).Take(10);
             if (newsInfo != null)
             {
                 ViewBag.NewsInfo = newsInfo;
@@ -51,9 +53,9 @@ namespace 基于云的Web管理系统.Controllers
             int pageSize = Request["pageSize"] == null ? 10 : int.Parse(Request["pageSize"]);
 
             //获取相关数据的总数
-            int total = DBContext.HealthInfo.Where(u=>u.DelFlag == 0 && u.IsHot == 0).Count();
+            int total = DBContext.HealthInfo.Where(u=>u.DelFlag == 0 ).Count();
             //获取数据
-            var list = DBContext.HealthInfo.Where(u => u.DelFlag == 0 && u.IsHot == 0).OrderByDescending(u=>u.SubDate).Skip(pageSize * (pageIndex - 1)).Take(pageSize);
+            var list = DBContext.HealthInfo.Where(u => u.DelFlag == 0).OrderByDescending(u=>u.SubDate).Skip(pageSize * (pageIndex - 1)).Take(pageSize);
             
             //要来做数据处理的新数组
             ArrayList s = new ArrayList();
@@ -98,7 +100,7 @@ namespace 基于云的Web管理系统.Controllers
                     int newsId = int.Parse(Id);
                     //创建数据上下文，根据Id查找相关记录
                     DBContext = new WebManagementDBEntities();
-                    var newsInfo = DBContext.HealthInfo.Where(u => u.Id == newsId && u.DelFlag == 0).FirstOrDefault();
+                    var newsInfo = DBContext.HealthInfo.Where(u => u.Id == newsId && u.DelFlag != 11).FirstOrDefault();
 
                     if (newsInfo != null)
                     {

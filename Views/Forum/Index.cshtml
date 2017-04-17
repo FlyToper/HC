@@ -42,8 +42,10 @@
                 <div class="row" >
                     <div class="col-md-3 col-xs-12">
                         <button class="btn btn-success " id="btnSearchAll" data-loading-text="加载中..."><span class="glyphicon glyphicon-th-list"></span> 查看所有资讯</button>
+                        &nbsp;&nbsp;<a class="btn btn-success" href="/Forum/PostForum?forumType=1"><span class="glyphicon glyphicon-comment"></span> 我要发帖</a>
                     </div>
-                    <div class="col-md-9 col-xs-9">
+                   
+                    <div class="col-md-9 col-xs-12">
                         <div class="row">
                             <div class="dropdown col-md-2 col-xs-9">
                                 <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -187,9 +189,11 @@
     <script src="~/MyContent/js/jquery-2.1.1.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
     <script src="~/MyContent/js/ForumJS.js"></script>
+    <script src="~/MyContent/js/homepublic.js"></script>
 
     <script type="text/javascript">  
         $(function () {
+            
             $('#myModal').on('shown.bs.modal', function () {
                 $('#myInput').focus();
             });

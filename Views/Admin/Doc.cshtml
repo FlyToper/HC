@@ -1,0 +1,189 @@
+﻿@{
+    Layout = null;
+    int k = 1;
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <style type="text/css">
+    </style>
+    <title>全部医生</title>
+
+    <!-- Bootstrap core CSS -->
+
+    <link href="/MyContent/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/MyContent/css/metisMenu.min.css" rel="stylesheet" />
+    <!-- Custom styles for this template -->
+    <link href="/MyContent/css/dashboard.css" rel="stylesheet">
+
+    <link href="/MyContent/css/admin.css" rel="stylesheet">
+
+    <link href="~/MyContent/css/sidebar-demo.css" rel="stylesheet" />
+
+    <style type="text/css">
+        body {
+            background-color: white;
+        }
+
+        .cred {
+            color:red;
+        }
+
+        .cgreen {
+            color:green;
+        }
+    </style>
+</head>
+
+<body>
+
+    @RenderPage("../Shared/Navbar.cshtml")
+
+    <div class="container-fluid">
+        <div class="row">
+
+            @RenderPage("../Shared/SideBar.cshtml")
+
+
+
+            <!-- content 开始 -->
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+
+                <h1 class="page-header">全部医生</h1>
+                <ol class="breadcrumb">
+                    <li><a href="#">管理后台</a></li>
+                    <li><a href="#">医生管理</a></li>
+                    <li class="active">全部医生</li>
+                </ol>
+
+
+             
+                <div class="myRowTable">
+                    <div class="row row-head">
+                        <div class="col-md-1 col-sm-12">序号</div>
+                        <div class="col-md-2 col-sm-12 row-center">账号</div>
+                        <div class="col-md-2 col-sm-12 row-center">姓名</div>
+                        <div class="col-md-1 col-sm-12 row-center">电话</div>
+                        <div class="col-md-2 col-sm-12 row-center">申请说明</div>
+                        <div class="col-md-1 col-sm-12 row-center">图片</div>
+                        <div class="col-md-1 col-sm-12 row-center">状态</div>
+                        <div class="col-md-2 col-sm-12 row-center"><span class="glyphicon glyphicon-cog"></span> 操作</div>
+
+                    </div>
+                    @if (ViewBag.Docs.Count > 0)
+                    {
+                        k = 1;
+                    }
+                    @foreach (var doc in ViewBag.Docs)
+                    {
+                       
+                            <div class="row row-body">
+                                <div class="col-md-1 col-sm-12">@k</div>
+                                <div class="col-md-2 col-sm-12 row-center"><span class="wrap-line" title="@doc.Email">@doc.Email</span> </div>
+                                <div class="col-md-2 col-sm-12 row-center"><span class="wrap-line" title="@doc.Name">@doc.Name</span> </div>
+                                <div class="col-md-1 col-sm-12 row-center"><span class="wrap-line" title="@doc.Phone">@doc.Phone</span> </div>
+                                <div class="col-md-2 col-sm-12 row-center"><span class="wrap-line" title="@doc.Reason">@doc.Reason</span> </div>
+                                <div class="col-md-1 col-sm-12 row-center">
+                                    <a href="javascript:void(0)" onclick="ShowImage('@doc.ImageUrls')"><span class="glyphicon glyphicon-screenshot"></span> </a>
+                                </div>
+                                <div class="col-md-1 col-sm-12 row-center">@if (doc.State == 3) {<span>正常</span> }
+                                                                           else if (doc.State == 11) { <span class="cred">已删除</span>}
+                                                                           else if (doc.State == 12) {<span class="cred">已禁用</span> }else{<span class="cred">未知</span>}</div>
+                                <div class="col-md-2 col-sm-12 row-center">
+                                    @if (doc.State == 3) { 
+                                    <button class="btn btn-danger" onclick="ChangeState(@doc.Id,11)">删除</button>
+                                    <button class="btn btn-warning" onclick="ChangeState(@doc.Id, 12)">禁用</button>
+                                    }
+                                    else if (doc.State == 11)
+                                    { 
+                                         <button class="btn btn-info" onclick="ChangeState(@doc.Id,3)">恢复</button>
+                                    <button class="btn btn-warning" onclick="ChangeState(@doc.Id, 12)">禁用</button>
+                                    }
+                                    else if (doc.State == 12)
+                                    {
+                                         <button class="btn btn-info" onclick="ChangeState(@doc.Id,3)">恢复</button>
+                                    <button class="btn btn-warning" onclick="ChangeState(@doc.Id, 11)">删除</button>
+                                    }
+                                    else 
+                                    {
+                                        <span>不可操作</span>
+                                    }
+                                </div>
+                            </div>
+                            k++;
+                        
+
+
+
+                    }
+                    @if (k == 1)
+                    {
+                        <div class="row row-body"><div class="col-md-2 col-sm-12" style="color:#ff6a00">暂无数据</div></div>
+                    }
+
+                    <div class="row-foot"></div>
+                </div>
+
+                
+
+
+
+
+            </div>
+            <!-- content 结束-->
+
+
+
+        </div>
+    </div>
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="/MyContent/js/jquery-2.1.1.min.js"></script>
+    <script src="/MyContent/js/bootstrap.min.js"></script>
+    <script src="/MyContent/js/docs.min.js"></script>
+
+    <script type="text/javascript" src="/MyContent/ckeditor/ckeditor.js"></script>
+    <script src="/MyContent/js/public.js"></script>
+    @*<script src="~/MyContent/js/ajaxfileupload.js"></script>
+        <script src="~/MyContent/js/publicNews.js"></script>*@
+    <script src="~/MyContent/js/metisMenu.min.js"></script>
+    <script src="~/MyContent/js/adminUser.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            $('#menu').metisMenu();
+            //$("#menu").find("li").eq(1).addClass("active");
+            $("#menu").find("li").eq(5).find("a").click();
+        });
+
+        function ShowImage(src) {
+            show("<span class='glyphicon glyphicon-picture'></span> 申请证明图片", "<img src='" + src + "' alt='申请证明' width='100%'/>")
+        }
+
+        function ChangeState(id, state) {
+            $.post("/AdminFun/ChangeState", { "id": id, "state": state }, function (rst) {
+                if (rst == "success") {
+                    show("系统提示", "操作成功");
+                    setTimeout(function () {
+                        location.reload();
+                    }, 1500);
+                } else {
+                    show("警告", "操作失败，请重试！");
+                }
+            });
+        }
+
+    </script>
+</body>
+</html>

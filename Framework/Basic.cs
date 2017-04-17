@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 
@@ -214,6 +215,87 @@ namespace 基于云的Web管理系统.Framework
             {
                 return "未知";
             }
+        }
+
+        /// <summary>
+        /// 【获取通知发送方式】
+        ///  20170411
+        /// </summary>
+        /// <param name="num"></param>
+        /// <returns></returns>
+        public static string getNoteType(string num)
+        {
+            if (num == "1")
+                return "邮件";
+            if (num == "2")
+                return "站内";
+            else
+                return "邮件&站内";
+        }
+
+        /// <summary>
+        /// 【发送邮件通知】
+        ///  20170411
+        /// </summary>
+        /// <param name="toEmail">接受者邮箱</param>
+        /// <param name="title">标题</param>
+        /// <param name="content">内容</param>
+        /// <returns></returns>
+        public static bool sendNoteByEmail( string toEmail, string  title, string content)
+        {
+            //服务器的邮箱----发送邮件
+            string serverEmail = ConfigurationManager.AppSettings["ServerEmailId"];
+            string serverEmailPwd = ConfigurationManager.AppSettings["ServerEmailPwd"];
+            //string url = ConfigurationManager.AppSettings["WebUrl"] + "/Public/CheckRegisterCode?registerCode=" + Basic.GetMD5(code) + "&uid=" + uid;
+
+            string tiltle = "通知：" + title;
+            
+
+            SendEmail myemail = new SendEmail(toEmail, tiltle, content, serverEmail, serverEmailPwd);
+
+            myemail.sendEmail();//发送邮件
+            return true;
+        }
+
+        /// <summary>
+        /// 【获取资讯的状态】
+        ///  20170413
+        /// </summary>
+        /// <param name="num">状态码</param>
+        /// <returns></returns>
+        public static string getNewsStatus(int num)
+        {
+            if (num == 0)
+                return "正常";
+            else if (num == 11)
+                return "已删除";
+            else if (num == 12)
+                return "热门";
+            else
+                return "未知";
+        }
+
+        /// <summary>
+        /// 【获取医生的状态】
+        ///  20170416
+        /// </summary>
+        /// <param name="num"></param>
+        /// <returns></returns>
+        public static string getDocStatus(int num) 
+        {
+            if (num == 1)
+                return "邮箱认证中";
+            else if (num == 2)
+                return "申请审核中";
+            else if (num == 3)
+                return "正常";
+            else if (num == 11)
+                return "已删除";
+            else if (num == 12)
+                return "已禁用";
+            else
+                return "未知";
+
         }
     }
 }

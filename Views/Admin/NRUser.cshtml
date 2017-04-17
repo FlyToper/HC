@@ -97,7 +97,7 @@
 
                         <div class="col-md-2 col-sm-12 row-center">
                             <button class="btn btn-info" title="查看更多用户信息" onclick="GetMore(@uinfo.Id)">更多</button>
-                            <button class="btn btn-success">通知</button>
+                            <button class="btn btn-success" onclick="Notify(@uinfo.Id, '@uinfo.Email','@uinfo.NickName')">通知</button>
                             
                         </div>
                     </div>
@@ -135,47 +135,14 @@
     <script src="~/MyContent/js/ajaxfileupload.js"></script>
     <script src="~/MyContent/js/publicNews.js"></script>
     <script src="~/MyContent/js/metisMenu.min.js"></script>
+    <script src="~/MyContent/js/adminUser.js"></script>
 
     <script type="text/javascript">
         $(function () {
             $('#menu').metisMenu();
             //$("#menu").find("li").eq(1).addClass("active");
             $("#menu").find("li").eq(8).find("a").click();
-
-
         });
-
-        //修改用户状态
-        function ChangeStatus(status,id) {
-            //show("123", status+"=="+id);
-            $.post("/Admin/ChangeUserStatus",{"id":id, "status":status},function(rst){
-                if(rst == "success"){
-                    show("系统提示","操作成功！");
-                    setTimeout(function(){
-                        window.location.href="/Admin/User";
-                    },1000);
-                }else{
-                    show("警告","操作失败！");
-                }
-            });
-        }
-        function GetMore(id) {
-            //<div class='row'>  <div class='col-md-6'>用户名</div><div class='col-md-6'>123</div> </div>
-            show("数据正在加载中...", "<img style='margin-left:25%;' width='50%' src='/MyContent/images/loading.gif'>");
-            //return;
-            setTimeout(function () {
-                $.post("/AdminFun/GetUserInfo", { "id": id }, function (data) {
-                    var title = data["Email"];
-                    var content = "<div class='row'>  <div class='col-md-6'>用户名</div><div class='col-md-6'>" + data["NickName"] + "</div> </div> <div class='row'>  <div class='col-md-6'>真实姓名</div><div class='col-md-6'>" + data["TrueName"] + "</div> </div> <div class='row'>  <div class='col-md-6'>联系电话</div><div class='col-md-6'>" + data["Phone"] + "</div> </div> <div class='row'>  <div class='col-md-6'>性别</div><div class='col-md-6'>" + data["Gender"] + "</div> </div> <div class='row'>  <div class='col-md-6'>设备ID</div><div class='col-md-6'>" + data["DeviceId"] + "</div> </div> <div class='row'>  <div class='col-md-6'>最近登录时间</div><div class='col-md-6'>" + data["LastLoginTime"] + "</div> </div> <div class='row'>  <div class='col-md-6'>最近登录IP</div><div class='col-md-6'>" + data["LastLoginIP"] + "</div> </div> <div class='row'>  <div class='col-md-6'>注册时间</div><div class='col-md-6'>" + data["SubDate"] + "</div> </div> <div class='row'>  <div class='col-md-6'>状态</div><div class='col-md-6'>" + data["Status"] + "</div> </div><hr>";
-
-                    changeShow(title, content,0);
-                });
-
-            }, 0);
-
-        }
-
-
     </script>
 </body>
 </html>

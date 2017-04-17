@@ -175,7 +175,8 @@
                         <input style="padding-left:5px; border-style: solid; border-width: 1px; border-color: gray; border-radius: 6px; margin-left: 10px;"  type="text" maxlength="5" size="8" id="txtReplyCode"/>
                     </span>
                     <span style="display:none;color:red" id="msgReplyCode"></span>
-                    <input style="margin-left:10px;background-color:#1276bf;color:white!important;" type="button" value="提交回复" onclick="subReplyContent(@ViewData["reply_id"])" />
+                    @*<input style="margin-left:10px;background-color:#1276bf;color:white!important;" type="button" value="提交回复" onclick="subReplyContent(@ViewData["reply_id"])" />*@
+                    <button class="btn btn-info" onclick="subReplyContent(@ViewData["reply_id"])">提交回复</button>
                 </div>
             </div>
 
@@ -202,6 +203,7 @@
     <script src="../MyContent/js/ajaxfileupload.js"></script>
     <script src="~/MyContent/js/ForumDetailJS.js"></script>
     <script type="text/javascript" src="~/MyContent/ckeditor/ckeditor.js"></script>
+    <script src="~/MyContent/js/homepublic.js"></script>
 
     <script type="text/javascript">
         $(function () {

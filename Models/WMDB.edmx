@@ -60,17 +60,21 @@
           <Property Name="IsRead" Type="tinyint" />
           <Property Name="ReDate" Type="datetime" />
         </EntityType>
-        <!--生成过程中发现错误:
-警告 6013: 表/视图“WebManagementDB.dbo.DoctorInfo”未定义主键，并且无法推断有效的主键。已排除了此表/视图。若要使用实体，将需要检查您的架构、添加正确的键并取消对实体的注释。
         <EntityType Name="DoctorInfo">
-          <Property Name="Id" Type="int" />
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Email" Type="nvarchar" MaxLength="20" />
           <Property Name="Pwd" Type="nvarchar" MaxLength="20" />
           <Property Name="Name" Type="nvarchar" MaxLength="20" />
           <Property Name="Phone" Type="nvarchar" MaxLength="20" />
           <Property Name="RegisterCode" Type="nvarchar" MaxLength="50" />
           <Property Name="State" Type="tinyint" />
-        </EntityType>-->
+          <Property Name="Remark" Type="nvarchar(max)" />
+          <Property Name="ImageUrls" Type="nvarchar(max)" />
+          <Property Name="Reason" Type="nvarchar(max)" />
+        </EntityType>
         <EntityType Name="ForumInfo">
           <Key>
             <PropertyRef Name="Id" />
@@ -121,11 +125,13 @@
           <Property Name="DelFlag" Type="tinyint" />
           <Property Name="Remark" Type="nvarchar" MaxLength="250" />
         </EntityType>
-        <!--生成过程中发现错误:
-警告 6013: 表/视图“WebManagementDB.dbo.NotifyInfo”未定义主键，并且无法推断有效的主键。已排除了此表/视图。若要使用实体，将需要检查您的架构、添加正确的键并取消对实体的注释。
         <EntityType Name="NotifyInfo">
-          <Property Name="Id" Type="bigint" />
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserId" Type="bigint" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
           <Property Name="UserType" Type="tinyint" />
           <Property Name="Title" Type="nvarchar" MaxLength="250" />
           <Property Name="Content" Type="nvarchar(max)" />
@@ -134,7 +140,9 @@
           <Property Name="SubDate" Type="datetime" />
           <Property Name="SubNum" Type="nvarchar" MaxLength="50" />
           <Property Name="SubName" Type="nvarchar" MaxLength="50" />
-        </EntityType>-->
+          <Property Name="IsRead" Type="tinyint" />
+          <Property Name="ReDate" Type="datetime" />
+        </EntityType>
         <EntityType Name="UserInfo">
           <Key>
             <PropertyRef Name="Id" />
@@ -161,9 +169,11 @@
           <EntitySet Name="AdminInfo" EntityType="Self.AdminInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AnswerInfo" EntityType="Self.AnswerInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CommentInfo" EntityType="Self.CommentInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DoctorInfo" EntityType="Self.DoctorInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ForumInfo" EntityType="Self.ForumInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ForumType" EntityType="Self.ForumType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HealthInfo" EntityType="Self.HealthInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NotifyInfo" EntityType="Self.NotifyInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserInfo" EntityType="Self.UserInfo" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -273,6 +283,8 @@
           <EntitySet Name="HealthInfo" EntityType="Self.HealthInfo" />
           <EntitySet Name="CommentInfo" EntityType="WebManagementDBModel.CommentInfo" />
           <EntitySet Name="UserInfo" EntityType="WebManagementDBModel.UserInfo" />
+          <EntitySet Name="NotifyInfo" EntityType="WebManagementDBModel.NotifyInfo" />
+          <EntitySet Name="DoctorInfo" EntityType="WebManagementDBModel.DoctorInfo" />
         </EntityContainer>
         <EntityType Name="CommentInfo">
           <Key>
@@ -305,6 +317,39 @@
           <Property Name="Remark" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="RegisterCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="IsRegister" Type="Byte" />
+        </EntityType>
+        <EntityType Name="NotifyInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int64" />
+          <Property Name="UserType" Type="Byte" />
+          <Property Name="Title" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="Byte" />
+          <Property Name="DelFlag" Type="Byte" />
+          <Property Name="SubDate" Type="DateTime" Precision="3" />
+          <Property Name="SubNum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SubName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsRead" Type="Byte" />
+          <Property Name="ReDate" Type="DateTime" Precision="3" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="DoctorInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Email" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Pwd" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="RegisterCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="State" Type="Byte" />
+          <Property Name="Remark" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ImageUrls" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Reason" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -441,6 +486,41 @@
                 <ScalarProperty Name="NickName" ColumnName="NickName" />
                 <ScalarProperty Name="UserPwd" ColumnName="UserPwd" />
                 <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NotifyInfo">
+            <EntityTypeMapping TypeName="WebManagementDBModel.NotifyInfo">
+              <MappingFragment StoreEntitySet="NotifyInfo">
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="ReDate" ColumnName="ReDate" />
+                <ScalarProperty Name="IsRead" ColumnName="IsRead" />
+                <ScalarProperty Name="SubName" ColumnName="SubName" />
+                <ScalarProperty Name="SubNum" ColumnName="SubNum" />
+                <ScalarProperty Name="SubDate" ColumnName="SubDate" />
+                <ScalarProperty Name="DelFlag" ColumnName="DelFlag" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="UserType" ColumnName="UserType" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DoctorInfo">
+            <EntityTypeMapping TypeName="WebManagementDBModel.DoctorInfo">
+              <MappingFragment StoreEntitySet="DoctorInfo">
+                <ScalarProperty Name="Reason" ColumnName="Reason" />
+                <ScalarProperty Name="ImageUrls" ColumnName="ImageUrls" />
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="RegisterCode" ColumnName="RegisterCode" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Pwd" ColumnName="Pwd" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>

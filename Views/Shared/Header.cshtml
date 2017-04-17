@@ -29,6 +29,7 @@
                 <li>@Html.ActionLink("个人信息", "ShowMyInfo", "User")</li>
                 <li>@Html.ActionLink("我的数据", "ShowMyData", "Home")</li>
                 <li>@Html.ActionLink("联系我们", "ContactUs", "Home")</li>
+                <li>@Html.ActionLink("申请认证医生","Apply","Doc")</li>
                 @*<li class="dropdown" style="">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
                     <ul class="dropdown-menu">
@@ -52,16 +53,23 @@
                    </ul>
                 } else { @Html.ActionLink("登录", "LoginTest", "User"); } &nbsp;<span class="navbar-right-span">|</span>&nbsp; @Html.ActionLink("注册","Register","User")</h3>*@
             <ul class="nav navbar-nav navbar-right">
-                <li>@if (Session["UserName"] != null) { <li class="dropdown" style="">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@Session["NickName"] <span class="caret"></span></a>
-                    <ul class="dropdown-menu" style="background-color:#CCFFFF;font-size:20px;">
-                        <li>@Html.ActionLink("切换账户", "Login", "Home")</li>
-                        <li role="separator" class="divider"></li>
-                        <li>@Html.ActionLink("退出", "Exit", "User")</li>
-                    </ul>
-                </li>}
-                    else { @Html.ActionLink("登录", "Login", "Home");}
-                </li>
+                @if (Session["UserName"] != null)
+                {
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@Session["NickName"] <span class="caret"></span></a>
+                        <ul class="dropdown-menu" style="background-color:;font-size:20px;">
+                            <li><a href="/Home/Login">切换用户</a> </li>
+                            <li><a href="javascript:void(0)" onclick="NotifyList()">通知 <span class="badge" style="background-color:black;">@ViewBag.NotifyCount</span></a></li><li role="separator" class="divider"></li>
+                            <li>@Html.ActionLink("退出", "Exit", "User")</li>
+                        </ul>
+                    </li>
+                  
+                }
+                else
+                {
+                    <li>@Html.ActionLink("登录", "Login", "Home")</li>
+                }
+                
                 <li style="margin-left:3px;margin-right:3px;"><a href="javascript:void(0);">|</a></li>
                 <li><a href="/User/Register">注册</a></li>
                 <li class="dropdown" style="display:none">

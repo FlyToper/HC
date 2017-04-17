@@ -185,10 +185,10 @@ namespace 基于云的Web管理系统.Controllers
                     DBContext = new WebManagementDBEntities();
 
                     //1、查询需要处理的留言
-                    var comments = DBContext.CommentInfo.Where(u => u.IsRead == 0).OrderByDescending(u => u.SubData);
+                    var comments = DBContext.CommentInfo.Where(u => u.IsRead == 0).OrderByDescending(u => u.SubData).Take(5).ToList();
 
                     //2.1 查询最新资讯距今的天数
-                    var  news = DBContext.HealthInfo.Where(u => u.DelFlag == 0).OrderByDescending(u => u.SubDate).Take(1);
+                    var  news = DBContext.HealthInfo.Where(u => u.Id > 0).OrderByDescending(u => u.SubDate).Take(1);
 
                     TimeSpan ts = new TimeSpan();
                     foreach (HealthInfo n in news)
@@ -200,7 +200,9 @@ namespace 基于云的Web管理系统.Controllers
 
                     //2.3 查询待审阅的建议条数
                     ViewBag.Coment_Count = DBContext.CommentInfo.Where(u => u.IsRead == 0).Count();
-                   
+                    
+                    //3、查询待审核医生个数
+                    ViewBag.DocCount = DBContext.DoctorInfo.Where(u => u.State == 2).Count();
 
                    
 
@@ -293,8 +295,8 @@ namespace 基于云的Web管理系统.Controllers
         [ValidateInput(false)]
         public ActionResult SaveNews()
         {
-            //try
-            //{
+            try
+            {
                 if(!IsLogin())
                 {
                     return Content("error2");//请先登录
@@ -343,12 +345,12 @@ namespace 基于云的Web管理系统.Controllers
                 return Content("error-2");//保存失败
 
 
-                
-            //}
-            //catch
-            //{
-            //    return Content("error-1");
-            //}
+
+            }
+            catch
+            {
+                return Content("error-1");
+            }
         }
 
 
@@ -364,7 +366,8 @@ namespace 基于云的Web管理系统.Controllers
                 try
                 {
                     DBContext = new WebManagementDBEntities();
-                    ViewBag.HInfos = DBContext.HealthInfo.Where(h => h.DelFlag == 0).OrderByDescending(h => h.SubDate);
+                    ViewBag.HInfos = DBContext.HealthInfo.Where(h => h.Id > 0).OrderByDescending(h => h.SubDate).ToList();
+                    
 
                     return View();
                 }
@@ -523,6 +526,55 @@ namespace 基于云的Web管理系统.Controllers
             catch
             {
                 return Redirect("/User/_404");
+            }
+        }
+
+        /// <summary>
+        /// 【未审核的医生】
+        ///  20170417
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult NRDoc() 
+        {
+            if (!IsLogin())
+                return RedirectToAction("Login", new { referenUrl = "/Admin/NRDoc" });
+            try 
+            {
+                DBContext = new WebManagementDBEntities();
+                
+                ViewBag.Docs = DBContext.DoctorInfo.Where(d => d.State == 1 || d.State == 2).OrderByDescending(d => d.Id).ToList();//1--邮箱认证中 2---审核中 3---通过审核 4---不通过审核
+
+                return View();
+
+            }
+            catch
+            {
+                return Content("error");
+            }
+
+        }
+
+        /// <summary>
+        /// 【管理医生】
+        ///  20170417
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult Doc()
+        {
+            if (!IsLogin())
+                return RedirectToAction("Login", new { referenUrl = "/Admin/Doc" });
+            try
+            {
+                DBContext = new WebManagementDBEntities();
+
+                ViewBag.Docs = DBContext.DoctorInfo.Where(d => d.State == 3 || d.State == 11 || d.State == 12).OrderByDescending(d => d.Id).ToList();//1--邮箱认证中 2---审核中 3---通过审核 4---不通过审核
+
+                return View();
+
+            }
+            catch
+            {
+                return Content("error");
             }
         }
     }

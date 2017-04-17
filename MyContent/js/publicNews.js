@@ -3,23 +3,27 @@
 });
 
 //标题
-$("#txtTitle").keyup(function () {
+$("#txtTitle").keyup(titleKeyUp);
+
+function titleKeyUp() {
     if ($(this).val() != "") {
-        $(".top_title").html("<span class='glyphicon glyphicon-star hot-star'></span>" +$(this).val());
+        $(".top_title").html("<span class='glyphicon glyphicon-star hot-star'></span>" + $(this).val());
     } else {
         $(".top_title").html("<span class='glyphicon glyphicon-star hot-star'></span>" + "标题");
     }
-});
+}
 
 
 //描述
-$("#txtDescription").keyup(function () {
+$("#txtDescription").keyup(descKekup);
+
+function descKekup() {
     if ($(this).val() != "") {
         $(".top_description").html($(this).val());
     } else {
-        $(".top_description").html( "描述");
+        $(".top_description").html("描述");
     }
-});
+}
 
 //上传图片
 function ajaxFileupload() {

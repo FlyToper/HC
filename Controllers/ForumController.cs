@@ -19,6 +19,8 @@ namespace 基于云的Web管理系统.Controllers
             //创建数据上下文
             DBContext = new WebManagementDBEntities();
 
+            int uid = Convert.ToInt32(Session["UId"]);
+            ViewBag.NotifyCount = DBContext.NotifyInfo.Where(n => n.UserId == uid && (n.Type == 2 || n.Type == 3) && n.IsRead == 0).Count();
             var forumInfo = DBContext.ForumInfo.Where(f => f.DelFlag == 0).OrderByDescending(f => f.ViewNumber).Take(10);
             ViewBag.ForumInfo = forumInfo;
             return View();
@@ -100,6 +102,9 @@ namespace 基于云的Web管理系统.Controllers
 
                     //创建数据上下文
                     DBContext = new WebManagementDBEntities();
+
+                    int uid = Convert.ToInt32(Session["UId"]);
+                    ViewBag.NotifyCount = DBContext.NotifyInfo.Where(n => n.UserId == uid && (n.Type == 2 || n.Type == 3) && n.IsRead == 0).Count();
 
                     //根据论坛信息的Id去读取论坛详细信息
                     var forumInfo = DBContext.ForumInfo.Where(f => f.Id == forumId && f.DelFlag == 0).FirstOrDefault();

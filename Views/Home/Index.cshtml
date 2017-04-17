@@ -21,7 +21,7 @@
     <link href="~/MyContent/css/base.css" rel="stylesheet" />
     <link href="~/MyContent/css/demo.css" rel="stylesheet" />
     @*<link href="~/MyContent/css/default.css" rel="stylesheet" />*@
-    <link href="~/MyContent/css/osSlider.css" rel="stylesheet" />
+    @*<link href="~/MyContent/css/osSlider.css" rel="stylesheet" />*@
     <link href="~/MyContent/css/myIndexcss.css" rel="stylesheet" />
     <link href="~/Content/themes/base/minified/bootstrap.min.css" rel="stylesheet" />
     
@@ -48,6 +48,24 @@
     <div class="container myCO">
         <!-- Example row of columns -->
         <div class="row">
+            @foreach (var hotnes in ViewBag.News) 
+            { 
+            <div class="col-sm-6 col-md-4">
+                <div class="thumbnail">
+                    <img src="@hotnes.ImageUrls" alt="@hotnes.Title">
+                    <div class="caption">
+                        <h3>@hotnes.Title</h3>
+                        <p>@hotnes.Description</p>
+                        <p>
+                            <a href="/News/ShowDetail?id=@hotnes.Id" target="_blank" class="btn btn-info" role="button"><span class="glyphicon glyphicon-eye-open"></span> 查看详情</a> 
+                            <a href="/News/Index" target="_blank" class="btn btn-default" role="button"><span class="glyphicon glyphicon-list"></span> 资讯列表</a></p>
+                    </div>
+                </div>
+            </div>
+            }
+        </div>
+
+        @*<div class="row">
             @foreach (var hotnews in ViewBag.News)
             {
                 <div class="col-md-4">
@@ -58,15 +76,35 @@
             }
 
            
-        </div>
+        </div>*@
 
         <hr>
 
         <footer>
-            <p>&copy; Company 2016</p>
+            <p>&copy; Fly 2017</p>
         </footer>
     </div> <!-- /container -->
+    <!-- Button trigger modal -->
+    <button style="display:none;" type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal2" id="btnShow">
+        Launch demo modal
+    </button>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="showTitle">Modal title</h4>
+                </div>
+                <div class="modal-body" id="showContent">
 
+                </div>
+                <div class="modal-footer" id="showBtn">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
         
 
@@ -81,9 +119,12 @@
         @*<script src="~/Scripts/jquery-1.8.2.min.js"></script>*@
         <script src="~/MyContent/js/jquery-2.1.1.min.js"></script>
         <script src="~/Scripts/bootstrap.min.js"></script>
-        <script src="~/MyContent/js/osSlider.js"></script>
+        @*<script src="~/MyContent/js/osSlider.js"></script>*@
+        <script src="~/MyContent/js/homepublic.js"></script>
         <script type="text/javascript">
             $(function () {
+
+               
                 $('#myModal').on('shown.bs.modal', function () {
                     $('#myInput').focus();
                 });
@@ -91,12 +132,12 @@
                 $("ul[class$='nav']").children().eq(0).html("<a href='javascript:void(0)'>主页 <span class='sr-only'>(current)</span>").addClass("active");
             });
 
-            var slider = new osSlider({ //开始创建效果
-                pNode: '.slider', //容器的选择器 必填
-                cNode: '.slider-main li', //轮播体的选择器 必填
-                speed: 3000, //速度 默认3000 可不填写
-                autoPlay: true //是否自动播放 默认true 可不填写
-            });
+            //var slider = new osSlider({ //开始创建效果
+            //    pNode: '.slider', //容器的选择器 必填
+            //    cNode: '.slider-main li', //轮播体的选择器 必填
+            //    speed: 3000, //速度 默认3000 可不填写
+            //    autoPlay: true //是否自动播放 默认true 可不填写
+            //});
 
             function myHelpLink() {
                 $(".btn-lg").click();

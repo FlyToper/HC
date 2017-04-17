@@ -71,9 +71,9 @@
         }
 
         .input-group-addon {
-            background-color: #99ccff;
+            /*background-color: #99ccff;*/
             font:bold;
-            color:white;
+            /*color:white;*/
         }
     </style>
 </head>
@@ -144,37 +144,25 @@
                                         id="txtFrom" value="管理员">
                             </div>
                             <br>
-
+                            <br>
                             <div class="input-group input-group-lg">
                                 @*<span class="input-group-addon"
                                       style="background-color: #ECF4FA; font-weight: bold;">设置封面</span>*@
-                                <button title="点击选择图片上传，设置为封面图片" class="btn-lg btn-info" onclick="setImage()">设置封面图片</button> <span class="glyphicon glyphicon-ok-sign ok"></span>
+                                <button title="点击选择图片上传，设置为封面图片" class="btn-lg btn-info" onclick="setImage()"><span class="glyphicon glyphicon-picture"></span> 设置封面图片</button> <span class="glyphicon glyphicon-ok-sign ok"></span>
                                 
                                 <input type="file" alt="上传封面图片" class="" placeholder="From" id="uploadImage" onchange="ajaxFileupload()" name="uploadImage"  style="display:none;">
                                 <input type="hidden" id="txtImage" />
                             </div>
                             <br>
 
-                            <div>
-                                <textarea rows="30" cols="50" class="ckeditor" id="t1">
-                                    <span style="font-size: 30px">请在此输入<span style="color: red"> 正文 </span></span>
-                                </textarea>
-                            </div>
-
-                            <br> <br>
-
-                            <div style="text-align:center;">
-                                <button type="button" class="btn-lg btn-warning" style="width:20%;" onclick="submit()">
-                                    提交
-                                </button>
-                            </div>
+                            
                         
                         </div>
                         <!--------------------【左右分界线】-------------------------->
                         <div class="edit-right">
                             <div class="news_top">
                                 <p style="font-size:25px;" class="top_title wrap-line" title="hotnews.Title"><span class="glyphicon glyphicon-star hot-star"></span> 标题</p>
-                                <p class="word1 top_date">hotnews.SubDate</p>
+                                <p class="word1 top_date">2016/04/05 12:10:10</p>
 
 
                                
@@ -184,6 +172,20 @@
                                 <p>查看全文</p>
                             </div>
                         </div>
+                    </div>
+                    <br>
+                    <div>
+                        <textarea rows="30" cols="50" class="ckeditor" id="t1">
+                            <span style="font-size: 30px">请在此输入<span style="color: red"> 正文 </span></span>
+                        </textarea>
+                    </div>
+
+                    <br> <br>
+
+                    <div style="text-align:center;">
+                        <button type="button" class="btn-lg btn-warning" style="width:20%;" onclick="submit()">
+                            <span class="glyphicon glyphicon-send"></span> 提交
+                        </button>
                     </div>
                 </fieldset>
     
@@ -221,23 +223,7 @@
             
         });
 
-        $(".btn-isRead").click(function () {
-            var element = $(this);
-            var id = $(this).attr("key-id");
-            $.post("/Admin/CheckCommentStatus", { "id": id }, function (rst) {
-                if (rst == "success") {
-                    element.parent().parent().remove();
-                } else {
-                    show("警告", "操作失败,请重试！");
-                }
-            });
-        });
-
-
-
-        $("#btnTest").click(function () {
-            show("警告", "点击了");
-        });
+       
     </script>
 </body>
 </html>

@@ -61,7 +61,7 @@ body,html{
 		color:#FF9999;
 	}
 	.glyphicon-eye-open{
-		color:green;
+		/*color:green;*/
 	}
 	
 	
@@ -157,3 +157,17 @@ fieldset {
         /*border-bottom:1px solid;*/
         background-color:#f9f7f6;
     }
+
+/*20170411 添加*/
+    .myRowTable a {
+        text-decoration:none;
+    }
+
+/*20170417*/
+    h3 {
+            color:green;
+        }
+
+        .row-head,.row-foot {
+            color:#990066;
+        }

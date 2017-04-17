@@ -115,8 +115,9 @@ namespace 基于云的Web管理系统.Controllers
                     if (user.State == "正常")
                     {
                         //保存相关Session
-                        Session["UserName"] = username;
-                        Session["NickName"] = user.NickName;
+                        Session["UserName"] = username;//账号
+                        Session["NickName"] = user.NickName;//用户名
+                        Session["UId"] = user.Id;//用户ID
 
                         //旧|新
 
@@ -161,6 +162,7 @@ namespace 基于云的Web管理系统.Controllers
         {
             Session.Remove("UserName");
             Session.Remove("NickName");
+            Session.Remove("UId");
             return Redirect("/Home/Index");
         }
 
@@ -346,6 +348,10 @@ namespace 基于云的Web管理系统.Controllers
                 try
                 {
                     DBContext = new WebManagementDBEntities();
+
+                    int uid = Convert.ToInt32(Session["UId"]);
+                    ViewBag.NotifyCount = DBContext.NotifyInfo.Where(n => n.UserId == uid && (n.Type == 2 || n.Type == 3) && n.IsRead == 0).Count();
+
                     var user = DBContext.UserInfo.Where(u => u.Email == username && u.DelFlag == 0).FirstOrDefault();
                     if (user == null)
                     {
@@ -686,8 +692,8 @@ namespace 基于云的Web管理系统.Controllers
         /// </summary>
         /// <returns></returns>
         public ActionResult RegisterIn() {
-            //try
-            //{
+            try
+            {
                 string nickname = Request["nickname"];//用户名字
                 string email = Request["email"];//邮箱
                 string password1 = Request["password1"];//密码1
@@ -769,11 +775,11 @@ namespace 基于云的Web管理系统.Controllers
                 }
 
                 
-            //}
-            //catch 
-            //{
-            //    return RedirectToAction("_404");//跳转404
-            //}
+            }
+            catch 
+            {
+                return RedirectToAction("_404");//跳转404
+            }
         }
 
     }

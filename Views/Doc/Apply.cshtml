@@ -8,7 +8,7 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <link href="~/MyContent/images/ic_launcher.png" rel="shortcut icon" />
-    <title>用户注册</title>
+    <title>申请认证医生</title>
 
     <link href="~/Content/themes/base/minified/bootstrap.min.css" rel="stylesheet" />
     <link href="~/MyContent/css/mycss.css" rel="stylesheet" />
@@ -20,7 +20,7 @@
     <style type="text/css">
         fieldset {
             padding: 5%;
-            margin:0 auto;
+            margin: 0 auto;
             margin-top: 12px;
             color: #333;
             border: #99CCFF solid 1px;
@@ -41,18 +41,18 @@
         }
 
 
-       
+
 
         .register_footer {
-            text-align:center;
+            text-align: center;
         }
 
-        .spanRequired,.spanMsg {
-            color:red;
+        .spanRequired, .spanMsg {
+            color: red;
         }
 
         .spanMsg {
-            display:none;
+            display: none;
         }
 
         .spanSuccess {
@@ -66,16 +66,23 @@
         }
 
         #imgCode:hover {
-            cursor:pointer;
+            cursor: pointer;
         }
 
 
         .errorTips {
-            text-align:right;
-            color:red;
-            display:none;
+            text-align: right;
+            color: red;
+            display: none;
         }
-        
+
+        .ok {
+            margin-left: 10px;
+            font-size: 30px;
+            color: green;
+            vertical-align: middle;
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -103,22 +110,14 @@
                     <li>@Html.ActionLink("个人信息", "ShowMyInfo", "User")</li>
                     <li>@Html.ActionLink("我的数据", "ShowMyData", "Home")</li>
                     <li>@Html.ActionLink("联系我们", "ContactUs", "Home")</li>
-                    @*<li class="dropdown" style="">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Action</a></li>
-                                <li><a href="#">Another action</a></li>
-                                <li><a href="#">Something else here</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="#">Separated link</a></li>
-                            </ul>
-                        </li>*@
+                    <li class="active">@Html.ActionLink("申请认证医生", "Apply", "Doc")</li>
+                    
                 </ul>
-               
+
                 <ul class="nav navbar-nav navbar-right">
 
-                    <li><a href="/Home/Login">登录</a></li>
-                   
+                    @*<li><a href="/Home/Login">登录</a></li>*@
+
                 </ul>
 
             </div><!-- /.navbar-collapse -->
@@ -128,16 +127,16 @@
     <!--------------------------------------------------头部导航结束------------------------------------------------------------->
     <div class="container" style="overflow: hidden;margin-top:30px;">
 
-        <fieldset >
-            <legend>注册信息</legend>
+        <fieldset>
+            <legend>认证信息</legend>
 
-            <div class="input-group input-group-lg">
+            @*<div class="input-group input-group-lg">
                 <span class="input-group-addon" id="basic-addon1">用&nbsp;&nbsp;户&nbsp;&nbsp;名：</span>
 
                 <input type="text" class="form-control" placeholder="用户名" aria-describedby="basic-addon1" id="txtNickName">
                 <span class="input-group-addon"><span class="spanRequired">*</span> <span class="spanMsg">不能为空</span><span class=" glyphicon glyphicon-ok spanSuccess"></span></span>
             </div>
-            <br>
+            <br>*@
             <div class="input-group input-group-lg">
                 <span class="input-group-addon" id="basic-addon1">邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱：</span>
                 <input type="text" class="form-control" placeholder="邮箱" aria-describedby="basic-addon1" id="txtEmail">
@@ -179,8 +178,10 @@
             <div class="input-group input-group-lg">
                 <span class="input-group-addon" id="basic-addon1">联系电话：</span>
                 <input type="text" class="form-control" placeholder="联系电话" aria-describedby="basic-addon1" id="txtPhone">
-                <span class="input-group-addon"><span class="spanRequired">*</span> <span class="spanMsg">不能为空</span><span class=" glyphicon glyphicon-ok spanSuccess"></span>
-                    <span class=" glyphicon glyphicon-remove spanError"></span></span>
+                <span class="input-group-addon">
+                    <span class="spanRequired">*</span> <span class="spanMsg">不能为空</span><span class=" glyphicon glyphicon-ok spanSuccess"></span>
+                    <span class=" glyphicon glyphicon-remove spanError"></span>
+                </span>
             </div>
             <br>
 
@@ -191,41 +192,57 @@
             </div>
             <br>
 
-            <div class="input-group-lg">
+            @*<div class="input-group-lg">
                 <span class="">&nbsp;性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：</span>
                 <label for="man">&nbsp;&nbsp;男</label>&nbsp;&nbsp;<input type="radio" name="gender" id="man" checked="checked" value="男" />&nbsp;&nbsp;
                 <label for="woman">女</label>&nbsp;&nbsp;<input type="radio" name="gender" id="woman" value="女" />&nbsp;&nbsp;
-                <label for="baomi">保密</label>&nbsp;&nbsp;<input type="radio" name="gender" id="baomi" value="保密"/>
-                @*<input type="text" class="form-control" placeholder="性别" aria-describedby="basic-addon1">*@
+                <label for="baomi">保密</label>&nbsp;&nbsp;<input type="radio" name="gender" id="baomi" value="保密" />
+               
 
             </div>
-            <br>
+            <br>*@
 
             <div class="input-group input-group-lg">
-                <span class="input-group-addon" id="basic-addon1">设&nbsp;&nbsp;备&nbsp;ID：</span>
-                <input type="text" class="form-control" placeholder="设备ID" aria-describedby="basic-addon1" id="txtDeviceId">
+                <span class="input-group-addon" id="basic-addon1">申请说明：</span>
+                <input type="text" class="form-control" placeholder="申请说明" aria-describedby="basic-addon1" id="txtReason">
                 <span class="input-group-addon"><span class="spanRequired">*</span> <span class="spanMsg">不能为空</span><span class=" glyphicon glyphicon-ok spanSuccess"></span></span>
             </div>
             <br>
+
+            <div style="text-align:center;">
+                
+               
+                <div style="text-align:left">
+                    <button class="btn btn-info" onclick="uploadImage()">上传认证图片</button> <span class="glyphicon glyphicon-ok-sign ok"></span>
+                    <p class="wrap-line" title="" style="color:gray;margin-top:10px" ># 提交真实有效的图片作为申请材料，可以提高认证通过的成功率!</p>
+                </div>
+                <div style="border: 1px solid gray; border-radius: 4px; padding: 2px;display:none" id="imgShow">
+                    <img  src="" width="100%" />
+                </div>
+                <input type="hidden" id="txtImage" />
+                <input type="file" alt="上传封面图片" class=""  id="uploadImage" onchange="ajaxFileupload()" name="uploadImage" style="display:none;">
+            </div>
+            <br>
+
+
 
             <div class="input-group input-group-lg">
                 <span class="input-group-addon" id="basic-addon1">输入验证码：</span>
                 <input type="text" class="form-control" placeholder="请输入验证码"
                        maxlength="5" id="txtCode"> <span class="input-group-addon" style="padding: 0px;">
-                    <img alt="验证码" src="/Admin/createCode?type=register" height="100%" id="imgCode">
+                    <img alt="验证码" src="/Admin/createCode?type=apply" height="100%" id="imgCode">
                 </span>
 
             </div>
             <br>
             <br>
 
-           <div class="register_footer">
-               
-               <button class="btn btn-info" id="btnSubmit">提交</button>
-               <button class="btn btn-warning" id="btnCancel">取消</button>
-           </div>
-            </fieldset>
-</div>
+            <div class="register_footer">
+                <button class="btn btn-info" id="btnSubmit">提交</button>
+                <button class="btn btn-warning" id="btnCancel">取消</button>
+            </div>
+        </fieldset>
+    </div>
     <input type="hidden" value="1" id="txtIsEmailExist" />
 
     <!-------------------------------------底部内容开始-------------------------------------------------->
@@ -235,6 +252,7 @@
     <script src="~/MyContent/js/jquery-2.1.1.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
     <script src="~/MyContent/js/public.js"></script>
+    <script src="~/MyContent/js/ajaxfileupload.js"></script>
     <script type="text/javascript">
         $(function () {
             //alert(123);
@@ -242,7 +260,7 @@
 
         //输入框焦点离开事件
         $(".form-control").blur(function () {
-            
+
 
             if ($(this).val() == "") {
                 $(this).next().find("span").eq(0).fadeIn(1000);
@@ -257,7 +275,7 @@
                     return;
                 }
 
-                $.post("/User/CheckEmail", { "email": $(this).val() }, function (rst) {
+                $.post("/Doc/CheckEmail", { "email": $(this).val() }, function (rst) {
                     if (rst == "success") {//邮箱验证可用
                         $("#txtEmail").next().find("span").eq(0).fadeOut(1000);
                         $("#txtEmail").next().find("span").eq(2).fadeIn(1000);
@@ -300,12 +318,12 @@
                     $("#msgPassword").hide();
                 }
 
-            }else {
+            } else {
                 $(this).next().find("span").eq(0).fadeOut(1000);
                 $(this).next().find("span").eq(2).fadeIn(1000);
             }
 
-                
+
         });
 
         $(".form-control").focus(function () {
@@ -317,21 +335,22 @@
             $("#msgEmail").hide();
         });
 
-        //注册提交
+        //申请提交
         $("#btnSubmit").click(function () {
-            var txtNickName = $("#txtNickName").val();
+            //var txtNickName = $("#txtNickName").val();
             var txtEmail = $("#txtEmail").val();
             var txtPassword1 = $("#txtPassword1").val();
             var txtPassword2 = $("#txtPassword2").val();
             var txtPhone = $("#txtPhone").val();
             var txtTrueName = $("#txtTrueName").val();
-            var txtDeviceId = $("#txtDeviceId").val();
+            var txtReason = $("#txtReason").val();
+            var txtImage = $("#txtImage").val();
             var txtCode = $("#txtCode").val();
-            var gender = $("input:radio[name='gender']:checked").val();
+            //var gender = $("input:radio[name='gender']:checked").val();
 
 
             //验证需要填写的数据是否为空
-            if ( txtNickName == "" || txtEmail == "" || txtPhone == "" || txtTrueName == "" || txtDeviceId == "" || txtCode == "" || txtPassword1 == "" || txtPassword2 == "" ) {
+            if ( txtEmail == "" || txtPhone == "" || txtTrueName == ""   || txtCode == "" || txtPassword1 == "" || txtPassword2 == "" || txtReason == "") {
                 show("警告", "请填写完整信息！");
                 return;
             }
@@ -340,7 +359,7 @@
             if (CheckEmail(txtEmail) != 1 || $("#txtIsEmailExist").val() == "1") {
                 //当前邮箱格式错过或者已经存在
                 show("警告", "邮箱格式错误或者已经存在！");
-                return;   
+                return;
             }
 
             //验证两次密码输入是否一致
@@ -355,12 +374,16 @@
                 return;
             }
 
-
-
-            $.post("/User/RegisterIn", { "nickname": txtNickName, "email": txtEmail,"password1":txtPassword1,"password2":txtPassword2 ,"phone": txtPhone, "truename": txtTrueName, "gender":gender , "deviceid": txtDeviceId, "code": txtCode }, function (rst) {
+           
+            //执行提交
+            $.post("/Doc/ApplyIn", { "email": txtEmail, "password1": txtPassword1, "password2": txtPassword2, "phone": txtPhone, "truename": txtTrueName, "reason": txtReason, "image":txtImage,"code": txtCode }, function (rst) {
                 if (rst == "success") {
-                    show("注册成功", rst);
-                } else if (rst == "error2") {
+                    show("系统提示", "提交申请成功");
+                    setTimeout(function () {
+                        location.reload();
+                    }, 1500);
+                    
+                } else if (rst == "error5") {
                     show("警告", "验证码错误");
 
                 } else {
@@ -373,7 +396,8 @@
 
         //取消注册
         $("#btnCancel").click(function () {
-            $(".form-control").val("");
+            if(confirm("你确定取消，尚未保存的信息将会失效！"))
+                $(".form-control").val("");
         });
 
         function CheckEmail(email) {
@@ -400,8 +424,67 @@
         //点解修改验证码
         $("#imgCode").click(function () {
             var s = Math.random();
-            $(this).attr("src", "/Admin/CreateCode?type=register&s=" + s);
+            $(this).attr("src", "/Admin/CreateCode?type=apply&s=" + s);
         });
+
+
+        function uploadImage() {
+            //$("#imgShow img").attr("src", "/MyContent/images/2.jpg");
+            //$("#imgShow").show();
+            $("#uploadImage").click();
+        }
+
+        //上传图片
+        function ajaxFileupload() {
+            //图片验证
+            var x = document.getElementById("uploadImage");
+            if (!x || !x.value)
+                return;
+
+            var path = /\.jpg$|\.jpeg$|\.png$|\.gif$/i;
+            if (!path.test(x.value)) {
+                show("警告", "您选择的似乎不是图像文件！");
+                x.value = "";
+                return;
+            }
+
+            var elementIds = ["uploadImage"];
+
+            $.ajaxFileUpload({
+                url: '/Public/SaveImage',
+                type: 'post',
+                secureuri: false,
+                dataType: 'text',
+                fileElementId: 'uploadImage',
+                elementIds: elementIds,
+
+                success: function (data, status) {
+                    if (data == "error1") {
+                        show("警告", "文件太大，请上传小于5M图片!");
+                        return;
+                    } else if (data == "error2") {
+                        show("警告", "上传失败，请重试！");
+                        return;
+
+                    } else {
+                        //上传成功
+                        //$(".top_image").attr("src", data);
+                        $("#txtImage").val(data);
+
+                        $("#imgShow img").attr("src", data);
+                        $("#imgShow").show();
+
+                        $(".ok").fadeIn(2000);
+                    }
+                },
+
+                error: function (data, status) {
+                    //alert(data);
+                    show("警告", data);
+                }
+            });
+        }
+
 
     </script>
 </body>

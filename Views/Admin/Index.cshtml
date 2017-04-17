@@ -25,7 +25,10 @@
 
     <link href="MyContent/css/admin.css" rel="stylesheet">
     <link href="~/MyContent/css/sidebar-demo.css" rel="stylesheet" />
-
+    <link href="~/MyContent/css/pnotify.css" rel="stylesheet" />
+    <link href="~/MyContent/css/pnotify.brighttheme.css" rel="stylesheet" />
+    <link href="~/MyContent/css/pnotify.history.css" rel="stylesheet" />
+    <link href="~/MyContent/css/pnotify.buttons.css" rel="stylesheet" />
     <script src="MyContent/css/ie-emulation-modes-warning.js"></script>
     <style type="text/css">
         .number {
@@ -38,7 +41,7 @@
         .number2 {
             color:green;
         }
-
+        
     </style>
     
 </head>
@@ -54,11 +57,11 @@
            
             <!-- content 开始 -->
             <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                <h1 class="page-header">我的记事板</h1>
+                <h1 class="page-header">我的记事板 <span id="spanShowTime"></span></h1>
 
                 <div class="row placeholders">
                     <div class="col-xs-6 col-sm-3 placeholder">
-                        <a href="/Admin/Index/showOrder" style="text-decoration:none;">
+                        <a href="/Admin/NewsRecord/" style="text-decoration:none;">
                             <div class="myboard2">
                                 <span class="number">@ViewBag.NewsDays</span> 天
                             </div>
@@ -70,7 +73,7 @@
                     <div class="col-xs-6 col-sm-3 placeholder">
                         <a href="/Admin/Index/showWZ" style="text-decoration:none;">
                             <div class="myboard2">
-                                <span class="number">0</span> 个
+                                <span class="number">@ViewBag.DocCount</span> 个
                             </div>
                         </a>
                         <br>
@@ -78,7 +81,7 @@
                         <span class="text-muted"></span>
                     </div>
                     <div class="col-xs-6 col-sm-3 placeholder">
-                        <a href="/Admin/Index/showNotice" style="text-decoration:none;">
+                        <a href="/Admin/Comment" style="text-decoration:none;">
                             <div class="myboard2">
                                 <span class="number" >@ViewBag.Coment_Count</span> 条
                             </div>
@@ -100,98 +103,200 @@
                 </div>
 
                 <br> <br>
-                <h2 class="sub-header"><span class="glyphicon glyphicon-star" style="color:darkslateblue"></span> 用户建议（待处理）</h2>
-                <div class="table-responsive" style="text-align: center;">
-                    <table class="table table-striped">
-                        <tbody>
-                            <tr style="font-weight: bold; background-color: #FFFFCC;">
-                                <td>#</td>
-                                <td>联系方式</td>
-                                <td>建议内容</td>
-                                <td>提交时间</td>
-                                <td>操作</td>
-                            </tr>
-                            <tr>
-                                <td colspan="6"></td>
-                            </tr>
-                           @foreach (var comment in ViewBag.Comment) { 
-                               <tr>
-                                <td>@k</td>
-                                <td>@comment.Contact</td>
-                                <td>@comment.Content</td>
-                                <td>@comment.SubData</td>
-                                <td><button class="btn btn-info btn-isRead" key-id="@comment.Id" >已读</button></td>
-                            </tr> 
-                               k++;
-                           }
+                <h2 class="sub-header"><span class="glyphicon glyphicon-star" style="color:darkslateblue"></span> 用户建议（待处理）</h2><a href="#">查看更多</a>
+                <div class="myRowTable">
+                    <div class="row row-head">
+                        <div class="col-md-2 col-sm-12"><span class="glyphicon glyphicon-sort-by-order"></span> 序号</div>
+                        <div class="col-md-3 col-sm-12"><span class="glyphicon glyphicon-phone-alt"></span> 联系方式</div>
+                        <div class="col-md-3 col-sm-12"><span class="glyphicon glyphicon-comment"></span> 建议内容</div>
+                        <div class="col-md-2 col-sm-12 row-center"><span class="glyphicon glyphicon-time"></span> 提交时间</div>
+                    
+                        <div class="col-md-2 col-sm-12 row-center"><span class="glyphicon glyphicon-cog"></span> 操作</div>
+                    </div>
+                    @if (ViewBag.Comment.Count <= 0)
+                    {
+                        <div class="row row-body"><div class="col-md-2 col-sm-12" style="color:#ff6a00">暂无数据</div></div>
+                    }
+                    <div id="c-row-body">
+                    @foreach (var cinfo in ViewBag.Comment)
+                    {
+
+                        <div class="row row-body" >
+                            <div class="col-md-2 col-sm-12">@k</div>
+
+                            <div class="col-md-3 col-sm-12"><span class="wrap-line" title="@cinfo.Contact">@cinfo.Contact</span> </div>
+                            <div class="col-md-3 col-sm-12"><span class="wrap-line" title="@cinfo.Content">@cinfo.Content</span> </div>
+                            <div class="col-md-2 col-sm-12 row-center"><span class="wrap-line" title="@cinfo.SubData">@cinfo.SubData</span> </div>
                             
-                            
-                        </tbody>
-                    </table>
-                    @*<button id="btnTest">测试</button>*@
+                            <div class="col-md-2 col-sm-12 row-center">
+                                @if (cinfo.IsRead == 0)
+                                {
+                                    <button class="btn btn-info btn-isRead" key-id="@cinfo.Id">审阅</button>
+                                }
+                                else
+                                {
+                                    <span>已读</span>
+                                }
+                            </div>
+                        </div>
 
+                                k++;
 
+                    }
+                    </div>
 
+                    <div class="row-foot"></div>
                 </div>
+
+                
                 <!-- content 结束-->
-                <div class="well">
+                @*<div class="well">
                     带 <span class="glyphicon glyphicon-eye-close"></span> 表示暂无详情，带 <span class="glyphicon glyphicon-eye-open"></span> 表示有详情内容。线下处理完成的可以点击  “处理” 按钮即可。
-                </div>
+                </div>*@
             </div>
 
 
 
         </div>
     </div>
-
     
+    <video id="myVideo" style="display: none;" controls="" ><source src="/MyContent/voices/notify.mp3" type="audio/mpeg"></video>
+    <input type="hidden" id="Switch" value="0" />
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="MyContent/js/jquery-2.1.1.min.js"></script>
     <script src="MyContent/js/bootstrap.min.js"></script>
     <script src="MyContent/js/docs.min.js"></script>
-   
-    
     <script src="MyContent/js/public.js"></script>
     <script src="~/MyContent/js/metisMenu.min.js"></script>
+    <script src="~/MyContent/js/pnotify.js"></script>
+    <script src="~/MyContent/js/pnotify.reference.js"></script>
+    <script src="~/MyContent/js/pnotify.history.js"></script>
+    <script src="~/MyContent/js/pnotify.buttons.js"></script>
 
     <script type="text/javascript">
-        $(function () {
-            $('#menu').metisMenu();
-            $(".number").each(function () {
-                //alert($(this).html());
-                
-                if ($(this).html() <= 10) {
-                    if ($(this).html() < 0) {
-                        $(this).html("0");
+    var timer;
+    var counter = 1;
+    var ct;//当前时间
+    var ts = 5 * 1000;//时间间隔，毫秒级
+
+    $(function () {
+        //alert(getLocalTime(1492228244403));
+        //var str = new Date(parseInt(1492228244403)).format("yyyy-MM-dd HH:mm:ss");
+        //alert(str);
+
+        $("#spanShowTime").css("bottom","12%");
+
+        $('#menu').metisMenu();
+        $(".number").each(function () {
+            //alert($(this).html());
+
+            if ($(this).html() <= 10) {
+                if ($(this).html() < 0) {
+                    $(this).html("0");
+                }
+                $(this).removeClass("number1");//红色
+                $(this).addClass("number2");//绿色
+            } else {
+                $(this).removeClass("number2");//红色
+                $(this).addClass("number1");//绿色
+            }
+        });
+        $("#divShowRunBtn").html("<button class='btn btn-warning' id='btnStopRun' >停止消息提示</button> <button class='btn btn-info' id='btnStartRun' >开启消息提示</button>");
+        $("#btnStartRun").click(StartRun);
+        $("#btnStopRun").click(StopRun);
+        showNotice('消息提示开启中', '接下来如果接受到最新消息会自动提示！', 'warning', 1000 * 10);
+        StartRun();
+        $(".btn-isRead").click(Read);
+
+    });
+
+    //开启轮询
+    function StartRun() {
+        if ($("#Switch").val() == "0") {
+            //开启定时器
+            timmer = setInterval(function () {
+                var date = new Date().getTime();
+                $.post("/AdminFun/Run", { "ct": (date - ts) }, function (data) {
+                    if (data["Total"] <= 0)
+                        return;
+                    for (var i = 0; i < data["Total"]; i++) {
+                        $('#myVideo')[0].play();
+                        showNotice('你有一个新消息', '留言：【' + data["Data"][i].Content + '】', 'info', 1000 * 10);
+
+                        $("#c-row-body").prepend(" <div class='row row-body' ><div class='col-md-2 col-sm-12'>" + "<span class='number1'>NEW</span>" + "</div>                            <div class='col-md-3 col-sm-12'><span class='wrap-line' title='" + data["Data"][i].Contact + "'>" + data["Data"][i].Contact + "</span> </div>                            <div class='col-md-3 col-sm-12'><span class='wrap-line' title='" + data["Data"][i].content + "'>" + data["Data"][i].Content + "</span> </div>                            <div class='col-md-2 col-sm-12 row-center'><span class='wrap-line' title='" + getLocalTime(data["Data"][i].SubData) + "'>" + getLocalTime(data["Data"][i].SubData) + "</span> </div>                                                     <div class='col-md-2 col-sm-12 row-center'>                                 <button class='btn btn-info btn-isRead' key-id='" + data["Data"][i].Id + "'>审阅</button>                                                     </div>                        </div>");
                     }
-                    $(this).removeClass("number1");//红色
-                    $(this).addClass("number2");//绿色
-                } else {
-                    $(this).removeClass("number2");//红色
-                    $(this).addClass("number1");//绿色
-                }
-            });
-        });
+                });
+                $(".btn-isRead").click(Read);
 
-        $(".btn-isRead").click(function () {
-            var element = $(this);
-            var id = $(this).attr("key-id");
-            $.post("/Admin/CheckCommentStatus", { "id": id }, function (rst) {
-                if (rst == "success") {
-                    element.parent().parent().remove();
-                } else {
-                    show("警告", "操作失败,请重试！");
-                }
-            });
-        });
+                counter++;
+            }, ts);
+        }
+        $("#Switch").val(1);
+    }
 
-       
+    //停止轮询
+    function StopRun() {
+        //停止定时器
+        clearInterval(timmer);
+        $("#Switch").val(0);
+    }
 
-        $("#btnTest").click(function () {
-            show("警告", "点击了");
+    
+
+    function Read() {
+        var element = $(this);
+        var id = $(this).attr("key-id");
+        $.post("/Admin/CheckCommentStatus", { "id": id }, function (rst) {
+            if (rst == "success") {
+                element.parent().parent().remove();
+            } else {
+                show("警告", "操作失败,请重试！");
+            }
         });
-    </script>
+    }
+
+    //消息展示
+    function showNotice(title, text, type, delay) {
+        //requirejs(['jquery', 'pnotify', 'pnotify.history','pnotify.buttons'], function($, PNotify){
+
+        PNotify.prototype.options.styling = "bootstrap3";
+        new PNotify({
+            title: title,
+            text: text,
+            type: type,
+            delay: delay,
+            hide: true, //是否自动关闭
+            mouse_reset: true,   //鼠标悬浮的时候，时间重置
+
+            history: {
+                history: true,
+                menu: true,
+                fixed: true,
+                maxonscreen: Infinity,
+                labels: { redisplay: "历史消息", all: "显示全部", last: "最后一个" }
+            },
+            buttons: {
+                closer: true,
+                closer_hover: false,
+                sticker_hover: true,
+                //labels: {close: "Close", stick: "Stick"}
+            },
+
+
+
+        });
+        //});
+    }
+
+    function getLocalTime(nS) {
+        var ts = nS.replace("/Date(", "").replace(")/", "");
+        return new Date(parseInt(ts)).toLocaleString().replace(/年|月/g, "/").replace(/日/g, " ").replace(/上午|下午/g,"");
+    }
+    $("#btnTest").click(function () {
+        show("警告", "点击了");
+    });
+</script>
 </body>
 </html>
