@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Json;
 using System.Web;
 
 namespace 基于云的Web管理系统.Framework
@@ -297,5 +299,26 @@ namespace 基于云的Web管理系统.Framework
                 return "未知";
 
         }
+
+
+        /// <summary>
+        /// 【把字符串转换成json对象】
+        ///  20170419
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="json"></param>
+        /// <returns></returns>
+        public static T ToJson<T>(string json)
+        {
+            System.IO.MemoryStream stream2 = new System.IO.MemoryStream();
+            DataContractJsonSerializer ser2 = new DataContractJsonSerializer(typeof(T));
+            StreamWriter wr = new StreamWriter(stream2);
+            wr.Write(json);
+            wr.Flush();
+            stream2.Position = 0;
+            Object obj = ser2.ReadObject(stream2);
+            T param = (T)obj;
+            return param;
+        }  
     }
 }

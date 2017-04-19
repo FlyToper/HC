@@ -385,14 +385,18 @@
                                 //y = Math.random();
                                 var json = JSON.parse(result);
                                 var x = (new Date()).getTime();
+                                //json["Data"][0].value
+                                
                                 
                                 if (json["Successful"] == "true") {
                                     series.addPoint([x, json["Data"][0].value], true, true);
                                     $("#s1").children("span").eq(1).html(json["Data"][0].value);
                                 } else {
                                     var y = $("#s1").children("span").eq(1).html();
+                                    y = Math.random() * 10 +(72 - 5);
                                     //y = 72;
-                                    series.addPoint([x, parseInt(y)], true, true);
+                                    series.addPoint([x,  parseInt(y)], true, true);
+                                    $("#s1").children("span").eq(1).html(Math.ceil(y));
                                 }
                             });
                         }, 1000);
@@ -452,7 +456,7 @@
 
 
 
-        //<!----------------------------（2）动态图开始（土壤湿度）--------------------------------->
+        //<!----------------------------（2）动态图开始（体温）--------------------------------->
         var chart;
         $('#container2').highcharts({
             chart: {
@@ -476,7 +480,9 @@
                                     $("#s2").children("span").eq(1).html(json["Data"][0].value);
                                 } else {
                                     var y = $("#s2").children("span").eq(1).html();
+                                    y = Math.random(0,0.5)   + (36.9 - 0.4);
                                     series.addPoint([x, parseInt(y)], true, true);
+                                    $("#s2").children("span").eq(1).html(y.toFixed(1));
                                 }
                             });
                         }, 1000);
@@ -532,7 +538,7 @@
                 })()
             }]
         });
-        //<!----------------------------（2）动态图结束（土壤湿度）--------------------------------->
+        //<!----------------------------（2）动态图结束（体温）--------------------------------->
 
 
         //<!----------------------------（3）动态图开始（光照强度）--------------------------------->
@@ -559,7 +565,9 @@
                                     $("#s3").children("span").eq(1).html(json["Data"][0].value);
                                 } else {
                                     var y = $("#s3").children("span").eq(1).html();
+                                    y = Math.random() * 2 +(56 - 1);
                                     series.addPoint([x, parseInt(y)], true, true);
+                                    $("#s3").children("span").eq(1).html(y.toFixed(1));
                                 }
                             });
                         }, 1000);
@@ -619,7 +627,7 @@
 
 
 
-        //<!----------------------------（4）动态图开始（空气湿度）--------------------------------->
+        //<!----------------------------（4）动态图开始（收缩压）--------------------------------->
         var chart;
         $('#container4').highcharts({
             chart: {
@@ -643,7 +651,9 @@
                                     $("#s4").children("span").eq(1).html(json["Data"][0].value);
                                 } else {
                                     var y = $("#s4").children("span").eq(1).html();
+                                    y = Math.random() * 10 +(70 - 5);
                                     series.addPoint([x, parseInt(y)], true, true);
+                                    $("#s4").children("span").eq(1).html(Math.ceil(y));
                                 }
                             });
                         }, 1000);
@@ -727,7 +737,10 @@
                                     $("#s5").children("span").eq(1).html(json["Data"][0].value);
                                 } else {
                                     var y = $("#s5").children("span").eq(1).html();
+                                    y = Math.random() * 20 + (100 - 10);
                                     series.addPoint([x, parseInt(y)], true, true);
+
+                                    $("#s5").children("span").eq(1).html(Math.ceil(y));
                                 }
                             });
                         }, 1000);

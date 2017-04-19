@@ -10,6 +10,7 @@ using System.Configuration;
 using System.Data.SqlClient;
 using System.Text;
 using 基于云的Web管理系统.Models;
+using 基于云的Web管理系统.Framework;
 
 namespace 基于云的Web管理系统.Controllers
 {
@@ -230,6 +231,8 @@ namespace 基于云的Web管理系统.Controllers
             string url = string.Format("http://api.yeelink.net/v1.1/device/{0}/sensor/{1}/datapoints", DeviceId, sensorsId[sensor]);//DeviceId为设备Id、sensorsId为传感器Id
             string content = client.DownloadString(url);
 
+           
+
 
             //【②】
             //var client2 = new WebClient();
@@ -284,6 +287,10 @@ namespace 基于云的Web管理系统.Controllers
 
             string content3 = client3.DownloadString(url);//取得最新的那个数据点
 
+           
+            
+            
+           
 
             return Json(content3);
         }

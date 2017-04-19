@@ -540,7 +540,7 @@ namespace 基于云的Web管理系统.Controllers
                             }
                             else
                             {
-                                user.UserPwd = pwd1;
+                                user.UserPwd =  Basic.GetMD5(pwd1);
                                 DBContext.UserInfo.Attach(user);
                                 DBContext.Entry(user).State = System.Data.EntityState.Modified;
                                 DBContext.SaveChanges();

@@ -19,6 +19,8 @@ namespace 基于云的Web管理系统.Controllers
 
         public ActionResult Index()
         {
+            if (!IsLogin())
+                return RedirectToAction("Login");
             return View();
         }
 
@@ -75,7 +77,7 @@ namespace 基于云的Web管理系统.Controllers
             }
             catch
             {
-                return RedirectToAction("_404");//跳转404
+                return Redirect("/User/_404");//跳转404
             }
         }
 
@@ -144,7 +146,92 @@ namespace 基于云的Web管理系统.Controllers
             return Content("success");
         }
 
+        /// <summary>
+        /// 【医生登录界面】
+        ///  20170418
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult Login() 
+        {
+            try
+            {
+                return View();
+            }
+            catch
+            {
+                return Redirect("/User/_404");
+            }
+        }
 
-        
+        /// <summary>
+        /// 【验证是否登陆】
+        ///  20170418
+        /// </summary>
+        /// <returns></returns>
+        private bool IsLogin()
+        {
+            if (Session["DocNum"] != null)
+                return true;
+            return false;
+                    
+        }
+
+        /// <summary>
+        /// 【退出系统】
+        ///  20170418
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult Exit()
+        {
+            try
+            {
+                Session.Remove("DocNum");
+                Session.Remove("DocName");
+
+                return Content("success");
+            }
+            catch
+            {
+                return Content("error");
+            }
+ 
+        }
+
+        /// <summary>
+        /// 【医生验证登录页面】
+        ///  20170418
+        /// </summary>
+        /// <param name="email"></param>
+        /// <param name="pwd"></param>
+        /// <returns></returns>
+        public ActionResult CheckLogin(string email, string pwd, string code)
+        {
+            if (!CheckCode("doc_login", code))
+                return Content("error5");
+
+            try
+            {
+                DBContext = new WebManagementDBEntities();
+                var doc = DBContext.DoctorInfo.Where(d => d.Email == email && d.Pwd == pwd).FirstOrDefault();
+                if (doc == null)
+                    return Content("error1");//找不到用户
+                if (doc.State == 1)
+                    return Content("error2");//邮箱未完成验证
+                if (doc.State == 2)
+                    return Content("error3");//管理员未审核
+                if (doc.State == 11 || doc.State == 12)
+                    return Content("error4");
+
+                Session.Add("DocNum",doc.Email);//邮箱
+                Session.Add("DocName", doc.Name);//姓名
+                return Content("success");
+
+
+            }
+            catch
+            {
+                return Content("error");//系统错误
+            }
+        }
     }
 }

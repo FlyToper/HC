@@ -1,0 +1,95 @@
+﻿@{
+    Layout = null;
+    
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <style type="text/css">
+    </style>
+    <title>我的首页</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/MyContent/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/MyContent/css/metisMenu.min.css" rel="stylesheet" />
+    <!-- Custom styles for this template -->
+    <link href="/MyContent/css/dashboard.css" rel="stylesheet">
+
+    <link href="/MyContent/css/admin.css" rel="stylesheet">
+    <link href="~/MyContent/css/sidebar-demo.css" rel="stylesheet" />
+   
+    <script src="/MyContent/css/ie-emulation-modes-warning.js"></script>
+    <style type="text/css">
+        .number {
+            font-size: 60px;
+        }
+
+        .number1 {
+            color: red;
+        }
+
+        .number2 {
+            color: green;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    @RenderPage("../Shared/DocNavbar.cshtml")
+
+    <div class="container-fluid">
+        <div class="row">
+            @RenderPage("../Shared/DocSideBar.cshtml")
+
+
+            <!-- content 开始 -->
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                <h1 class="page-header">个人资料 </h1>
+
+               <div>
+                   <div></div>
+
+               </div>
+
+                
+
+
+               
+            </div>
+
+
+
+        </div>
+    </div>
+
+    
+    
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="/MyContent/js/jquery-2.1.1.min.js"></script>
+    <script src="/MyContent/js/bootstrap.min.js"></script>
+    <script src="/MyContent/js/docs.min.js"></script>
+   
+    <script src="~/MyContent/js/metisMenu.min.js"></script>
+    <script src="~/MyContent/js/docpublic.js"></script>
+
+    <script type="text/javascript">
+        $(function () {   
+            $('#menu').metisMenu();
+
+        });
+
+        
+    </script>
+</body>
+</html>

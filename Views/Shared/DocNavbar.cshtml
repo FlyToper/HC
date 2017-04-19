@@ -1,0 +1,70 @@
+﻿<nav class="navbar navbar-inverse   navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed"
+                    data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+                    aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="javascript:void(0);">认证医生管理平台</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="javascript:void(0);">@Session["DocName"].ToString()</a></li>
+                <li><a href="javascript:void(0);">|</a></li>
+                <li><a href="javascript:void(0);" onclick="exit()">退出</a></li>
+
+            </ul>
+
+        </div>
+    </div>
+</nav>
+
+<!-- 【模态框开始】 -->
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary btn-lg"
+        data-toggle="modal" data-target="#myModal" style="display: none;" id="btnShow">
+    Launch demo modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="showTitle">
+                    来自网页的提示
+                </h4>
+            </div>
+            <div class="modal-body" id="showContent">请输入正确的姓名！</div>
+            <div class="modal-footer" id="showBtn">
+                <button type="button" class="btn btn-warning" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bs-example-modal-lg" id="myModal2" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="showTitle2">
+                    来自网页的提示
+                </h4>
+            </div>
+            <div class="modal-body" id="showContent2">请输入正确的姓名！</div>
+            <div class="modal-footer" id="showBtn2">
+                <button type="button" class="btn btn-warning" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 【模态框结束】 -->

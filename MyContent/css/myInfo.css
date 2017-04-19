@@ -221,7 +221,8 @@
     }
 
 .panel_myInfo {
-    background-image: url(/MyContent/images/footBG.jpg);
+    /*background-image: url(/MyContent/images/footBG.jpg);*/
+    background-color:#f9f7f6;
     background-size:auto;
 }
 

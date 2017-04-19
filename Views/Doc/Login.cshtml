@@ -1,0 +1,234 @@
+﻿@{
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href="~/MyContent/images/ic_launcher.png" rel="shortcut icon" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="技术支持：fly13138@163.com">
+
+
+    <title>医生登录</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/MyContent/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+
+
+    <style type="text/css">
+        body {
+            margin: 0;
+            padding: 0;
+            repeat: no-repeat;
+            background-attachment: fixed;
+            filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/doc_login_bg.jpg', sizingMethod='scale');
+            background-size: cover;
+            -moz-background-size: cover;
+            -webkit-background-size: cover;
+            font-family: "微软雅黑";
+            padding-top: 40px;
+            padding-bottom: 40px;
+            background-color: #eee;
+            background-image: url("/MyContent/images/doc_login_bg3.jpg");
+        }
+
+        h2 {
+            text-align: center;
+            ;
+        }
+
+        .form-signin {
+            max-width: 330px;
+            padding: 15px;
+            margin: 0 auto;
+        }
+
+            .form-signin .form-signin-heading, .form-signin .checkbox {
+                margin-bottom: 10px;
+            }
+
+            .form-signin .checkbox {
+                font-weight: normal;
+            }
+
+            .form-signin .form-control {
+                position: relative;
+                height: auto;
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                box-sizing: border-box;
+                padding: 10px;
+                font-size: 16px;
+            }
+
+                .form-signin .form-control:focus {
+                    z-index: 2;
+                }
+
+            .form-signin input[type="email"] {
+                margin-bottom: -1px;
+                border-bottom-right-radius: 0;
+                border-bottom-left-radius: 0;
+            }
+
+            .form-signin input[type="password"] {
+                margin-bottom: 10px;
+                border-top-left-radius: 0;
+                border-top-right-radius: 0;
+            }
+
+        #imgCode {
+            border-radius: 6px;
+        }
+
+            #imgCode:hover {
+                cursor: pointer;
+            }
+
+        .myDIV {
+            width: 200px;
+            height: 200px;
+            background-color: yellow;
+            transition: 2s;
+            -moz-transition: 2s; /* Firefox 4 */
+            -webkit-transition: 2s; /* Safari 和 Chrome */
+            -o-transition: 2s; /* Opera */
+        }
+
+            .myDIV:hover {
+                width: 300px;
+                height: 300px;
+            }
+    </style>
+</head>
+
+<body>
+
+
+    <div class="container well " style="border:1px solid #ccff99;border-radius:50%; background-color:white;width:55%;opacity:0.8;">
+        <form class="form-signin" role="form" method="post">
+            <h2 class="form-signin-heading">欢迎登录系统</h2>
+
+            <input type="email" class="form-control" placeholder="邮箱地址" id="txtEmail" name="email"
+                   required autofocus><br> <input type="password"
+                                                  class="form-control" placeholder="密码" id="txtPwd" name="pwd" required>
+            <div class="input-group input-group-lg">
+                <input type="text" class="form-control" placeholder="请输入验证码" maxlength="5" id="txtCode" style="height:47px;" name="code" required>
+                <span class="input-group-addon" style="padding:0px;">
+                    <img src="/Admin/CreateCode?type=doc_login" id="imgCode" width="100" height="46">
+                </span>
+            </div>
+
+            <br>
+            <button class="btn btn-lg btn-info btn-block" type="button">登录</button>
+        </form>
+
+    </div>
+    <!-- Button trigger modal -->
+    <button style="display:none;" type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" id="btnShow">
+        Launch demo modal
+    </button>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="showTitle">Modal title</h4>
+                </div>
+                <div class="modal-body" id="showContent">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" name="referenUrl" value="@ViewData["Referen"]" id="txtUrl">
+    <!-- /container -->
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="/MyContent/js/jquery-2.1.1.min.js"></script>
+    <script src="/MyContent/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            $(".btn-block").click(function () {
+
+                var email = $("#txtEmail").val();
+                var pwd = $("#txtPwd").val();
+                var code = $("#txtCode").val();
+                var url = $("#txtUrl").val();
+
+                if (email != "") {
+                    if (pwd != "") {
+                        if (code != "") {
+                            // show("提示", "可以提交");
+                            $.post("/Doc/CheckLogin", { "email": email, "pwd": pwd, "code": code, "Referen": url }, function (rst) {
+                                if (rst == "success") {
+                                    //alert(rst);
+                                    window.location.href = "/Doc/";
+                                } else if (rst == "error2") {
+                                    show("警告", "该账号还没完成邮箱验证，请登录邮箱完成相关验证！");
+                                } else if (rst == "error3") {
+                                    show("警告", "该账号被禁用，请联系管理员进行相关操作！");
+                                } else if (rst == "error5") {
+                                    show("警告", "验证码不正确！");
+                                } else {
+                                    show("警告", "登录出错，请重试！");
+                                }
+                            });
+                        } else {
+                            show("警告", "验证码不能为空！");
+                        }
+                    } else {
+                        show("警告", "密码不能为空！");
+                    }
+                } else {
+                    show("警告", "用户名不能为空！");
+                }
+            });
+        });
+
+        function show(title, content) {
+            if (title == "警告") {
+                $("#showContent").css("color", "#ff6a00");
+            } else {
+                $("#showContent").css("color", "black");
+            }
+
+            $("#showTitle").html(title);
+            $("#showContent").html(content);
+
+            $("#btnShow").click();
+        }
+
+
+
+        $("#imgCode").click(function () {
+            $("#txtCode").val("");
+            var s = Math.random();
+
+            $(this).attr("src", "/Admin/CreateCode?type=doc_login&s=" + s);
+        });
+
+
+        $("#txtCode").bind("keydown", function (e) {
+            var key = e.which;
+            if (key == 13) {
+                $(".btn-block").click();
+            }
+        });
+    </script>
+</body>
+</html>
+
